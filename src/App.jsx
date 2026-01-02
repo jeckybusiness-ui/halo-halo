@@ -62,12 +62,6 @@ const Trophy = ({ className }) => (
 const ArrowRight = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 );
-const Send = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-);
-const Radio = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg>
-);
 
 // --- 25 SCENARIOS LENGKAP DENGAN CERITA REAL LIFE ---
 const SCENARIOS = [
@@ -440,12 +434,14 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// --- COMPONENT: WALKIE TALKIE (Push-to-Talk) ---
+// --- COMPONENT: WALKIE TALKIE (Push-to-Talk Optimized) ---
 const WalkieTalkie = ({ roomId, user }) => {
     const [isRecording, setIsRecording] = useState(false);
     const [status, setStatus] = useState("Siap.");
+    const [timeLeft, setTimeLeft] = useState(10); // Countdown
     const mediaRecorderRef = useRef(null);
     const audioChunksRef = useRef([]);
+    const timerRef = useRef(null);
 
     // Listen for new voice messages in Firestore
     useEffect(() => {
@@ -454,11 +450,9 @@ const WalkieTalkie = ({ roomId, user }) => {
             if (docSnap.exists()) {
                 const data = docSnap.data();
                 if (data.latestVoiceMsg && data.latestVoiceMsg.senderId !== user.uid) {
-                    // Play audio if it's from partner and new (simple check)
-                    // In a real app, compare timestamps or IDs better
                     const audio = new Audio(data.latestVoiceMsg.audioData);
-                    audio.play().catch(e => console.log("Auto-play blocked", e));
                     setStatus("Mendengarkan pasangan...");
+                    audio.play().catch(e => console.log("Auto-play blocked", e));
                     audio.onended = () => setStatus("Siap.");
                 }
             }
@@ -468,8 +462,18 @@ const WalkieTalkie = ({ roomId, user }) => {
 
     const startRecording = async () => {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            const mediaRecorder = new MediaRecorder(stream);
+            const stream = await navigator.mediaDevices.getUserMedia({ 
+                audio: { 
+                    echoCancellation: true,
+                    noiseSuppression: true,
+                    sampleRate: 44100
+                } 
+            });
+            
+            // Lower bitrate for smaller file size
+            const options = { audioBitsPerSecond: 32000 }; 
+            const mediaRecorder = new MediaRecorder(stream, options);
+            
             mediaRecorderRef.current = mediaRecorder;
             audioChunksRef.current = [];
 
@@ -480,12 +484,22 @@ const WalkieTalkie = ({ roomId, user }) => {
             };
 
             mediaRecorder.onstop = async () => {
+                clearInterval(timerRef.current);
+                setTimeLeft(10);
+
                 const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
                 const reader = new FileReader();
                 reader.readAsDataURL(audioBlob);
                 reader.onloadend = async () => {
                     const base64Audio = reader.result;
-                    // Upload to Firestore (Max 1MB limit per doc, keep audio short < 10s)
+                    
+                    // Size Check (Firestore limit ~1MB, keep it safe under 900KB)
+                    if (base64Audio.length > 900000) {
+                        setStatus("Suara terlalu panjang! Gagal kirim.");
+                        setTimeout(() => setStatus("Siap."), 2000);
+                        return;
+                    }
+
                     try {
                         const roomRef = doc(db, 'rooms', roomId);
                         await updateDoc(roomRef, {
@@ -499,17 +513,27 @@ const WalkieTalkie = ({ roomId, user }) => {
                         setTimeout(() => setStatus("Siap."), 1000);
                     } catch (e) {
                         console.error("Gagal kirim suara", e);
-                        setStatus("Gagal kirim.");
+                        setStatus("Gagal kirim (Koneksi buruk).");
                     }
                 };
                 
-                // Stop tracks
                 stream.getTracks().forEach(track => track.stop());
             };
 
             mediaRecorder.start();
             setIsRecording(true);
             setStatus("Merekam...");
+
+            // Auto-stop timer
+            let counter = 10;
+            timerRef.current = setInterval(() => {
+                counter--;
+                setTimeLeft(counter);
+                if (counter <= 0) {
+                    stopRecording();
+                }
+            }, 1000);
+
         } catch (err) {
             console.error("Mic error:", err);
             alert("Gagal akses mik. Pastikan izin diberikan.");
@@ -517,7 +541,7 @@ const WalkieTalkie = ({ roomId, user }) => {
     };
 
     const stopRecording = () => {
-        if (mediaRecorderRef.current && isRecording) {
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
             mediaRecorderRef.current.stop();
             setIsRecording(false);
         }
@@ -531,28 +555,35 @@ const WalkieTalkie = ({ roomId, user }) => {
                      <span className="text-xs text-white bg-indigo-700 px-2 py-0.5 rounded-full animate-pulse">{status}</span>
                 </div>
                 
-                <p className="text-xs text-indigo-200 text-center px-4">
-                   Tahan tombol Mic untuk bicara. Lepas untuk kirim.
+                <div className="relative">
+                    <button 
+                        onMouseDown={startRecording}
+                        onMouseUp={stopRecording}
+                        onTouchStart={(e) => { e.preventDefault(); startRecording(); }}
+                        onTouchEnd={(e) => { e.preventDefault(); stopRecording(); }}
+                        className={`w-24 h-24 rounded-full flex items-center justify-center border-4 shadow-xl transition-all transform active:scale-95
+                            ${isRecording 
+                                ? 'bg-red-500 border-red-300 animate-pulse scale-105' 
+                                : 'bg-indigo-600 border-indigo-400 hover:bg-indigo-500'
+                            }
+                        `}
+                    >
+                        <Mic className="w-10 h-10 text-white" />
+                    </button>
+                    {isRecording && (
+                        <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-red-300">
+                            {timeLeft}s
+                        </div>
+                    )}
+                </div>
+                
+                <p className="text-[10px] text-indigo-300 text-center px-4 mt-2">
+                   Tahan tombol untuk bicara (Maks 10 detik).<br/>Lepas untuk kirim.
                 </p>
-
-                <button 
-                    onMouseDown={startRecording}
-                    onMouseUp={stopRecording}
-                    onTouchStart={(e) => { e.preventDefault(); startRecording(); }}
-                    onTouchEnd={(e) => { e.preventDefault(); stopRecording(); }}
-                    className={`w-20 h-20 rounded-full flex items-center justify-center border-4 shadow-xl transition-all transform active:scale-95
-                        ${isRecording 
-                            ? 'bg-red-500 border-red-300 animate-pulse' 
-                            : 'bg-indigo-600 border-indigo-400 hover:bg-indigo-500'
-                        }
-                    `}
-                >
-                    <Mic className="w-8 h-8 text-white" />
-                </button>
             </div>
             
             <div className="mt-4 pt-3 border-t border-indigo-700 w-full text-center">
-                <p className="text-[10px] text-indigo-400 mb-1">Lebih suka telepon biasa?</p>
+                <p className="text-[10px] text-indigo-400 mb-1">Butuh ngobrol panjang?</p>
                 <div className="flex justify-center gap-2">
                      <a href="https://wa.me/" target="_blank" rel="noreferrer" className="text-xs bg-green-600 hover:bg-green-700 px-3 py-1 rounded-full text-white flex items-center gap-1 transition">
                         <Phone className="w-3 h-3" /> WhatsApp Call
