@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 // Import fungsi yang dibutuhkan dari SDK
 import { initializeApp } from "firebase/app";
@@ -84,6 +83,9 @@ const Frown = ({ className }) => (
 const DollarSign = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
 );
+const Phone = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+);
 
 // --- 25 SCENARIOS LENGKAP DENGAN CERITA REAL LIFE ---
 const SCENARIOS = [
@@ -92,6 +94,8 @@ const SCENARIOS = [
     title: "Hapus Chat Mantan",
     genre: "Micro-Cheating",
     pov: "Suami",
+    icon: Phone,
+    color: "bg-blue-100 text-blue-600",
     story: "Tengah malam, HP-mu bergetar. Muncul notifikasi dari mantan: 'Aku kangen kita'. Panik karena istrimu tidur di sebelah, kamu langsung menghapus chat itu diam-diam tanpa membalas, takut jadi masalah besar. Apesnya, besoknya istrimu mengecek folder 'Sampah' di pesanmu dan menemukannya.",
     question: "Apa pembelaanmu?",
     options: [
@@ -106,6 +110,8 @@ const SCENARIOS = [
     title: "Kerja di Klub Malam",
     genre: "Karir vs Nilai",
     pov: "Istri",
+    icon: Briefcase,
+    color: "bg-purple-100 text-purple-600",
     story: "Ekonomi keluarga sedang sulit. Tiba-tiba kamu ditawari pekerjaan sebagai Manager PR dengan gaji 50 Juta/bulan. Tapi, tugas utamamu adalah menemani klien VIP minum-minum di klub malam sampai subuh. Suamimu adalah guru ngaji yang sangat anti alkohol dan dunia malam.",
     question: "Keputusanmu?",
     options: [
@@ -120,6 +126,8 @@ const SCENARIOS = [
     title: "Dana Darurat Rahasia",
     genre: "Keuangan",
     pov: "Suami",
+    icon: Lock,
+    color: "bg-green-100 text-green-600",
     story: "Kamu baru saja cair bonus tahunan sebesar 100 Juta. Alih-alih memberitahu istri untuk masuk rekening bersama, kamu diam-diam membuka rekening baru atas namamu sendiri. Kamu berpikir, 'Ini peganganku kalau nanti kita cerai atau dia boros'. Istrimu tidak sengaja menemukan buku tabungan itu di laci mobil.",
     question: "Alasanmu?",
     options: [
@@ -134,6 +142,8 @@ const SCENARIOS = [
     title: "Pelukan di Mobil",
     genre: "Rekan Kerja",
     pov: "Suami",
+    icon: Heart,
+    color: "bg-red-100 text-red-600",
     story: "Hujan deras. Rekan kerja wanitamu ('work wife') menangis histeris di dalam mobilmu karena baru saja ditalak suaminya. Naluri kemanusiaanmu muncul, kamu memeluknya erat untuk menenangkan. Tanpa sadar, istrimu sedang memarkir motor tepat di depan mobilmu dan melihat semuanya.",
     question: "Reaksimu?",
     options: [
@@ -148,6 +158,8 @@ const SCENARIOS = [
     title: "Panti Jompo untuk Ibu",
     genre: "Mertua",
     pov: "Suami",
+    icon: Users,
+    color: "bg-orange-100 text-orange-600",
     story: "Ibumu yang mulai pikun hari ini tidak sengaja hampir membakar dapur saat istrimu sedang mandi. Istrimu keluar kamar mandi sambil menangis histeris, 'Aku nggak sanggup lagi, Mas! Pilih aku atau Ibumu!'. Dia menyodorkan brosur Panti Jompo Eksklusif.",
     question: "Pilihanmu?",
     options: [
@@ -162,6 +174,8 @@ const SCENARIOS = [
     title: "Jumlah Mantan",
     genre: "Masa Lalu",
     pov: "Istri",
+    icon: Ghost,
+    color: "bg-gray-100 text-gray-600",
     story: "Malam pertama honeymoon. Suasana romantis. Tiba-tiba suamimu bertanya dengan tatapan serius, 'Jujur sama aku, sebelum sama aku, kamu udah pernah tidur sama berapa cowok?'. Angka aslinya adalah 12 orang, tapi kamu takut dia ilfil jika tahu kebenarannya.",
     question: "Jawab apa?",
     options: [
@@ -176,6 +190,8 @@ const SCENARIOS = [
     title: "Barang Mewah Pribadi",
     genre: "Keuangan",
     pov: "Istri",
+    icon: DollarSign,
+    color: "bg-yellow-100 text-yellow-600",
     story: "Kamu bekerja keras siang malam dan akhirnya membeli tas impian seharga 50 Juta pakai uangmu sendiri. Saat kamu bawa pulang dengan bangga, suamimu melihat struknya dan meledak marah, 'Kita butuh lunasin KPR, kamu malah bakar uang?! Jual lagi sekarang!'.",
     question: "Keputusanmu?",
     options: [
@@ -190,6 +206,8 @@ const SCENARIOS = [
     title: "Pasangan Gendut",
     genre: "Fisik & Kejujuran",
     pov: "Suami",
+    icon: Frown,
+    color: "bg-pink-100 text-pink-600",
     story: "Sejak melahirkan, berat badan istrimu naik 30kg. Dia memakai lingerie baru dan bertanya dengan mata berbinar, 'Papah, aku masih seksi nggak?'. Jujur dalam hatimu, gairahmu sudah mati total karena perubahan fisiknya, bahkan kamu sering menghindari seks.",
     question: "Jawabanmu?",
     options: [
@@ -204,6 +222,8 @@ const SCENARIOS = [
     title: "Tes DNA Diam-diam",
     genre: "Kepercayaan",
     pov: "Suami",
+    icon: UserCircle,
+    color: "bg-indigo-100 text-indigo-600",
     story: "Tetangga mulai berbisik, 'Kok anakmu kulitnya putih banget padahal bapak ibunya sawo matang?'. Keraguan mulai meracuni pikiranmu. Saat istrimu pergi arisan, kamu diam-diam mengambil sampel rambut anakmu dan formulir tes DNA sudah ada di tanganmu.",
     question: "Lakukan?",
     options: [
@@ -218,6 +238,8 @@ const SCENARIOS = [
     title: "Balas Komen Genit",
     genre: "Sosial Media",
     pov: "Istri",
+    icon: MessageCircle,
+    color: "bg-blue-50 text-blue-500",
     story: "Kamu posting foto OOTD cantik di Instagram. Gebetanmu zaman kuliah komen: 'Makin bening aja nih 😍'. Jarimu gatal, lalu kamu like dan balas: 'Haha bisa aja kamu 😉'. Suamimu notifikasi itu menyala di layar HP-mu yang tergeletak di meja makan.",
     question: "Responmu?",
     options: [
@@ -232,6 +254,8 @@ const SCENARIOS = [
     title: "Me Time Berlebihan",
     genre: "Kebebasan",
     pov: "Istri",
+    icon: Plane,
+    color: "bg-sky-100 text-sky-600",
     story: "Kamu merasa burnout mengurus rumah tangga dan anak. Kamu ingin 'Solo Traveling' selama 2 minggu ke Bali sendirian, meninggalkan suami dan anak. Suami keberatan karena kerepotan mengurus rumah sendiri.",
     question: "Keputusanmu?",
     options: [
@@ -246,6 +270,8 @@ const SCENARIOS = [
     title: "Investasi Bodong",
     genre: "Keuangan",
     pov: "Suami",
+    icon: DollarSign,
+    color: "bg-red-50 text-red-600",
     story: "Kamu tergiur investasi crypto dan diam-diam memakai 50% uang tabungan pendidikan anak. Ternyata harganya anjlok dan uang itu hilang. Istri belum tahu dan berencana mengecek saldo minggu depan.",
     question: "Tindakanmu?",
     options: [
@@ -260,6 +286,8 @@ const SCENARIOS = [
     title: "Body Shaming 'Bercanda'",
     genre: "Harga Diri",
     pov: "Istri",
+    icon: Frown,
+    color: "bg-gray-200 text-gray-700",
     story: "Di depan teman-teman arisan, suamimu sering menjadikan bentuk tubuhmu lelucon ('Istriku ini dietnya wacana doang, liat tuh lipatannya'). Semua tertawa, kamu malu. Saat ditegur, dia bilang 'Cuma bercanda, baper amat'.",
     question: "Reaksimu?",
     options: [
@@ -274,6 +302,8 @@ const SCENARIOS = [
     title: "Nginap Rumah Sahabat",
     genre: "Batasan",
     pov: "Suami",
+    icon: Bed,
+    color: "bg-purple-50 text-purple-600",
     story: "Istrimu mau pergi ke luar kota untuk konser dan berencana menginap di apartemen sahabat prianya (katanya beda kamar) untuk hemat biaya hotel. Dia bersumpah tidak akan macam-macam.",
     question: "Izinmu?",
     options: [
@@ -288,6 +318,8 @@ const SCENARIOS = [
     title: "Kasar ke Pelayan",
     genre: "Karakter",
     pov: "Istri",
+    icon: AlertCircle,
+    color: "bg-orange-50 text-orange-600",
     story: "Suamimu sangat penyayang padamu, tapi sangat kasar dan merendahkan pelayan restoran atau ojol jika ada kesalahan kecil. Kamu merasa ilfil (hilang rasa) melihat sisi arogannya.",
     question: "Sikapmu?",
     options: [
@@ -302,6 +334,8 @@ const SCENARIOS = [
     title: "Hewan Liar di Kamar",
     genre: "Gaya Hidup",
     pov: "Suami",
+    icon: Heart,
+    color: "bg-emerald-100 text-emerald-600",
     story: "Kamu benci dan alergi bulu hewan. Istrimu pecinta hewan akut. Dia sering membawa kucing/anjing jalanan sakit untuk tidur di kamar kalian tanpa izin. Baunya mengganggumu.",
     question: "Tindakanmu?",
     options: [
@@ -316,6 +350,8 @@ const SCENARIOS = [
     title: "Puasa Ranjang 6 Bulan",
     genre: "Seksualitas",
     pov: "Suami",
+    icon: Bed,
+    color: "bg-indigo-50 text-indigo-600",
     story: "Istrimu menolak berhubungan intim selama 6 bulan terakhir dengan alasan 'capek' atau 'nggak mood', tapi dia sehat-sehat saja dan ceria dengan teman-temannya. Kamu merasa ditolak dan frustasi.",
     question: "Langkahmu?",
     options: [
@@ -344,6 +380,8 @@ const SCENARIOS = [
     title: "Pinjam Nama untuk Hutang",
     genre: "Keuangan",
     pov: "Istri",
+    icon: UserCircle,
+    color: "bg-red-100 text-red-600",
     story: "Bisnis suamimu bangkrut dan namanya di-blacklist bank. Dia memohon meminjam KTP-mu untuk mengajukan pinjaman besar demi modal usaha baru. Dia janji akan bayar.",
     question: "Keputusanmu?",
     options: [
@@ -358,6 +396,8 @@ const SCENARIOS = [
     title: "Permintaan Terakhir Mantan",
     genre: "Mantan",
     pov: "Suami",
+    icon: Heart,
+    color: "bg-rose-100 text-rose-600",
     story: "Mantan pacarmu (cinta pertamamu) sakit kanker stadium akhir. Dia menghubungimu dan memohon ingin bertemu kamu untuk terakhir kalinya sebelum meninggal. Istrimu sangat cemburu pada mantan ini.",
     question: "Apa yang kamu lakukan?",
     options: [
@@ -372,6 +412,8 @@ const SCENARIOS = [
     title: "Beda Agama Anak",
     genre: "Prinsip",
     pov: "Istri",
+    icon: BookOpen,
+    color: "bg-blue-100 text-blue-600",
     story: "Kamu ingin anak dididik disiplin agama sejak dini (mengaji/sekolah minggu). Suamimu yang mulai agnostik ingin membebaskan anak memilih keyakinan nanti saat dewasa (tidak perlu ibadah sekarang).",
     question: "Solusinya?",
     options: [
@@ -386,6 +428,8 @@ const SCENARIOS = [
     title: "Bajak Chat Kantor",
     genre: "Privasi",
     pov: "Suami",
+    icon: MessageCircle,
+    color: "bg-yellow-50 text-yellow-600",
     story: "Istrimu membuka HP-mu dan membaca grup chat kantormu yang isinya bercandaan kasar pria. Dia marah dan mengirim pesan di grup itu memarahi bos dan teman-temanmu pakai akunmu.",
     question: "Reaksimu?",
     options: [
@@ -400,6 +444,8 @@ const SCENARIOS = [
     title: "Operasi Plastik",
     genre: "Fisik",
     pov: "Istri",
+    icon: UserCircle,
+    color: "bg-pink-50 text-pink-600",
     story: "Kamu merasa sangat insecure dengan wajahmu dan ingin operasi plastik hidung & rahang (total 100 Juta). Suamimu menolak keras karena alasan 'bersyukur' dan resiko gagal.",
     question: "Keputusanmu?",
     options: [
@@ -414,6 +460,8 @@ const SCENARIOS = [
     title: "Putus Hubungan Ortu",
     genre: "Keluarga",
     pov: "Suami",
+    icon: Users,
+    color: "bg-gray-100 text-gray-700",
     story: "Orang tuamu sangat toxic dan sering menghina istrimu. Istrimu memberimu ultimatum: 'Kalau kamu masih menemui orang tuamu, kita cerai'. Dia memintamu memutus hubungan total dengan orang tuamu.",
     question: "Pilihanmu?",
     options: [
@@ -428,6 +476,8 @@ const SCENARIOS = [
     title: "Izin Poligami/Nikah Lagi",
     genre: "Komitmen",
     pov: "Istri",
+    icon: Heart,
+    color: "bg-rose-50 text-rose-600",
     story: "Suamimu yang mapan dan agamis tiba-tiba bicara serius meminta izin untuk menikah lagi (poligami) dengan alasan ibadah dan menolong janda. Dia berjanji akan adil.",
     question: "Jawabanmu?",
     options: [
@@ -462,11 +512,11 @@ const STICKERS = ["😢", "😡", "😱", "😂", "❤️", "👍", "😍", "�
 // --- COMPONENTS ---
 
 // Overlay Animation Component
-const StickerOverlay = ({ sticker, onAnimationEnd }) => {
+const StickerOverlay = ({ stickerData, onAnimationEnd }) => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        if (sticker) {
+        if (stickerData && stickerData.symbol) {
             // Generate random positions for stickers
             const newItems = Array.from({ length: 25 }).map((_, i) => ({
                 id: i,
@@ -478,20 +528,21 @@ const StickerOverlay = ({ sticker, onAnimationEnd }) => {
             setItems(newItems);
 
             const timer = setTimeout(() => {
+                setItems([]); // Clear items visual
                 onAnimationEnd();
             }, 3500); // Clear after animation
             return () => clearTimeout(timer);
         }
-    }, [sticker, onAnimationEnd]);
+    }, [stickerData, onAnimationEnd]); // Dependensi ke stickerData (objek) akan trigger change karena referensi baru
 
-    if (!sticker) return null;
+    if (!stickerData || items.length === 0) return null;
 
     return (
         <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
             {items.map((item) => (
                 <div
                     key={item.id}
-                    className="absolute bottom-0 text-4xl animate-float-up opacity-0"
+                    className="absolute bottom-0 animate-float-up opacity-0"
                     style={{
                         left: `${item.left}%`,
                         fontSize: `${item.size}rem`,
@@ -499,7 +550,7 @@ const StickerOverlay = ({ sticker, onAnimationEnd }) => {
                         animationDuration: `${item.duration}s`
                     }}
                 >
-                    {sticker}
+                    {stickerData.symbol}
                 </div>
             ))}
             <style>{`
@@ -694,8 +745,15 @@ const App = () => {
         // Check for new sticker animation (only trigger if sender is NOT me)
         if (data.latestSticker && data.latestSticker.timestamp > lastStickerTimeRef.current) {
             lastStickerTimeRef.current = data.latestSticker.timestamp;
-            if (data.latestSticker.senderId !== user.uid) {
-                setActiveSticker(data.latestSticker.sticker);
+            // Gunakan user.uid langsung dari auth.currentUser untuk keamanan closure, atau pastikan user state valid
+            const currentUserId = auth.currentUser?.uid || user?.uid;
+            
+            if (data.latestSticker.senderId !== currentUserId) {
+                 // Change state structure to object to ensure uniqueness even if sticker symbol is same
+                setActiveSticker({
+                    symbol: data.latestSticker.sticker,
+                    id: data.latestSticker.timestamp
+                });
             }
         }
       } else {
