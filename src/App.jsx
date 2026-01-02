@@ -464,38 +464,54 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// --- COMPONENT: LIVE VOICE ROOM (Jitsi Link) ---
+// --- COMPONENT: LIVE VOICE ROOM (Embedded Jitsi) ---
 const LiveVoiceRoom = ({ roomId }) => {
-  // Use a predictable room name
-  const jitsiLink = `https://meet.jit.si/DilemaAsmara_${roomId}`;
+    const [isJoined, setIsJoined] = useState(false);
+    // Unique room name
+    const roomName = `DilemaAsmara_${roomId}`;
+    // Config params to disable prejoin page and other UI elements for cleaner embed
+    const jitsiUrl = `https://meet.jit.si/${roomName}#config.prejoinPageEnabled=false`; 
 
-  return (
-    <div className="bg-indigo-900 rounded-xl p-6 text-white shadow-lg mt-6 animate-fade-in text-center">
-        <div className="flex justify-center mb-4">
-            <div className="p-4 rounded-full bg-indigo-800 border-2 border-indigo-500 animate-pulse">
-                <Mic className="w-8 h-8 text-white" />
+    if (!isJoined) {
+        return (
+            <div className="bg-indigo-900 rounded-xl p-6 text-white shadow-lg mt-6 animate-fade-in text-center">
+                <div className="flex justify-center mb-4">
+                    <div className="p-4 rounded-full bg-indigo-800 border-2 border-indigo-500 animate-pulse">
+                        <Mic className="w-8 h-8 text-white" />
+                    </div>
+                </div>
+                <h3 className="font-bold text-lg mb-2">Diskusi Langsung</h3>
+                <p className="text-indigo-200 text-sm mb-6 px-4">
+                    Diskusikan jawaban kalian langsung di sini tanpa pindah aplikasi.
+                </p>
+                <button 
+                    onClick={() => setIsJoined(true)}
+                    className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full transition transform hover:scale-105 shadow-md"
+                >
+                    <Phone className="w-5 h-5" />
+                    Mulai Panggilan Suara
+                </button>
             </div>
+        );
+    }
+
+    return (
+        <div className="mt-6 rounded-xl overflow-hidden shadow-lg bg-gray-900 border-2 border-indigo-500 h-96 relative">
+             <button 
+                onClick={() => setIsJoined(false)}
+                className="absolute top-2 right-2 z-10 bg-red-600 text-white p-2 rounded-full hover:bg-red-700 shadow-md"
+                title="Tutup Telepon"
+            >
+                <X className="w-4 h-4" />
+            </button>
+            <iframe
+                allow="camera; microphone; fullscreen; display-capture; autoplay"
+                src={jitsiUrl}
+                style={{ width: '100%', height: '100%', border: 0 }}
+                title="Jitsi Meet"
+            ></iframe>
         </div>
-        <h3 className="font-bold text-lg mb-2">Diskusi Langsung</h3>
-        <p className="text-indigo-200 text-sm mb-6 px-4">
-            Gunakan ruang privat ini untuk berdiskusi tanpa mengetik. 
-            Klik tombol di bawah untuk terhubung via suara.
-        </p>
-        
-        <a 
-            href={jitsiLink} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full transition transform hover:scale-105 shadow-md"
-        >
-            <Phone className="w-5 h-5" />
-            Buka Telepon (Jitsi Meet)
-        </a>
-        <p className="text-xs text-indigo-400 mt-4">
-            *Akan membuka tab baru. Tidak perlu install aplikasi.
-        </p>
-    </div>
-  );
+    );
 };
 
 const App = () => {
@@ -930,6 +946,19 @@ const App = () => {
         return <ResultScreen score={gameData.score || 0} total={SCENARIOS.length} />;
     }
 
+    // Determine colors based on match status
+    const isMatch = myAnswerId === partnerAnswerId;
+    const matchColorClass = isMatch 
+        ? "border-green-200 bg-green-50 text-green-800" 
+        : "border-red-200 bg-red-50 text-red-800";
+    
+    // Header for comparison
+    const matchHeaderText = isMatch 
+        ? "✨ Kalian Kompak! Jawaban Sama (+1 Skor) ✨" 
+        : "🔥 Jawaban Berbeda! Waktunya Diskusi 🔥";
+    
+    const matchHeaderColor = isMatch ? "text-green-600" : "text-orange-500";
+
     // --- GAMEPLAY MULTIPLAYER ---
     return (
       <div className="max-w-2xl mx-auto px-4 py-8 pb-24">
@@ -1070,31 +1099,29 @@ const App = () => {
                     {/* Comparison UI */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* My Answer */}
-                        <div className={`border-2 p-4 rounded-xl ${isHost ? 'border-blue-200 bg-blue-50' : 'border-rose-200 bg-rose-50'}`}>
-                            <div className={`text-xs uppercase font-bold mb-1 ${isHost ? 'text-blue-500' : 'text-rose-500'}`}>
+                        <div className={`border-2 p-4 rounded-xl ${matchColorClass}`}>
+                            <div className={`text-xs uppercase font-bold mb-1 ${isMatch ? 'text-green-600' : 'text-red-600'}`}>
                                 Jawabanmu ({myRoleLabel})
                             </div>
-                            <div className="text-xl font-bold text-gray-800 mb-2">Opsi {myAnswerId}</div>
-                            <div className="text-sm text-gray-600">{currentScenario.options.find(o => o.id === myAnswerId)?.text}</div>
+                            <div className="text-xl font-bold mb-2">Opsi {myAnswerId}</div>
+                            <div className="text-sm opacity-90">{currentScenario.options.find(o => o.id === myAnswerId)?.text}</div>
                         </div>
                         {/* Partner Answer */}
-                        <div className={`border-2 p-4 rounded-xl ${!isHost ? 'border-blue-200 bg-blue-50' : 'border-rose-200 bg-rose-50'}`}>
-                            <div className={`text-xs uppercase font-bold mb-1 ${!isHost ? 'text-blue-500' : 'text-rose-500'}`}>
+                        <div className={`border-2 p-4 rounded-xl ${matchColorClass}`}>
+                            <div className={`text-xs uppercase font-bold mb-1 ${isMatch ? 'text-green-600' : 'text-red-600'}`}>
                                 Jawaban Pasangan ({partnerRoleLabel})
                             </div>
-                            <div className="text-xl font-bold text-gray-800 mb-2">Opsi {partnerAnswerId}</div>
-                            <div className="text-sm text-gray-600">{currentScenario.options.find(o => o.id === partnerAnswerId)?.text}</div>
+                            <div className="text-xl font-bold mb-2">Opsi {partnerAnswerId}</div>
+                            <div className="text-sm opacity-90">{currentScenario.options.find(o => o.id === partnerAnswerId)?.text}</div>
                         </div>
                     </div>
                     
-                    {myAnswerId === partnerAnswerId ? (
-                        <div className="text-center text-green-600 font-bold">✨ Kalian Kompak! Jawaban Sama (+1 Skor) ✨</div>
-                    ) : (
-                        <div className="text-center text-orange-500 font-bold">🔥 Jawaban Berbeda! Waktunya Diskusi 🔥</div>
-                    )}
+                    <div className={`text-center font-bold ${matchHeaderColor}`}>
+                        {matchHeaderText}
+                    </div>
 
                     {/* NEW: LIVE VOICE CALL ROOM */}
-                    <LiveVoiceRoom roomId={roomId} role={playerRole} user={user} />
+                    <LiveVoiceRoom roomId={roomId} />
 
                     <button 
                         onClick={nextMultiplayerScenario}
