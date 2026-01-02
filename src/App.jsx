@@ -19,6 +19,7 @@ const firebaseConfig = {
   measurementId: "G-W503YYH8DT"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app); 
 const auth = getAuth(app);
@@ -48,6 +49,7 @@ const Send = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="
 
 const STICKERS = ["😢", "😡", "😱", "😂", "❤️", "👍", "😍", "😭", "🔥", "🤗"];
 
+// --- 25 SCENARIOS LENGKAP ---
 const SCENARIOS = [
   { id: 1, title: "Hapus Chat Mantan", genre: "Micro-Cheating", pov: "Suami", story: "Tengah malam, HP-mu bergetar. Muncul notifikasi dari mantan: 'Aku kangen kita'. Panik karena istrimu tidur di sebelah, kamu langsung menghapus chat itu diam-diam tanpa membalas. Apesnya, besoknya istrimu mengecek folder 'Sampah' di pesanmu dan menemukannya.", question: "Apa pembelaanmu?", options: [{ id: 'A', text: "Itu demi menjaga perasaan istri.", consequence: "Niat baik, tapi terlihat seperti menyembunyikan bangkai." }, { id: 'B', text: "Mengaku salah karena menghapus.", consequence: "Jujur, tapi istri akan sulit percaya isi chat lain." }, { id: 'C', text: "Bilang 'Aku tidak ada apa-apa'.", consequence: "Defensif, membuat istri makin curiga." }] },
   { id: 2, title: "Kerja di Klub Malam", genre: "Karir vs Nilai", pov: "Istri", story: "Ekonomi keluarga sedang sulit. Kamu ditawari pekerjaan sebagai Manager PR dengan gaji 50 Juta/bulan. Tapi, tugas utamamu adalah menemani klien VIP minum di klub malam sampai subuh. Suamimu adalah guru ngaji yang sangat anti alkohol dan dunia malam.", question: "Keputusanmu?", options: [{ id: 'A', text: "Ambil demi masa depan.", consequence: "Ekonomi melesat, suami hilang respek." }, { id: 'B', text: "Tolak demi suami.", consequence: "Keluarga harmonis, menyesal lepas peluang." }, { id: 'C', text: "Ambil diam-diam.", consequence: "Kebohongan fatal." }] },
@@ -718,7 +720,6 @@ const App = () => {
   
   // Animation & Sticker State
   const [activeSticker, setActiveSticker] = useState(null);
-  const [showGiftBox, setShowGiftBox] = useState(false); 
   const lastStickerTimeRef = useRef(Date.now());
 
   // Multiplayer State
@@ -782,7 +783,7 @@ const App = () => {
 
         setRoomId(newRoomId);
         setPlayerRole('host'); 
-        subscribeToRoom(newRoomId);
+        subscribeToRoom(newRoomId, user.uid);
         setView('multiplayer-game'); 
     } catch (error) {
         console.error("Error creating room:", error);
@@ -816,7 +817,7 @@ const App = () => {
           }
 
           setRoomId(cleanId);
-          subscribeToRoom(cleanId);
+          subscribeToRoom(cleanId, currentUser.uid);
           setView('multiplayer-game');
         } else {
           alert("Room tidak ditemukan / Link kadaluarsa.");
@@ -830,7 +831,7 @@ const App = () => {
     }
   };
 
-  const subscribeToRoom = (id) => {
+  const subscribeToRoom = (id, myUid) => {
     if (unsubscribeRoomRef.current) unsubscribeRoomRef.current();
     
     const roomRef = doc(db, 'rooms', `room_${id}`);
@@ -843,28 +844,13 @@ const App = () => {
         if (data.latestSticker && data.latestSticker.timestamp > lastStickerTimeRef.current) {
             lastStickerTimeRef.current = data.latestSticker.timestamp;
             
-            // Check if sender is NOT me (only show Gift Box to recipient)
-            // But let's fix this so sender also sees animation
-            const currentUserId = auth.currentUser?.uid;
-            
-            // Store data for later animation
-            setActiveSticker({
-                symbol: data.latestSticker.sticker,
-                id: data.latestSticker.timestamp
-            });
-            // Show Gift Box first!
-            // But we don't want to show gift box to sender if we want it to be instant.
-            // Let's just do it for everyone for now or check sender
-            // To make it simple: Recipient sees gift box. Sender sees nothing or animation?
-            // User requested: "makan di layar pasangat yg lainnya akan di penuhi dengan sticker"
-            // And now: "muncul box, setelah klik buka, baru muncul emot"
-            // Wait, you said "saya ingin skip box".
-            // Okay, let's skip the box logic then!
-            // Wait, previous request was "munculkan kado".
-            // Current request: "saya ingin skip box, dan langsung memunculkan emot".
-            
-            // OKAY, removing showGiftBox logic entirely.
-            // setActiveSticker will trigger StickerOverlay directly.
+            // Explicit check using passed UID to prevent self-trigger
+            if (data.latestSticker.senderId !== myUid) {
+                setActiveSticker({
+                    symbol: data.latestSticker.sticker,
+                    id: data.latestSticker.timestamp
+                });
+            }
         }
       } else {
            if (view === 'multiplayer-game') {
@@ -994,8 +980,6 @@ const App = () => {
             resetGame={resetGame}
             activeSticker={activeSticker}
             setActiveSticker={setActiveSticker}
-            showGiftBox={showGiftBox}
-            setShowGiftBox={setShowGiftBox}
           />
         }
         {authError && (
