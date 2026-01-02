@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
 import { 
-  getFirestore, doc, setDoc, onSnapshot, updateDoc, getDoc, collection 
+  getFirestore, doc, setDoc, onSnapshot, updateDoc, getDoc, collection, addDoc, onSnapshot as onCollectionSnapshot
 } from 'firebase/firestore';
 
 // ==========================================
@@ -149,11 +149,11 @@ const SCENARIOS = [
 // 3. COMPONENTS
 // ==========================================
 
-const StickerOverlay = ({ stickerData, onAnimationEnd, showGiftBox }) => {
+const StickerOverlay = ({ stickerData, onAnimationEnd }) => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        if (stickerData && stickerData.symbol && !showGiftBox) {
+        if (stickerData && stickerData.symbol) {
             const newItems = Array.from({ length: 30 }).map((_, i) => ({
                 id: `${stickerData.id}-${i}`,
                 left: Math.random() * 100, 
@@ -169,7 +169,7 @@ const StickerOverlay = ({ stickerData, onAnimationEnd, showGiftBox }) => {
             }, 3500); 
             return () => clearTimeout(timer);
         }
-    }, [stickerData, showGiftBox]);
+    }, [stickerData, onAnimationEnd]); 
 
     if (!stickerData || items.length === 0) return null;
 
@@ -204,28 +204,13 @@ const StickerOverlay = ({ stickerData, onAnimationEnd, showGiftBox }) => {
     );
 };
 
-const GiftBoxModal = ({ onClose }) => {
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in">
-            <div className="bg-white p-8 rounded-3xl shadow-2xl text-center max-w-sm mx-4 transform animate-bounce-slow cursor-pointer border-4 border-rose-100" onClick={onClose}>
-                <div className="text-8xl mb-4 animate-bounce">🎁</div>
-                <h3 className="text-2xl font-black text-gray-800 mb-2">Ada Kejutan!</h3>
-                <p className="text-gray-500 mb-6">Pasanganmu mengirim reaksi...</p>
-                <div className="bg-rose-500 hover:bg-rose-600 text-white px-8 py-3 rounded-full text-lg font-bold inline-block shadow-lg transition transform hover:scale-105">
-                    BUKA SEKARANG
-                </div>
-            </div>
-        </div>
-    );
-};
-
 const StickerPanel = ({ roomId, user }) => {
     const [selectedSticker, setSelectedSticker] = useState(null);
 
     const sendSticker = async () => {
         if (!user || !roomId || !selectedSticker) return;
         try {
-            const roomRef = doc(db, 'rooms', `room_${roomId}`);
+            const roomRef = doc(db, 'rooms', roomId);
             await updateDoc(roomRef, {
                 latestSticker: {
                     senderId: user.uid,
@@ -449,9 +434,7 @@ const MultiplayerGameScreen = ({
     nextMultiplayerScenario,
     resetGame,
     activeSticker,
-    setActiveSticker,
-    showGiftBox,
-    setShowGiftBox
+    setActiveSticker
 }) => {
     const currentScenarioIndex = gameData?.scenarioIndex || 0;
 
@@ -496,14 +479,7 @@ const MultiplayerGameScreen = ({
         <StickerOverlay 
             stickerData={activeSticker} 
             onAnimationEnd={() => setActiveSticker(null)} 
-            showGiftBox={showGiftBox}
         />
-        
-        {showGiftBox && (
-            <GiftBoxModal onClose={() => {
-                setShowGiftBox(false);
-            }} />
-        )}
 
         <div className="mb-6 bg-white p-4 rounded-xl shadow-sm border border-gray-100 space-y-3">
             <div className="flex justify-between items-center">
@@ -810,7 +786,6 @@ const App = () => {
   
   // Animation & Sticker State
   const [activeSticker, setActiveSticker] = useState(null);
-  const [showGiftBox, setShowGiftBox] = useState(false); 
   const lastStickerTimeRef = useRef(Date.now());
 
   // Multiplayer State
@@ -943,8 +918,8 @@ const App = () => {
                     symbol: data.latestSticker.sticker,
                     id: data.latestSticker.timestamp
                 });
-                // Show Gift Box first!
-                setShowGiftBox(true);
+                // REMOVED: setShowGiftBox(true);  <-- This line is removed as requested
+                // Animation will trigger immediately via StickerOverlay because activeSticker is set
             }
         }
       } else {
@@ -1075,8 +1050,7 @@ const App = () => {
             resetGame={resetGame}
             activeSticker={activeSticker}
             setActiveSticker={setActiveSticker}
-            showGiftBox={showGiftBox}
-            setShowGiftBox={setShowGiftBox}
+            // Removed showGiftBox props
           />
         }
         {authError && (
