@@ -17,11 +17,8 @@ const MessageCircle = ({ className }) => (
 const Mic = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/><line x1="8" x2="16" y1="22" y2="22"/></svg>
 );
-const MicOff = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="2" x2="22" y1="2" y2="22"/><path d="M18.89 13.23A7.12 7.12 0 0 0 19 12v-2"/><path d="M5 10v2a7 7 0 0 0 12 5"/><path d="M15 9.34V5a3 3 0 0 0-5.68-1.33"/><path d="M9 9v3a3 3 0 0 0 5.12 2.63"/><line x1="12" x2="12" y1="19" y2="22"/><line x1="8" x2="16" y1="22" y2="22"/></svg>
-);
-const Volume2 = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+const Phone = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
 );
 const RefreshCw = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
@@ -65,32 +62,11 @@ const Trophy = ({ className }) => (
 const ArrowRight = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 );
-const Phone = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+const Send = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
 );
-const Trash = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-);
-const Lock = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-);
-const Briefcase = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-);
-const Plane = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 12h20"/><path d="M13 2 9 22"/><path d="M13 22 9 2"/></svg>
-);
-const Ghost = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg>
-);
-const Bed = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
-);
-const Frown = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
-);
-const DollarSign = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+const Radio = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg>
 );
 
 // --- 25 SCENARIOS LENGKAP DENGAN CERITA REAL LIFE ---
@@ -464,52 +440,128 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// --- COMPONENT: LIVE VOICE ROOM (Embedded Jitsi) ---
-const LiveVoiceRoom = ({ roomId }) => {
-    const [isJoined, setIsJoined] = useState(false);
-    // Unique room name
-    const roomName = `DilemaAsmara_${roomId}`;
-    // Config params to disable prejoin page and other UI elements for cleaner embed
-    const jitsiUrl = `https://meet.jit.si/${roomName}#config.prejoinPageEnabled=false`; 
+// --- COMPONENT: WALKIE TALKIE (Push-to-Talk) ---
+const WalkieTalkie = ({ roomId, user }) => {
+    const [isRecording, setIsRecording] = useState(false);
+    const [status, setStatus] = useState("Siap.");
+    const mediaRecorderRef = useRef(null);
+    const audioChunksRef = useRef([]);
 
-    if (!isJoined) {
-        return (
-            <div className="bg-indigo-900 rounded-xl p-6 text-white shadow-lg mt-6 animate-fade-in text-center">
-                <div className="flex justify-center mb-4">
-                    <div className="p-4 rounded-full bg-indigo-800 border-2 border-indigo-500 animate-pulse">
-                        <Mic className="w-8 h-8 text-white" />
-                    </div>
-                </div>
-                <h3 className="font-bold text-lg mb-2">Diskusi Langsung</h3>
-                <p className="text-indigo-200 text-sm mb-6 px-4">
-                    Diskusikan jawaban kalian langsung di sini tanpa pindah aplikasi.
-                </p>
-                <button 
-                    onClick={() => setIsJoined(true)}
-                    className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full transition transform hover:scale-105 shadow-md"
-                >
-                    <Phone className="w-5 h-5" />
-                    Mulai Panggilan Suara
-                </button>
-            </div>
-        );
-    }
+    // Listen for new voice messages in Firestore
+    useEffect(() => {
+        const voiceRef = doc(db, 'rooms', roomId);
+        const unsubscribe = onSnapshot(voiceRef, (docSnap) => {
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                if (data.latestVoiceMsg && data.latestVoiceMsg.senderId !== user.uid) {
+                    // Play audio if it's from partner and new (simple check)
+                    // In a real app, compare timestamps or IDs better
+                    const audio = new Audio(data.latestVoiceMsg.audioData);
+                    audio.play().catch(e => console.log("Auto-play blocked", e));
+                    setStatus("Mendengarkan pasangan...");
+                    audio.onended = () => setStatus("Siap.");
+                }
+            }
+        });
+        return () => unsubscribe();
+    }, [roomId, user.uid]);
+
+    const startRecording = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const mediaRecorder = new MediaRecorder(stream);
+            mediaRecorderRef.current = mediaRecorder;
+            audioChunksRef.current = [];
+
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    audioChunksRef.current.push(event.data);
+                }
+            };
+
+            mediaRecorder.onstop = async () => {
+                const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+                const reader = new FileReader();
+                reader.readAsDataURL(audioBlob);
+                reader.onloadend = async () => {
+                    const base64Audio = reader.result;
+                    // Upload to Firestore (Max 1MB limit per doc, keep audio short < 10s)
+                    try {
+                        const roomRef = doc(db, 'rooms', roomId);
+                        await updateDoc(roomRef, {
+                            latestVoiceMsg: {
+                                senderId: user.uid,
+                                audioData: base64Audio,
+                                timestamp: Date.now()
+                            }
+                        });
+                        setStatus("Terkirim!");
+                        setTimeout(() => setStatus("Siap."), 1000);
+                    } catch (e) {
+                        console.error("Gagal kirim suara", e);
+                        setStatus("Gagal kirim.");
+                    }
+                };
+                
+                // Stop tracks
+                stream.getTracks().forEach(track => track.stop());
+            };
+
+            mediaRecorder.start();
+            setIsRecording(true);
+            setStatus("Merekam...");
+        } catch (err) {
+            console.error("Mic error:", err);
+            alert("Gagal akses mik. Pastikan izin diberikan.");
+        }
+    };
+
+    const stopRecording = () => {
+        if (mediaRecorderRef.current && isRecording) {
+            mediaRecorderRef.current.stop();
+            setIsRecording(false);
+        }
+    };
 
     return (
-        <div className="mt-6 rounded-xl overflow-hidden shadow-lg bg-gray-900 border-2 border-indigo-500 h-96 relative">
-             <button 
-                onClick={() => setIsJoined(false)}
-                className="absolute top-2 right-2 z-10 bg-red-600 text-white p-2 rounded-full hover:bg-red-700 shadow-md"
-                title="Tutup Telepon"
-            >
-                <X className="w-4 h-4" />
-            </button>
-            <iframe
-                allow="camera; microphone; fullscreen; display-capture; autoplay"
-                src={jitsiUrl}
-                style={{ width: '100%', height: '100%', border: 0 }}
-                title="Jitsi Meet"
-            ></iframe>
+        <div className="bg-indigo-900 rounded-xl p-4 text-white shadow-lg mt-6 animate-fade-in">
+            <div className="flex flex-col items-center gap-3">
+                <div className="flex items-center justify-between w-full border-b border-indigo-700 pb-2 mb-1">
+                     <span className="text-xs font-bold uppercase tracking-wider text-indigo-300">Walkie Talkie</span>
+                     <span className="text-xs text-white bg-indigo-700 px-2 py-0.5 rounded-full animate-pulse">{status}</span>
+                </div>
+                
+                <p className="text-xs text-indigo-200 text-center px-4">
+                   Tahan tombol Mic untuk bicara. Lepas untuk kirim.
+                </p>
+
+                <button 
+                    onMouseDown={startRecording}
+                    onMouseUp={stopRecording}
+                    onTouchStart={(e) => { e.preventDefault(); startRecording(); }}
+                    onTouchEnd={(e) => { e.preventDefault(); stopRecording(); }}
+                    className={`w-20 h-20 rounded-full flex items-center justify-center border-4 shadow-xl transition-all transform active:scale-95
+                        ${isRecording 
+                            ? 'bg-red-500 border-red-300 animate-pulse' 
+                            : 'bg-indigo-600 border-indigo-400 hover:bg-indigo-500'
+                        }
+                    `}
+                >
+                    <Mic className="w-8 h-8 text-white" />
+                </button>
+            </div>
+            
+            <div className="mt-4 pt-3 border-t border-indigo-700 w-full text-center">
+                <p className="text-[10px] text-indigo-400 mb-1">Lebih suka telepon biasa?</p>
+                <div className="flex justify-center gap-2">
+                     <a href="https://wa.me/" target="_blank" rel="noreferrer" className="text-xs bg-green-600 hover:bg-green-700 px-3 py-1 rounded-full text-white flex items-center gap-1 transition">
+                        <Phone className="w-3 h-3" /> WhatsApp Call
+                     </a>
+                     <a href="https://discord.com/app" target="_blank" rel="noreferrer" className="text-xs bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-full text-white flex items-center gap-1 transition">
+                        <MessageCircle className="w-3 h-3" /> Discord
+                     </a>
+                </div>
+            </div>
         </div>
     );
 };
@@ -1120,8 +1172,8 @@ const App = () => {
                         {matchHeaderText}
                     </div>
 
-                    {/* NEW: LIVE VOICE CALL ROOM */}
-                    <LiveVoiceRoom roomId={roomId} />
+                    {/* NEW: WALKIE TALKIE (PUSH TO TALK) */}
+                    <WalkieTalkie roomId={roomId} user={user} />
 
                     <button 
                         onClick={nextMultiplayerScenario}
