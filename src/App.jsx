@@ -464,208 +464,38 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// --- COMPONENT: LIVE VOICE ROOM (WebRTC Simplified with Manual Trigger) ---
-const LiveVoiceRoom = ({ roomId, role, user }) => {
-    const [status, setStatus] = useState("Siap Menghubungkan");
-    const [isMuted, setIsMuted] = useState(false);
-    const [rtcPeer, setRtcPeer] = useState(null);
-    const [isConnected, setIsConnected] = useState(false); // Track connection state
-    const localStreamRef = useRef(null);
-    const remoteAudioRef = useRef(null);
+// --- COMPONENT: LIVE VOICE ROOM (Jitsi Link) ---
+const LiveVoiceRoom = ({ roomId }) => {
+  // Use a predictable room name
+  const jitsiLink = `https://meet.jit.si/DilemaAsmara_${roomId}`;
 
-    // STUN Servers (Public Google Servers)
-    const servers = {
-        iceServers: [
-            { urls: ['stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302'] }
-        ]
-    };
-
-    // Clean up on unmount
-    useEffect(() => {
-        return () => {
-            if (localStreamRef.current) {
-                localStreamRef.current.getTracks().forEach(track => track.stop());
-            }
-            if (rtcPeer) {
-                rtcPeer.close();
-            }
-        };
-    }, [rtcPeer]); // Depend on rtcPeer to clean it up if it exists
-
-    const startCall = async () => {
-        setIsConnected(true);
-        setStatus("Menghubungkan...");
-        try {
-            // Check if navigator.mediaDevices is supported
-            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                 throw new Error("Browser tidak mendukung audio.");
-            }
-
-            // 1. Get Local Stream
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            localStreamRef.current = stream;
-
-            // 2. Init Peer Connection
-            const pc = new RTCPeerConnection(servers);
-            setRtcPeer(pc);
-
-            // Listen for ICE state changes
-            pc.oniceconnectionstatechange = () => {
-                 if (pc.iceConnectionState === 'disconnected' || pc.iceConnectionState === 'failed') {
-                     setStatus("Koneksi Terputus (Cek Jaringan)");
-                 }
-            };
-
-            // Add Tracks
-            stream.getTracks().forEach(track => pc.addTrack(track, stream));
-
-            // Handle Remote Stream
-            pc.ontrack = (event) => {
-                if (remoteAudioRef.current) {
-                    remoteAudioRef.current.srcObject = event.streams[0];
-                    setStatus("Terhubung 🟢");
-                }
-            };
-
-            // ICE Candidate Logic
-            pc.onicecandidate = (event) => {
-                if (event.candidate) {
-                    const candidateCollection = collection(db, 'rooms', roomId, role === 'host' ? 'offerCandidates' : 'answerCandidates');
-                    addDoc(candidateCollection, event.candidate.toJSON());
-                }
-            };
-
-            // SIGNALING LOGIC
-            const roomDoc = doc(db, 'rooms', roomId);
-            // Host/Guest logic
-             if (role === 'host') {
-                    // Host Creates Offer
-                    const offerDescription = await pc.createOffer();
-                    await pc.setLocalDescription(offerDescription);
-                    
-                    const offer = {
-                        sdp: offerDescription.sdp,
-                        type: offerDescription.type,
-                    };
-
-                    await updateDoc(roomDoc, { offer });
-
-                    // Listen for Answer
-                    onSnapshot(roomDoc, (snapshot) => {
-                        const data = snapshot.data();
-                        if (!pc.currentRemoteDescription && data?.answer) {
-                            const answerDescription = new RTCSessionDescription(data.answer);
-                            pc.setRemoteDescription(answerDescription);
-                        }
-                    });
-
-                    // Listen for Remote Candidates
-                    onCollectionSnapshot(collection(db, 'rooms', roomId, 'answerCandidates'), (snapshot) => {
-                        snapshot.docChanges().forEach((change) => {
-                            if (change.type === 'added') {
-                                const candidate = new RTCIceCandidate(change.doc.data());
-                                pc.addIceCandidate(candidate);
-                            }
-                        });
-                    });
-
-                } else {
-                    // Guest Answers
-                    // Listen for Offer
-                    onSnapshot(roomDoc, async (snapshot) => {
-                        const data = snapshot.data();
-                        if (!pc.currentRemoteDescription && data?.offer) {
-                            const offerDescription = new RTCSessionDescription(data.offer);
-                            await pc.setRemoteDescription(offerDescription);
-
-                            const answerDescription = await pc.createAnswer();
-                            await pc.setLocalDescription(answerDescription);
-
-                            const answer = {
-                                type: answerDescription.type,
-                                sdp: answerDescription.sdp,
-                            };
-
-                            await updateDoc(roomDoc, { answer });
-                        }
-                    });
-
-                    // Listen for Remote Candidates
-                    onCollectionSnapshot(collection(db, 'rooms', roomId, 'offerCandidates'), (snapshot) => {
-                        snapshot.docChanges().forEach((change) => {
-                            if (change.type === 'added') {
-                                const candidate = new RTCIceCandidate(change.doc.data());
-                                pc.addIceCandidate(candidate);
-                            }
-                        });
-                    });
-                }
-
-
-        } catch (err) {
-            console.error("WebRTC Error:", err);
-            let errorMessage = "Gagal Akses Mic 🔴";
-            if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
-                 errorMessage = "Izin Mic Ditolak (Cek Setting Browser)";
-            } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
-                 errorMessage = "Mic Tidak Ditemukan";
-            }
-            setStatus(errorMessage);
-            setIsConnected(false);
-        }
-    };
-
-    const toggleMute = () => {
-        if (localStreamRef.current) {
-            localStreamRef.current.getAudioTracks()[0].enabled = !localStreamRef.current.getAudioTracks()[0].enabled;
-            setIsMuted(!isMuted);
-        }
-    };
-
-    if (!isConnected) {
-         return (
-            <div className="bg-indigo-900 rounded-xl p-4 text-white flex items-center justify-between shadow-lg mt-6 animate-fade-in">
-                <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-full bg-gray-600">
-                        <Volume2 className="w-5 h-5" />
-                    </div>
-                    <div>
-                        <p className="text-xs text-indigo-300 uppercase font-bold">Diskusi Langsung</p>
-                        <p className="text-sm font-bold">{status}</p>
-                    </div>
-                </div>
-                
-                <button 
-                    onClick={startCall}
-                    className="bg-indigo-500 hover:bg-indigo-400 text-white text-xs font-bold py-2 px-4 rounded-lg transition"
-                >
-                    📞 Gabung Obrolan Suara
-                </button>
+  return (
+    <div className="bg-indigo-900 rounded-xl p-6 text-white shadow-lg mt-6 animate-fade-in text-center">
+        <div className="flex justify-center mb-4">
+            <div className="p-4 rounded-full bg-indigo-800 border-2 border-indigo-500 animate-pulse">
+                <Mic className="w-8 h-8 text-white" />
             </div>
-        );
-    }
-
-    return (
-        <div className="bg-indigo-900 rounded-xl p-4 text-white flex items-center justify-between shadow-lg mt-6 animate-fade-in">
-            <div className="flex items-center gap-3">
-                <div className={`p-2 rounded-full ${status.includes('Terhubung') ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`}>
-                    <Volume2 className="w-5 h-5" />
-                </div>
-                <div>
-                    <p className="text-xs text-indigo-300 uppercase font-bold">Diskusi Langsung</p>
-                    <p className="text-sm font-bold">{status}</p>
-                </div>
-            </div>
-            
-            <button 
-                onClick={toggleMute}
-                className={`p-3 rounded-full transition ${isMuted ? 'bg-red-500 hover:bg-red-600' : 'bg-indigo-600 hover:bg-indigo-500'}`}
-            >
-                {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-            </button>
-            <audio ref={remoteAudioRef} autoPlay playsInline />
         </div>
-    );
+        <h3 className="font-bold text-lg mb-2">Diskusi Langsung</h3>
+        <p className="text-indigo-200 text-sm mb-6 px-4">
+            Gunakan ruang privat ini untuk berdiskusi tanpa mengetik. 
+            Klik tombol di bawah untuk terhubung via suara.
+        </p>
+        
+        <a 
+            href={jitsiLink} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full transition transform hover:scale-105 shadow-md"
+        >
+            <Phone className="w-5 h-5" />
+            Buka Telepon (Jitsi Meet)
+        </a>
+        <p className="text-xs text-indigo-400 mt-4">
+            *Akan membuka tab baru. Tidak perlu install aplikasi.
+        </p>
+    </div>
+  );
 };
 
 const App = () => {
@@ -1210,16 +1040,22 @@ const App = () => {
                                 key={option.id}
                                 disabled={!!myAnswerId} // Disable if already answered
                                 onClick={() => submitMultiplayerAnswer(option)}
-                                className={`w-full text-left p-5 rounded-xl border-2 transition-all duration-200 group relative
+                                className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 group relative flex flex-col items-start
                                     ${isSelected 
                                         ? 'border-rose-500 bg-rose-50' 
                                         : 'border-gray-100 hover:border-rose-300 hover:bg-gray-50'
                                     } ${!!myAnswerId && !isSelected ? 'opacity-50 cursor-not-allowed' : ''}
                                 `}
                             >
-                                <span className={`font-bold mr-3 ${isSelected ? 'text-rose-600' : 'text-gray-400'}`}>{option.id}.</span>
-                                <span className="text-gray-700 font-medium">{option.text}</span>
-                                {isSelected && <span className="absolute right-4 top-5 text-rose-500 font-bold text-sm">Pilihanmu</span>}
+                                {isSelected && (
+                                    <span className="bg-rose-200 text-rose-700 text-[10px] font-bold px-2 py-0.5 rounded mb-2 self-start">
+                                        PILIHANMU
+                                    </span>
+                                )}
+                                <div className="flex w-full">
+                                    <span className={`font-bold mr-3 ${isSelected ? 'text-rose-600' : 'text-gray-400'}`}>{option.id}.</span>
+                                    <span className="text-gray-700 font-medium leading-relaxed">{option.text}</span>
+                                </div>
                             </button>
                         );
                     })}
