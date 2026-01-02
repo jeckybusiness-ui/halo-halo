@@ -19,22 +19,20 @@ const firebaseConfig = {
   measurementId: "G-W503YYH8DT"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app); 
 const auth = getAuth(app);
 const db = getFirestore(app);
 
 // ==========================================
-// 2. ICONS COMPONENTS
+// 2. ICONS & CONSTANTS
 // ==========================================
 const Heart = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
 );
 const MessageCircle = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-);
-const Gift = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
 );
 const Smile = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
@@ -84,13 +82,27 @@ const ArrowRight = ({ className }) => (
 const Send = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
 );
+const Gift = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+);
 
-// --- CONSTANTS ---
 const STICKERS = ["😢", "😡", "😱", "😂", "❤️", "👍", "😍", "😭", "🔥", "🤗"];
 
-// --- 25 SCENARIOS LENGKAP ---
+// --- SCENARIOS (REAL LIFE & UPDATED) ---
 const SCENARIOS = [
-  { id: 1, title: "Hapus Chat Mantan", genre: "Micro-Cheating", pov: "Suami", story: "Tengah malam, HP-mu bergetar. Muncul notifikasi dari mantan: 'Aku kangen kita'. Panik karena istrimu tidur di sebelah, kamu langsung menghapus chat itu diam-diam tanpa membalas, takut jadi masalah besar. Apesnya, besoknya istrimu mengecek folder 'Sampah' di pesanmu dan menemukannya.", question: "Apa pembelaanmu?", options: [{ id: 'A', text: "Itu demi menjaga perasaan istri.", consequence: "Niat baik, tapi terlihat seperti menyembunyikan bangkai." }, { id: 'B', text: "Mengaku salah karena menghapus.", consequence: "Jujur, tapi istri akan sulit percaya isi chat lain." }, { id: 'C', text: "Bilang 'Aku tidak ada apa-apa'.", consequence: "Defensif, membuat istri makin curiga." }] },
+  {
+    id: 1,
+    title: "Hapus Chat Mantan",
+    genre: "Micro-Cheating",
+    pov: "Suami",
+    story: "Tengah malam, HP-mu bergetar. Muncul notifikasi dari mantan: 'Aku kangen kita'. Panik karena istrimu tidur di sebelah, kamu langsung menghapus chat itu diam-diam tanpa membalas. Apesnya, besoknya istrimu mengecek folder 'Sampah' di pesanmu dan menemukannya.",
+    question: "Apa pembelaanmu?",
+    options: [
+      { id: 'A', text: "Itu demi menjaga perasaan istri.", consequence: "Niat baik, tapi terlihat seperti menyembunyikan bangkai." },
+      { id: 'B', text: "Mengaku salah karena menghapus.", consequence: "Jujur, tapi istri akan sulit percaya isi chat lain." },
+      { id: 'C', text: "Bilang 'Aku tidak ada apa-apa'.", consequence: "Defensif, membuat istri makin curiga." }
+    ]
+  },
   { id: 2, title: "Kerja di Klub Malam", genre: "Karir vs Nilai", pov: "Istri", story: "Ekonomi keluarga sedang sulit. Kamu ditawari pekerjaan sebagai Manager PR dengan gaji 50 Juta/bulan. Tapi, tugas utamamu adalah menemani klien VIP minum di klub malam sampai subuh. Suamimu adalah guru ngaji yang sangat anti alkohol dan dunia malam.", question: "Keputusanmu?", options: [{ id: 'A', text: "Ambil demi masa depan.", consequence: "Ekonomi melesat, suami hilang respek." }, { id: 'B', text: "Tolak demi suami.", consequence: "Keluarga harmonis, menyesal lepas peluang." }, { id: 'C', text: "Ambil diam-diam.", consequence: "Kebohongan fatal." }] },
   { id: 3, title: "Dana Darurat Rahasia", genre: "Keuangan", pov: "Suami", story: "Kamu dapat bonus 100 Juta. Kamu menyimpannya di rekening rahasia sebagai 'dana pelarian' jika bercerai. Istrimu menemukan buku tabungan itu.", question: "Alasanmu?", options: [{ id: 'A', text: "Itu hak pribadiku.", consequence: "Melukai kepercayaan." }, { id: 'B', text: "Jaga-jaga kamu boros.", consequence: "Menyalahkan istri." }, { id: 'C', text: "Minta maaf & transfer.", consequence: "Kehilangan jaring pengaman." }] },
   { id: 4, title: "Pelukan di Mobil", genre: "Rekan Kerja", pov: "Suami", story: "Rekan kerja wanitamu menangis histeris di mobilmu karena ditalak suami. Kamu memeluknya untuk menenangkan. Istrimu melihat kejadian itu.", question: "Reaksimu?", options: [{ id: 'A', text: "Murni kemanusiaan.", consequence: "Merasa benar, istri sakit hati." }, { id: 'B', text: "Mengaku salah tempat.", consequence: "Validasi istri, tapi teman butuh." }, { id: 'C', text: "Marah istri memata-matai.", consequence: "Mengalihkan isu." }] },
@@ -125,7 +137,6 @@ const StickerOverlay = ({ stickerData, onAnimationEnd, showGiftBox }) => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        // Only animate if sticker exists AND gift box is NOT showing (meaning it's been opened)
         if (stickerData && stickerData.symbol && !showGiftBox) {
             const newItems = Array.from({ length: 30 }).map((_, i) => ({
                 id: `${stickerData.id}-${i}`,
@@ -142,7 +153,7 @@ const StickerOverlay = ({ stickerData, onAnimationEnd, showGiftBox }) => {
             }, 3500); 
             return () => clearTimeout(timer);
         }
-    }, [stickerData, showGiftBox]); // Depend on showGiftBox too
+    }, [stickerData, showGiftBox]);
 
     if (!stickerData || items.length === 0) return null;
 
@@ -180,12 +191,12 @@ const StickerOverlay = ({ stickerData, onAnimationEnd, showGiftBox }) => {
 const GiftBoxModal = ({ onClose }) => {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fade-in">
-            <div className="bg-white p-8 rounded-3xl shadow-2xl text-center max-w-sm mx-4 transform animate-bounce-slow cursor-pointer" onClick={onClose}>
-                <div className="text-6xl mb-4 animate-bounce">🎁</div>
-                <h3 className="text-xl font-bold text-gray-800 mb-2">Kejutan Masuk!</h3>
-                <p className="text-gray-600 mb-4">Pasanganmu mengirim reaksi...</p>
-                <div className="bg-rose-100 text-rose-600 px-4 py-2 rounded-full text-sm font-bold inline-block animate-pulse">
-                    Klik untuk Buka
+            <div className="bg-white p-8 rounded-3xl shadow-2xl text-center max-w-sm mx-4 transform animate-bounce-slow cursor-pointer border-4 border-rose-100" onClick={onClose}>
+                <div className="text-8xl mb-4 animate-bounce">🎁</div>
+                <h3 className="text-2xl font-black text-gray-800 mb-2">Ada Kejutan!</h3>
+                <p className="text-gray-500 mb-6">Pasanganmu mengirim reaksi...</p>
+                <div className="bg-rose-500 hover:bg-rose-600 text-white px-8 py-3 rounded-full text-lg font-bold inline-block shadow-lg transition transform hover:scale-105">
+                    BUKA SEKARANG
                 </div>
             </div>
         </div>
@@ -206,25 +217,25 @@ const StickerPanel = ({ roomId, user }) => {
                     timestamp: Date.now()
                 }
             });
-            setSelectedSticker(null); // Reset selection after send
+            setSelectedSticker(null); // Reset selection
         } catch (e) {
             console.error("Gagal kirim stiker", e);
         }
     };
 
     return (
-        <div className="bg-white rounded-xl p-4 shadow-lg mt-6 border border-indigo-100 animate-fade-in">
-            <div className="flex items-center gap-2 mb-3 border-b border-gray-100 pb-2">
-                <Smile className="w-5 h-5 text-indigo-500" />
-                <span className="text-sm font-bold text-gray-700">Kirim Reaksi (Hujan Stiker)</span>
+        <div className="bg-white rounded-xl p-6 shadow-lg mt-6 border border-indigo-100 animate-fade-in">
+            <div className="flex items-center gap-2 mb-4 border-b border-gray-100 pb-3">
+                <Smile className="w-6 h-6 text-indigo-500" />
+                <span className="text-base font-bold text-gray-800">Kirim Reaksi</span>
             </div>
-            <div className="grid grid-cols-5 gap-2 mb-4">
+            <div className="grid grid-cols-5 gap-3 mb-6">
                 {STICKERS.map((sticker) => (
                     <button
                         key={sticker}
                         onClick={() => setSelectedSticker(sticker)}
-                        className={`text-2xl p-2 rounded-lg transition-all focus:outline-none 
-                            ${selectedSticker === sticker ? 'bg-indigo-100 scale-110 border-2 border-indigo-300' : 'hover:bg-indigo-50 hover:scale-105'}
+                        className={`text-3xl p-2 rounded-xl transition-all focus:outline-none 
+                            ${selectedSticker === sticker ? 'bg-indigo-100 scale-110 ring-2 ring-indigo-400' : 'hover:bg-gray-50 hover:scale-105'}
                         `}
                     >
                         {sticker}
@@ -235,13 +246,13 @@ const StickerPanel = ({ roomId, user }) => {
             <button 
                 onClick={sendSticker}
                 disabled={!selectedSticker}
-                className={`w-full py-3 rounded-lg font-bold text-sm transition flex items-center justify-center gap-2 shadow-md
+                className={`w-full py-4 rounded-xl font-bold text-sm transition flex items-center justify-center gap-2 shadow-md
                     ${selectedSticker 
                         ? 'bg-indigo-600 text-white hover:bg-indigo-700 transform hover:-translate-y-0.5' 
                         : 'bg-gray-200 text-gray-400 cursor-not-allowed'}
                 `}
             >
-                <Send className="w-4 h-4" /> Kirim Reaksi
+                <Send className="w-4 h-4" /> KIRIM REAKSI
             </button>
         </div>
     );
@@ -549,6 +560,7 @@ const MultiplayerGameScreen = ({
               <AlertCircle className="w-5 h-5 text-yellow-600" />
               <div>
                   <p className="font-semibold text-gray-800">{currentScenario.question}</p>
+                  {/* Contextual Hint based on Role vs POV */}
                   {((currentScenario.pov.includes("Suami") || currentScenario.pov.includes("Cowok")) && !isHost) && (
                       <p className="text-xs text-rose-600 mt-1 italic">(Ini sudut pandang pasanganmu. Jika kamu jadi dia, apa yang kamu harap dia lakukan?)</p>
                   )}
