@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 // Import fungsi yang dibutuhkan dari SDK
 import { initializeApp } from "firebase/app";
@@ -14,11 +15,8 @@ const Heart = ({ className }) => (
 const MessageCircle = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
 );
-const Mic = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/><line x1="8" x2="16" y1="22" y2="22"/></svg>
-);
-const Phone = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+const Smile = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
 );
 const RefreshCw = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
@@ -61,6 +59,30 @@ const Trophy = ({ className }) => (
 );
 const ArrowRight = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+);
+const Trash = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+);
+const Lock = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+);
+const Briefcase = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+);
+const Plane = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 12h20"/><path d="M13 2 9 22"/><path d="M13 22 9 2"/></svg>
+);
+const Ghost = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg>
+);
+const Bed = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+);
+const Frown = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+);
+const DollarSign = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
 );
 
 // --- 25 SCENARIOS LENGKAP DENGAN CERITA REAL LIFE ---
@@ -434,165 +456,104 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// --- COMPONENT: WALKIE TALKIE (Push-to-Talk Optimized) ---
-const WalkieTalkie = ({ roomId, user }) => {
-    const [isRecording, setIsRecording] = useState(false);
-    const [status, setStatus] = useState("Siap.");
-    const [timeLeft, setTimeLeft] = useState(10); // Countdown
-    const mediaRecorderRef = useRef(null);
-    const audioChunksRef = useRef([]);
-    const timerRef = useRef(null);
+// Constants
+const STICKERS = ["😢", "😡", "😱", "😂", "❤️", "👍", "😍", "😭", "🔥", "🤗"];
 
-    // Listen for new voice messages in Firestore
+// --- COMPONENTS ---
+
+// Overlay Animation Component
+const StickerOverlay = ({ sticker, onAnimationEnd }) => {
+    const [items, setItems] = useState([]);
+
     useEffect(() => {
-        const voiceRef = doc(db, 'rooms', roomId);
-        const unsubscribe = onSnapshot(voiceRef, (docSnap) => {
-            if (docSnap.exists()) {
-                const data = docSnap.data();
-                if (data.latestVoiceMsg && data.latestVoiceMsg.senderId !== user.uid) {
-                    const audio = new Audio(data.latestVoiceMsg.audioData);
-                    setStatus("Mendengarkan pasangan...");
-                    audio.play().catch(e => console.log("Auto-play blocked", e));
-                    audio.onended = () => setStatus("Siap.");
-                }
-            }
-        });
-        return () => unsubscribe();
-    }, [roomId, user.uid]);
+        if (sticker) {
+            // Generate random positions for stickers
+            const newItems = Array.from({ length: 25 }).map((_, i) => ({
+                id: i,
+                left: Math.random() * 100, // Random horizontal pos
+                delay: Math.random() * 0.5, // Random delay
+                duration: 2 + Math.random() * 1.5, // Random duration
+                size: 2 + Math.random() * 2 // Random size
+            }));
+            setItems(newItems);
 
-    const startRecording = async () => {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ 
-                audio: { 
-                    echoCancellation: true,
-                    noiseSuppression: true,
-                    sampleRate: 44100
-                } 
-            });
-            
-            // Lower bitrate for smaller file size
-            const options = { audioBitsPerSecond: 32000 }; 
-            const mediaRecorder = new MediaRecorder(stream, options);
-            
-            mediaRecorderRef.current = mediaRecorder;
-            audioChunksRef.current = [];
-
-            mediaRecorder.ondataavailable = (event) => {
-                if (event.data.size > 0) {
-                    audioChunksRef.current.push(event.data);
-                }
-            };
-
-            mediaRecorder.onstop = async () => {
-                clearInterval(timerRef.current);
-                setTimeLeft(10);
-
-                const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
-                const reader = new FileReader();
-                reader.readAsDataURL(audioBlob);
-                reader.onloadend = async () => {
-                    const base64Audio = reader.result;
-                    
-                    // Size Check (Firestore limit ~1MB, keep it safe under 900KB)
-                    if (base64Audio.length > 900000) {
-                        setStatus("Suara terlalu panjang! Gagal kirim.");
-                        setTimeout(() => setStatus("Siap."), 2000);
-                        return;
-                    }
-
-                    try {
-                        const roomRef = doc(db, 'rooms', roomId);
-                        await updateDoc(roomRef, {
-                            latestVoiceMsg: {
-                                senderId: user.uid,
-                                audioData: base64Audio,
-                                timestamp: Date.now()
-                            }
-                        });
-                        setStatus("Terkirim!");
-                        setTimeout(() => setStatus("Siap."), 1000);
-                    } catch (e) {
-                        console.error("Gagal kirim suara", e);
-                        setStatus("Gagal kirim (Koneksi buruk).");
-                    }
-                };
-                
-                stream.getTracks().forEach(track => track.stop());
-            };
-
-            mediaRecorder.start();
-            setIsRecording(true);
-            setStatus("Merekam...");
-
-            // Auto-stop timer
-            let counter = 10;
-            timerRef.current = setInterval(() => {
-                counter--;
-                setTimeLeft(counter);
-                if (counter <= 0) {
-                    stopRecording();
-                }
-            }, 1000);
-
-        } catch (err) {
-            console.error("Mic error:", err);
-            alert("Gagal akses mik. Pastikan izin diberikan.");
+            const timer = setTimeout(() => {
+                onAnimationEnd();
+            }, 3500); // Clear after animation
+            return () => clearTimeout(timer);
         }
-    };
+    }, [sticker, onAnimationEnd]);
 
-    const stopRecording = () => {
-        if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-            mediaRecorderRef.current.stop();
-            setIsRecording(false);
+    if (!sticker) return null;
+
+    return (
+        <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+            {items.map((item) => (
+                <div
+                    key={item.id}
+                    className="absolute bottom-0 text-4xl animate-float-up opacity-0"
+                    style={{
+                        left: `${item.left}%`,
+                        fontSize: `${item.size}rem`,
+                        animationDelay: `${item.delay}s`,
+                        animationDuration: `${item.duration}s`
+                    }}
+                >
+                    {sticker}
+                </div>
+            ))}
+            <style>{`
+                @keyframes float-up {
+                    0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+                    100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+                }
+                .animate-float-up {
+                    animation-name: float-up;
+                    animation-timing-function: ease-out;
+                    animation-fill-mode: forwards;
+                }
+            `}</style>
+        </div>
+    );
+};
+
+// Sticker Panel Component
+const StickerPanel = ({ roomId, user }) => {
+    const sendSticker = async (stickerChar) => {
+        try {
+            const roomRef = doc(db, 'rooms', roomId);
+            await updateDoc(roomRef, {
+                latestSticker: {
+                    senderId: user.uid,
+                    sticker: stickerChar,
+                    timestamp: Date.now()
+                }
+            });
+        } catch (e) {
+            console.error("Gagal kirim stiker", e);
         }
     };
 
     return (
-        <div className="bg-indigo-900 rounded-xl p-4 text-white shadow-lg mt-6 animate-fade-in">
-            <div className="flex flex-col items-center gap-3">
-                <div className="flex items-center justify-between w-full border-b border-indigo-700 pb-2 mb-1">
-                     <span className="text-xs font-bold uppercase tracking-wider text-indigo-300">Walkie Talkie</span>
-                     <span className="text-xs text-white bg-indigo-700 px-2 py-0.5 rounded-full animate-pulse">{status}</span>
-                </div>
-                
-                <div className="relative">
-                    <button 
-                        onMouseDown={startRecording}
-                        onMouseUp={stopRecording}
-                        onTouchStart={(e) => { e.preventDefault(); startRecording(); }}
-                        onTouchEnd={(e) => { e.preventDefault(); stopRecording(); }}
-                        className={`w-24 h-24 rounded-full flex items-center justify-center border-4 shadow-xl transition-all transform active:scale-95
-                            ${isRecording 
-                                ? 'bg-red-500 border-red-300 animate-pulse scale-105' 
-                                : 'bg-indigo-600 border-indigo-400 hover:bg-indigo-500'
-                            }
-                        `}
+        <div className="bg-white rounded-xl p-4 shadow-lg mt-6 border border-indigo-100 animate-fade-in">
+            <div className="flex items-center gap-2 mb-3 border-b border-gray-100 pb-2">
+                <Smile className="w-5 h-5 text-indigo-500" />
+                <span className="text-sm font-bold text-gray-700">Kirim Reaksi</span>
+            </div>
+            <div className="grid grid-cols-5 gap-2">
+                {STICKERS.map((sticker) => (
+                    <button
+                        key={sticker}
+                        onClick={() => sendSticker(sticker)}
+                        className="text-2xl hover:scale-125 transition-transform p-2 rounded-lg hover:bg-indigo-50 focus:outline-none active:scale-90"
                     >
-                        <Mic className="w-10 h-10 text-white" />
+                        {sticker}
                     </button>
-                    {isRecording && (
-                        <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-red-300">
-                            {timeLeft}s
-                        </div>
-                    )}
-                </div>
-                
-                <p className="text-[10px] text-indigo-300 text-center px-4 mt-2">
-                   Tahan tombol untuk bicara (Maks 10 detik).<br/>Lepas untuk kirim.
-                </p>
+                ))}
             </div>
-            
-            <div className="mt-4 pt-3 border-t border-indigo-700 w-full text-center">
-                <p className="text-[10px] text-indigo-400 mb-1">Butuh ngobrol panjang?</p>
-                <div className="flex justify-center gap-2">
-                     <a href="https://wa.me/" target="_blank" rel="noreferrer" className="text-xs bg-green-600 hover:bg-green-700 px-3 py-1 rounded-full text-white flex items-center gap-1 transition">
-                        <Phone className="w-3 h-3" /> WhatsApp Call
-                     </a>
-                     <a href="https://discord.com/app" target="_blank" rel="noreferrer" className="text-xs bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-full text-white flex items-center gap-1 transition">
-                        <MessageCircle className="w-3 h-3" /> Discord
-                     </a>
-                </div>
-            </div>
+            <p className="text-[10px] text-gray-400 text-center mt-2">
+                Klik untuk terbangkan stiker ke layar pasangan!
+            </p>
         </div>
     );
 };
@@ -606,6 +567,10 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [authError, setAuthError] = useState(null); 
   
+  // Animation State
+  const [activeSticker, setActiveSticker] = useState(null);
+  const lastStickerTimeRef = useRef(Date.now());
+
   // Multiplayer State
   const [user, setUser] = useState(null);
   const [roomId, setRoomId] = useState('');
@@ -725,6 +690,14 @@ const App = () => {
         const data = doc.data();
         setGameData(data);
         setCurrentScenarioIndex(data.scenarioIndex);
+
+        // Check for new sticker animation (only trigger if sender is NOT me)
+        if (data.latestSticker && data.latestSticker.timestamp > lastStickerTimeRef.current) {
+            lastStickerTimeRef.current = data.latestSticker.timestamp;
+            if (data.latestSticker.senderId !== user.uid) {
+                setActiveSticker(data.latestSticker.sticker);
+            }
+        }
       } else {
            if (view === 'multiplayer-game') {
              alert("Room terputus.");
@@ -1045,6 +1018,12 @@ const App = () => {
     // --- GAMEPLAY MULTIPLAYER ---
     return (
       <div className="max-w-2xl mx-auto px-4 py-8 pb-24">
+        {/* Floating Sticker Animation Overlay */}
+        <StickerOverlay 
+            sticker={activeSticker} 
+            onAnimationEnd={() => setActiveSticker(null)} 
+        />
+
         {/* Header Status with Role Identity */}
         <div className="mb-6 bg-white p-4 rounded-xl shadow-sm border border-gray-100 space-y-3">
             <div className="flex justify-between items-center">
@@ -1203,8 +1182,8 @@ const App = () => {
                         {matchHeaderText}
                     </div>
 
-                    {/* NEW: WALKIE TALKIE (PUSH TO TALK) */}
-                    <WalkieTalkie roomId={roomId} user={user} />
+                    {/* NEW: STICKER PANEL */}
+                    <StickerPanel roomId={roomId} user={user} />
 
                     <button 
                         onClick={nextMultiplayerScenario}
