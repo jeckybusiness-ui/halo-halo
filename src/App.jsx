@@ -1,404 +1,220 @@
 import React, { useState, useEffect, useRef } from 'react';
 // Import fungsi yang dibutuhkan dari SDK
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  onSnapshot,
-  updateDoc,
-  getDoc,
+import { 
+  getFirestore, doc, setDoc, onSnapshot, updateDoc, getDoc 
 } from 'firebase/firestore';
 
 // --- Icons Component (Inline SVG) ---
 const Heart = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
 );
 const MessageCircle = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
 );
 const ArrowRight = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M5 12h14" />
-    <path d="m12 5 7 7-7 7" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 );
 const RefreshCw = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
-    <path d="M21 3v5h-5" />
-    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
-    <path d="M8 16H3v5" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
 );
 const BookOpen = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
 );
 const AlertCircle = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <circle cx="12" cy="12" r="10" />
-    <line x1="12" x2="12" y1="8" y2="12" />
-    <line x1="12" x2="12.01" y1="16" y2="16" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
 );
 const CheckCircle2 = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <circle cx="12" cy="12" r="10" />
-    <path d="m9 12 2 2 4-4" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
 );
 const Share2 = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <circle cx="18" cy="5" r="3" />
-    <circle cx="6" cy="12" r="3" />
-    <circle cx="18" cy="19" r="3" />
-    <line x1="8.59" x2="15.42" y1="13.51" y2="17.49" />
-    <line x1="15.41" x2="8.59" y1="6.51" y2="10.49" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
 );
 const Menu = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <line x1="4" x2="20" y1="12" y2="12" />
-    <line x1="4" x2="20" y1="6" y2="6" />
-    <line x1="4" x2="20" y1="18" y2="18" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
 );
 const X = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M18 6 6 18" />
-    <path d="m6 6 18 18" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M18 6 6 18"/><path d="m6 6 18 18"/></svg>
 );
 const Users = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-    <circle cx="9" cy="7" r="4" />
-    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
 );
 const Copy = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
 );
 const Loader = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={`animate-spin ${className}`}
-  >
-    <path d="M21 12a9 9 0 1 1-6.21-10.42 12 12 0 0 1 0 6.21" />
-  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`animate-spin ${className}`}><path d="M21 12a9 9 0 1 1-6.21-10.42 12 12 0 0 1 0 6.21"/></svg>
 );
 const LinkIcon = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-  </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
 );
 const UserCircle = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <circle cx="12" cy="12" r="10" />
-    <circle cx="12" cy="10" r="3" />
-    <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" />
-  </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></svg>
+);
+const Trophy = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
 );
 
-// Sample Data: Scenarios
+// --- 10 SCENARIOS LENGKAP ---
 const SCENARIOS = [
   {
     id: 1,
-    title: 'Mantan di Reuni',
-    genre: 'Kesetiaan',
-    difficulty: 'Medium',
-    pov: 'Suami',
-    story:
-      "Kamu datang ke reuni SMA sendirian karena istrimu sakit. Di sana, kamu bertemu mantan terindahmu yang kini terlihat sangat sukses dan menawan. Dia mendekatimu, mengajak ngobrol intens, dan mengaku dia baru saja cerai. Di akhir acara, dia meminta nomor HP-mu dengan alasan 'untuk koneksi bisnis' dan menawarkan tumpangan pulang karena searah, padahal kamu bawa mobil (tapi bisa beralasan mabuk/lelah).",
-    question: 'Apa yang akan kamu lakukan?',
+    title: "Mantan di Reuni",
+    genre: "Perselingkuhan",
+    pov: "Suami",
+    story: "Kamu datang ke reuni SMA sendirian. Di sana, kamu bertemu mantan terindahmu yang kini sukses dan menawan. Dia mendekatimu, mengajak ngobrol intens, dan mengaku baru cerai. Di akhir acara, dia meminta nomor HP-mu 'untuk bisnis' dan menawarkan tumpangan pulang karena searah, padahal kamu bawa mobil (tapi bisa beralasan lelah).",
+    question: "Apa yang akan kamu lakukan?",
     options: [
-      {
-        id: 'A',
-        text: 'Berikan nomor HP, tapi tolak tumpangan.',
-        consequence:
-          'Kamu menjaga sopan santun, tapi membuka celah komunikasi pribadi.',
-        discussion:
-          'Apakah bertukar kontak dengan mantan itu wajar bagi kalian? Di mana batasannya?',
-      },
-      {
-        id: 'B',
-        text: 'Tolak halus nomor HP & tumpangan, langsung pulang.',
-        consequence:
-          'Kamu menutup pintu sepenuhnya, mungkin dianggap sombong, tapi aman.',
-        discussion:
-          'Apakah pasanganmu harus tahu kalau kamu bertemu mantan hari ini?',
-      },
-      {
-        id: 'C',
-        text: 'Terima tumpangan, tinggalkan mobil di lokasi.',
-        consequence: 'Kamu mengambil risiko besar untuk momen berdua. Bahaya.',
-        discussion:
-          "Apa yang dikategorikan sebagai 'micro-cheating' menurut kalian?",
-      },
+      { id: 'A', text: "Berikan nomor HP & tumpangan.", consequence: "Berbahaya. Membuka pintu masa lalu." },
+      { id: 'B', text: "Tolak halus semuanya.", consequence: "Aman, menjaga perasaan pasangan." },
+      { id: 'C', text: "Hanya berikan nomor HP.", consequence: "Abu-abu. Bisa jadi awal masalah." }
     ],
+    discussion: "Apakah bertukar kontak dengan mantan itu wajar bagi kalian?"
   },
   {
     id: 2,
-    title: 'Promosi Jabatan',
-    genre: 'Karir vs Cinta',
-    difficulty: 'Hard',
-    pov: 'Istri',
-    story:
-      'Kamu mendapatkan tawaran promosi impianmu menjadi VP, tapi syaratnya harus pindah ke kantor cabang di luar negeri (Eropa) selama 3 tahun. Suamimu baru saja mulai merintis bisnis di kota ini dan tidak mungkin ikut pindah atau meninggalkan bisnisnya. LDR (Long Distance Relationship) selama 3 tahun adalah waktu yang sangat lama.',
-    question: 'Keputusan apa yang kamu ambil?',
+    title: "Promosi Jabatan",
+    genre: "Prioritas",
+    pov: "Istri",
+    story: "Kamu dapat promosi impian jadi VP, tapi harus pindah ke Eropa selama 3 tahun. Suamimu baru merintis bisnis di kota ini dan tidak mungkin ikut pindah. LDR 3 tahun adalah waktu yang sangat lama.",
+    question: "Keputusan apa yang kamu ambil?",
     options: [
-      {
-        id: 'A',
-        text: 'Tolak promosi demi tetap bersama suami.',
-        consequence:
-          'Karirmu stagnan, mungkin ada rasa penyesalan di kemudian hari.',
-        discussion:
-          'Apakah boleh mengorbankan mimpi pribadi demi pasangan? Siapa yang harus mengalah?',
-      },
-      {
-        id: 'B',
-        text: 'Ambil promosi dan jalani LDR.',
-        consequence:
-          'Hubungan akan diuji jarak dan waktu. Resiko renggang sangat besar.',
-        discussion:
-          'Seberapa kuat kepercayaan kalian? Apa aturan main LDR kalian?',
-      },
-      {
-        id: 'C',
-        text: 'Minta suami tutup bisnisnya dan ikut kamu.',
-        consequence: 'Kamu egois demi karirmu, suami kehilangan mimpinya.',
-        discussion:
-          'Apakah pendapatan menentukan siapa yang memimpin keputusan keluarga?',
-      },
+      { id: 'A', text: "Tolak promosi demi suami.", consequence: "Karir stagnan, tapi keluarga utuh." },
+      { id: 'B', text: "Ambil promosi, jalani LDR.", consequence: "Resiko hubungan renggang sangat besar." },
+      { id: 'C', text: "Minta suami tutup bisnis & ikut.", consequence: "Egois, mematikan mimpi suami." }
     ],
+    discussion: "Siapa yang harus mengalah dalam karir?"
   },
   {
     id: 3,
-    title: 'Tabungan Rahasia',
-    genre: 'Keuangan',
-    difficulty: 'Medium',
-    pov: 'Pacar (Cowok)',
-    story:
-      'Kamu dan pacarmu sedang menabung keras untuk biaya nikah tahun depan. Tiba-tiba, adikmu terjerat hutang pinjol dan diancam. Orang tuamu memohon padamu untuk membantu melunasinya. Jumlahnya setara dengan 50% tabungan nikah yang sudah kamu kumpulkan susah payah. Pacarmu sangat ketat soal uang dan pasti akan marah besar jika tahu uang nikah dipakai.',
-    question: 'Tindakanmu?',
+    title: "Tabungan Rahasia",
+    genre: "Keuangan",
+    pov: "Suami",
+    story: "Kalian menabung untuk rumah. Tiba-tiba adikmu terlilit hutang pinjol dan diancam. Orang tuamu memohon bantuanmu. Jumlahnya 50% tabungan rumah. Istrimu sangat ketat soal uang dan pasti marah besar jika tahu.",
+    question: "Tindakanmu?",
     options: [
-      {
-        id: 'A',
-        text: 'Pakai uang tabungan diam-diam, nanti diganti pelan-pelan.',
-        consequence:
-          'Masalah selesai sejenak, tapi kamu membangun pernikahan di atas kebohongan.',
-        discussion:
-          'Apakah keuangan pribadi dan pasangan harus 100% transparan sebelum menikah?',
-      },
-      {
-        id: 'B',
-        text: 'Diskusi jujur dengan pacar, minta izin pakai uang.',
-        consequence:
-          'Resiko bertengkar hebat atau bahkan batal nikah karena dia kecewa.',
-        discussion:
-          'Jika pasanganmu menolak meminjamkan uang untuk keluargamu, apa perasaanmu?',
-      },
-      {
-        id: 'C',
-        text: 'Tolak bantu adik, fokus ke pernikahan.',
-        consequence:
-          "Kamu 'selamat' di mata pacar, tapi mungkin dibenci keluarga sendiri.",
-        discussion: 'Mana prioritas utama: Pasangan atau Keluarga Kandung?',
-      },
+      { id: 'A', text: "Pakai uang diam-diam.", consequence: "Bohong besar. Istri bisa hilang percaya." },
+      { id: 'B', text: "Diskusi jujur dengan istri.", consequence: "Resiko bertengkar, tapi transparan." },
+      { id: 'C', text: "Tolak bantu adik.", consequence: "Tega pada keluarga, tapi aman sama istri." }
     ],
+    discussion: "Batas bantuan finansial ke keluarga besar?"
   },
+  {
+    id: 4,
+    title: "Teman Kantor Lawan Jenis",
+    genre: "Rekan Kerja",
+    pov: "Istri",
+    story: "Ada rekan kerja baru yang sangat nyambung denganmu. Kalian sering makan siang bareng dan chat soal kerjaan sampai malam. Suamimu mulai merasa tidak nyaman dan cemburu, padahal menurutmu ini profesional.",
+    question: "Responmu?",
+    options: [
+      { id: 'A', text: "Jauhi rekan kerja total.", consequence: "Profesionalisme terganggu, suami senang." },
+      { id: 'B', text: "Tetap berteman, abaikan suami.", consequence: "Suami makin curiga & terluka." },
+      { id: 'C', text: "Kenalkan mereka berdua.", consequence: "Transparansi, tapi canggung." }
+    ],
+    discussion: "Apa batasan pertemanan lawan jenis di kantor?"
+  },
+  {
+    id: 5,
+    title: "Campur Tangan Mertua",
+    genre: "Mertua",
+    pov: "Suami",
+    story: "Ibumu (mertua istri) sering datang tanpa kabar dan mengatur cara istrimu mengurus rumah. Istrimu sudah menangis dan minta kamu menegur ibumu. Tapi ibumu punya penyakit jantung dan gampang shock jika tersinggung.",
+    question: "Sikapmu?",
+    options: [
+      { id: 'A', text: "Tegas tegur Ibu.", consequence: "Istri lega, Ibu mungkin sakit hati/fisik." },
+      { id: 'B', text: "Minta istri sabar saja.", consequence: "Istri merasa tidak dibela." },
+      { id: 'C', text: "Pura-pura tidak tahu.", consequence: "Masalah menumpuk jadi bom waktu." }
+    ],
+    discussion: "Kapan suami harus membela istri di depan ibunya?"
+  },
+  {
+    id: 6,
+    title: "Password Handphone",
+    genre: "Privasi",
+    pov: "Istri",
+    story: "Pasanganmu tiba-tiba meminta password semua sosial media dan HP-mu sebagai bukti cinta dan transparansi. Kamu tidak menyembunyikan apa-apa, tapi merasa ini pelanggaran privasi.",
+    question: "Keputusanmu?",
+    options: [
+      { id: 'A', text: "Kasih semua password.", consequence: "Transparan total, nol privasi." },
+      { id: 'B', text: "Tolak tegas.", consequence: "Dianggap menyembunyikan sesuatu." },
+      { id: 'C', text: "Kasih tapi minta password dia juga.", consequence: "Adil, saling memantau." }
+    ],
+    discussion: "Apakah pasangan berhak tahu semua password?"
+  },
+  {
+    id: 7,
+    title: "Liburan Impian vs Hemat",
+    genre: "Keuangan",
+    pov: "Suami",
+    story: "Istrimu ingin sekali liburan ke luar negeri tahun ini sebagai 'reward' kerja keras. Biayanya mahal. Kamu tipe hemat dan ingin uangnya diinvestasikan saja untuk dana darurat.",
+    question: "Solusinya?",
+    options: [
+      { id: 'A', text: "Turuti istri walau berat.", consequence: "Istri bahagia, tabungan menipis." },
+      { id: 'B', text: "Larang liburan, investasi saja.", consequence: "Keuangan aman, istri kecewa berat." },
+      { id: 'C', text: "Cari liburan murah lokal.", consequence: "Kompromi, walau bukan impian istri." }
+    ],
+    discussion: "Experience vs Investment: Mana prioritas?"
+  },
+  {
+    id: 8,
+    title: "Pembagian Tugas Rumah",
+    genre: "Hubungan Suami Istri",
+    pov: "Istri",
+    story: "Kalian berdua bekerja full-time. Tapi saat pulang, suamimu langsung main game/istirahat, sedangkan kamu masih harus masak dan beberes. Kamu lelah fisik dan mental.",
+    question: "Tindakanmu?",
+    options: [
+      { id: 'A', text: "Kerjakan semua sendiri sambil ngomel.", consequence: "Rumah rapi, tapi kamu stress." },
+      { id: 'B', text: "Mogok kerja rumah sampai dia sadar.", consequence: "Rumah berantakan, jadi konflik." },
+      { id: 'C', text: "Buat jadwal piket tertulis.", consequence: "Terkesan kaku seperti asrama." }
+    ],
+    discussion: "Apakah tugas rumah itu kewajiban istri semata?"
+  },
+  {
+    id: 9,
+    title: "Gaya Parenting Anak",
+    genre: "Anak",
+    pov: "Suami",
+    story: "Anak kalian membuat kesalahan di sekolah. Istrimu ingin menghukumnya dengan tegas (potong uang jajan/sita HP). Kamu merasa anak perlu diajak bicara lembut saja, jangan dihukum.",
+    question: "Sikapmu di depan anak?",
+    options: [
+      { id: 'A', text: "Dukung istri di depan anak.", consequence: "Kompak, walau kamu tidak setuju." },
+      { id: 'B', text: "Debat istri di depan anak.", consequence: "Otoritas orang tua runtuh." },
+      { id: 'C', text: "Diam saja lalu hibur anak diam-diam.", consequence: "Anak bingung mana yang benar." }
+    ],
+    discussion: "Bolehkan berbeda pendapat parenting di depan anak?"
+  },
+  {
+    id: 10,
+    title: "Postingan Sosial Media",
+    genre: "Sosial Media",
+    pov: "Istri",
+    story: "Pasanganmu jarang sekali memposting fotomu di medsos-nya. Sementara dia sering posting soal hobi atau teman-temannya. Kamu merasa seperti disembunyikan.",
+    question: "Apa yang kamu lakukan?",
+    options: [
+      { id: 'A', text: "Tuntut dia posting fotomu.", consequence: "Terpaksa posting, bukan tulus." },
+      { id: 'B', text: "Balas tidak posting foto dia.", consequence: "Pembalasan kekanak-kanakan." },
+      { id: 'C', text: "Terima saja, privasi itu beda-beda.", consequence: "Dewasa, tapi hati kecil sedih." }
+    ],
+    discussion: "Seberapa penting 'Go Public' di medsos?"
+  }
 ];
 
 // --- Initialization Firebase (YOUR CONFIG) ---
 const firebaseConfig = {
-  apiKey: 'AIzaSyDRzjrhryX8Hpq8tmrCCDhlJQugbz2r7_0',
-  authDomain: 'testing-95321.firebaseapp.com',
-  projectId: 'testing-95321',
-  storageBucket: 'testing-95321.firebasestorage.app',
-  messagingSenderId: '457933264802',
-  appId: '1:457933264802:web:c7004083fd4a19336984fb',
-  measurementId: 'G-W503YYH8DT',
+  apiKey: "AIzaSyDRzjrhryX8Hpq8tmrCCDhlJQugbz2r7_0",
+  authDomain: "testing-95321.firebaseapp.com",
+  projectId: "testing-95321",
+  storageBucket: "testing-95321.firebasestorage.app",
+  messagingSenderId: "457933264802",
+  appId: "1:457933264802:web:c7004083fd4a19336984fb",
+  measurementId: "G-W503YYH8DT"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const analytics = getAnalytics(app); 
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -407,10 +223,10 @@ const App = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showResult, setShowResult] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [view, setView] = useState('home');
+  const [view, setView] = useState('home'); 
   const [isLoading, setIsLoading] = useState(false);
-  const [authError, setAuthError] = useState(null);
-
+  const [authError, setAuthError] = useState(null); 
+  
   // Multiplayer State
   const [user, setUser] = useState(null);
   const [roomId, setRoomId] = useState('');
@@ -420,32 +236,28 @@ const App = () => {
 
   useEffect(() => {
     const initAuth = async () => {
-      try {
-        await signInAnonymously(auth);
-      } catch (error) {
-        console.error('Auth Error:', error);
-        if (
-          error.code === 'auth/configuration-not-found' ||
-          error.code === 'auth/operation-not-allowed'
-        ) {
-          setAuthError('Fitur Login Anonim belum aktif di Firebase Console.');
-        } else {
-          setAuthError(`Gagal menghubungkan ke server: ${error.message}`);
+        try {
+           await signInAnonymously(auth);
+        } catch (error) {
+            console.error("Auth Error:", error);
+            if (error.code === 'auth/configuration-not-found' || error.code === 'auth/operation-not-allowed') {
+                setAuthError("Fitur Login Anonim belum aktif di Firebase Console.");
+            } else {
+                setAuthError(`Gagal menghubungkan ke server: ${error.message}`);
+            }
         }
-      }
     };
     initAuth();
     const unsubscribe = onAuthStateChanged(auth, (u) => {
       if (u) {
-        setUser(u);
-        setAuthError(null);
-        // Auto-check URL for room ID when auth is ready
-        const params = new URLSearchParams(window.location.search);
-        const urlRoomId = params.get('room');
-        if (urlRoomId) {
-          console.log('Auto joining room from URL:', urlRoomId);
-          joinRoom(urlRoomId, u); // Pass user directly to avoid closure issues
-        }
+          setUser(u);
+          setAuthError(null);
+          // Auto-check URL for room ID when auth is ready
+          const params = new URLSearchParams(window.location.search);
+          const urlRoomId = params.get('room');
+          if (urlRoomId) {
+              joinRoom(urlRoomId, u); 
+          }
       }
     });
     return () => unsubscribe();
@@ -455,182 +267,178 @@ const App = () => {
 
   const createRoom = async () => {
     if (!user) {
-      alert('Menunggu koneksi ke server...');
-      return;
+        alert("Menunggu koneksi ke server...");
+        return;
     }
-
+    
     setIsLoading(true);
-    setGameData(null);
+    setGameData(null); 
     try {
-      const newRoomId = Math.random()
-        .toString(36)
-        .substring(2, 8)
-        .toUpperCase();
-      const roomRef = doc(db, 'rooms', `room_${newRoomId}`);
+        const newRoomId = Math.random().toString(36).substring(2, 8).toUpperCase();
+        const roomRef = doc(db, 'rooms', `room_${newRoomId}`);
+        
+        await setDoc(roomRef, {
+          createdAt: new Date().toISOString(),
+          hostId: user.uid,
+          scenarioIndex: 0,
+          hostAnswer: null,
+          guestAnswer: null,
+          status: 'waiting_guest',
+          score: 0 // Initialize Score
+        });
 
-      await setDoc(roomRef, {
-        createdAt: new Date().toISOString(),
-        hostId: user.uid,
-        scenarioIndex: 0,
-        hostAnswer: null,
-        guestAnswer: null,
-        status: 'waiting_guest',
-      });
-
-      setRoomId(newRoomId);
-      setPlayerRole('host'); // Creator is Host (Suami)
-      subscribeToRoom(newRoomId);
-      setView('multiplayer-game');
+        setRoomId(newRoomId);
+        setPlayerRole('host'); 
+        subscribeToRoom(newRoomId);
+        setView('multiplayer-game'); 
     } catch (error) {
-      console.error('Error creating room:', error);
-      alert('Gagal membuat room. Pastikan koneksi internet lancar.');
+        console.error("Error creating room:", error);
+        alert("Gagal membuat room. Pastikan koneksi internet lancar.");
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
   };
 
   const joinRoom = async (inputRoomId, currentUser = user) => {
     if (!currentUser || !inputRoomId) return;
 
-    // Don't show loading if it's auto-join on background, but here we show it
     setIsLoading(true);
-    setGameData(null);
+    setGameData(null); 
     try {
-      const cleanId = inputRoomId.trim().toUpperCase();
-      const roomRef = doc(db, 'rooms', `room_${cleanId}`);
-      const snap = await getDoc(roomRef);
+        const cleanId = inputRoomId.trim().toUpperCase();
+        const roomRef = doc(db, 'rooms', `room_${cleanId}`);
+        const snap = await getDoc(roomRef);
 
-      if (snap.exists()) {
-        const data = snap.data();
+        if (snap.exists()) {
+          const data = snap.data();
+          
+          if (data.hostId !== currentUser.uid) {
+              await updateDoc(roomRef, {
+                status: 'playing',
+                guestId: currentUser.uid
+              });
+              setPlayerRole('guest'); 
+          } else {
+              setPlayerRole('host'); 
+          }
 
-        // Logic: If I am not the host, I must be the guest
-        // Even if I am "User A" locally, if the room Host ID is different, I am Guest.
-        if (data.hostId !== currentUser.uid) {
-          await updateDoc(roomRef, {
-            status: 'playing',
-            guestId: currentUser.uid,
-          });
-          setPlayerRole('guest'); // Guest is Istri
+          setRoomId(cleanId);
+          subscribeToRoom(cleanId);
+          setView('multiplayer-game');
         } else {
-          setPlayerRole('host'); // I am the host (re-joining my own room)
+          alert("Room tidak ditemukan / Link kadaluarsa.");
+          window.history.pushState({}, document.title, window.location.pathname);
         }
-
-        setRoomId(cleanId);
-        subscribeToRoom(cleanId);
-        setView('multiplayer-game');
-      } else {
-        alert('Room tidak ditemukan / Link kadaluarsa.');
-        // Clear URL param if failed
-        window.history.pushState({}, document.title, window.location.pathname);
-      }
     } catch (error) {
-      console.error('Error joining room:', error);
-      alert('Gagal bergabung ke room.');
+        console.error("Error joining room:", error);
+        alert("Gagal bergabung ke room.");
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
   };
 
   const subscribeToRoom = (id) => {
     if (unsubscribeRoomRef.current) unsubscribeRoomRef.current();
-
+    
     const roomRef = doc(db, 'rooms', `room_${id}`);
-    unsubscribeRoomRef.current = onSnapshot(
-      roomRef,
-      (doc) => {
-        if (doc.exists()) {
-          const data = doc.data();
-          setGameData(data);
-          setCurrentScenarioIndex(data.scenarioIndex);
-        } else {
-          if (view === 'multiplayer-game') {
-            alert('Room terputus.');
-            setView('multiplayer-lobby');
-          }
-        }
-      },
-      (error) => {
-        console.error('Snapshot error:', error);
-        alert('Gagal memuat data room.');
-        setView('multiplayer-lobby');
+    unsubscribeRoomRef.current = onSnapshot(roomRef, (doc) => {
+      if (doc.exists()) {
+        const data = doc.data();
+        setGameData(data);
+        setCurrentScenarioIndex(data.scenarioIndex);
+      } else {
+           if (view === 'multiplayer-game') {
+             alert("Room terputus.");
+             setView('multiplayer-lobby');
+           }
       }
-    );
+    }, (error) => {
+        console.error("Snapshot error:", error);
+        alert("Gagal memuat data room.");
+        setView('multiplayer-lobby');
+    });
   };
 
   const submitMultiplayerAnswer = async (option) => {
     if (!gameData || !roomId) return;
     try {
-      const roomRef = doc(db, 'rooms', `room_${roomId}`);
-      const updatePayload =
-        playerRole === 'host'
-          ? { hostAnswer: option.id }
-          : { guestAnswer: option.id };
-      await updateDoc(roomRef, updatePayload);
+        const roomRef = doc(db, 'rooms', `room_${roomId}`);
+        const updatePayload = playerRole === 'host' ? { hostAnswer: option.id } : { guestAnswer: option.id };
+        await updateDoc(roomRef, updatePayload);
     } catch (error) {
-      console.error('Error submitting answer:', error);
+        console.error("Error submitting answer:", error);
     }
   };
 
   const nextMultiplayerScenario = async () => {
     try {
-      const roomRef = doc(db, 'rooms', `room_${roomId}`);
-      const nextIndex = (gameData.scenarioIndex + 1) % SCENARIOS.length;
-      await updateDoc(roomRef, {
-        scenarioIndex: nextIndex,
-        hostAnswer: null,
-        guestAnswer: null,
-        status: 'playing',
-      });
+        const roomRef = doc(db, 'rooms', `room_${roomId}`);
+        const nextIndex = (gameData.scenarioIndex + 1);
+        
+        // Calculate Score Logic: If answers match, increment score
+        const currentScore = gameData.score || 0;
+        const isMatch = gameData.hostAnswer === gameData.guestAnswer;
+        const newScore = isMatch ? currentScore + 1 : currentScore;
+
+        await updateDoc(roomRef, {
+          scenarioIndex: nextIndex,
+          hostAnswer: null,
+          guestAnswer: null,
+          status: 'playing',
+          score: newScore
+        });
     } catch (error) {
-      console.error('Error next scenario:', error);
+        console.error("Error next scenario:", error);
     }
   };
 
-  const copyInviteLink = () => {
-    // Generate URL with query param
-    const url = `${window.location.origin}${window.location.pathname}?room=${roomId}`;
+  const resetGame = async () => {
+      try {
+        const roomRef = doc(db, 'rooms', `room_${roomId}`);
+        await updateDoc(roomRef, {
+            scenarioIndex: 0,
+            hostAnswer: null,
+            guestAnswer: null,
+            score: 0,
+            status: 'playing'
+        });
+      } catch (error) {
+          console.error("Error resetting game:", error);
+      }
+  };
 
+  const copyInviteLink = () => {
+    const url = `${window.location.origin}${window.location.pathname}?room=${roomId}`;
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard
-        .writeText(url)
-        .then(() => {
-          alert('Link undangan disalin! Kirim ke pasanganmu.');
-        })
-        .catch(() => fallbackCopy(url));
+        navigator.clipboard.writeText(url).then(() => {
+            alert("Link undangan disalin! Kirim ke pasanganmu.");
+        }).catch(() => fallbackCopy(url));
     } else {
-      fallbackCopy(url);
+        fallbackCopy(url);
     }
   };
 
   const fallbackCopy = (text) => {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.select();
-    try {
-      document.execCommand('copy');
-      alert('Link undangan disalin! Kirim ke pasanganmu.');
-    } catch (err) {
-      console.error('Fallback copy failed', err);
-    }
-    document.body.removeChild(textArea);
+     const textArea = document.createElement("textarea");
+     textArea.value = text;
+     document.body.appendChild(textArea);
+     textArea.select();
+     try {
+        document.execCommand('copy');
+        alert("Link undangan disalin! Kirim ke pasanganmu.");
+     } catch (err) {
+        console.error('Fallback copy failed', err);
+     }
+     document.body.removeChild(textArea);
   };
 
   // --- Render Functions ---
 
   const currentScenario = SCENARIOS[currentScenarioIndex];
   const bothAnswered = gameData && gameData.hostAnswer && gameData.guestAnswer;
-  const myAnswerId = gameData
-    ? playerRole === 'host'
-      ? gameData.hostAnswer
-      : gameData.guestAnswer
-    : null;
-  const partnerAnswerId = gameData
-    ? playerRole === 'host'
-      ? gameData.guestAnswer
-      : gameData.hostAnswer
-    : null;
-
+  const myAnswerId = gameData ? (playerRole === 'host' ? gameData.hostAnswer : gameData.guestAnswer) : null;
+  const partnerAnswerId = gameData ? (playerRole === 'host' ? gameData.guestAnswer : gameData.hostAnswer) : null;
+  
   const handleSinglePlayerSelect = (option) => {
     setSelectedOption(option);
     setShowResult(true);
@@ -640,58 +448,29 @@ const App = () => {
 
   const Navbar = () => (
     <nav className="bg-white shadow-sm px-6 py-4 flex justify-between items-center sticky top-0 z-50">
-      <div
-        className="flex items-center gap-2 cursor-pointer"
-        onClick={() => {
-          if (view.includes('multiplayer')) {
-            if (confirm('Keluar dari game online?')) {
-              setView('home');
-              setRoomId('');
+      <div className="flex items-center gap-2 cursor-pointer" onClick={() => {
+        if(view.includes('multiplayer')) {
+           if(confirm("Keluar dari game online?")) {
+              setView('home'); 
+              setRoomId(''); 
               setGameData(null);
-              // Clear URL param on exit
-              window.history.pushState(
-                {},
-                document.title,
-                window.location.pathname
-              );
-            }
-          } else {
-            setView('home');
-          }
-        }}
-      >
+              window.history.pushState({}, document.title, window.location.pathname);
+           }
+        } else {
+           setView('home');
+        }
+      }}>
         <div className="bg-rose-500 p-2 rounded-lg">
           <Heart className="w-5 h-5 text-white fill-current" />
         </div>
-        <span className="font-bold text-xl text-gray-800 tracking-tight">
-          Dilema<span className="text-rose-500">Asmara</span>
-        </span>
+        <span className="font-bold text-xl text-gray-800 tracking-tight">Dilema<span className="text-rose-500">Asmara</span></span>
       </div>
-      <button
-        className="md:hidden"
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-      >
-        {isSidebarOpen ? (
-          <X className="w-6 h-6" />
-        ) : (
-          <Menu className="w-6 h-6" />
-        )}
+      <button className="md:hidden" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+        {isSidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
       </button>
       <div className="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-        <button
-          onClick={() => setView('home')}
-          className="hover:text-rose-500 transition"
-        >
-          Home
-        </button>
-        <button
-          onClick={() => setView('multiplayer-lobby')}
-          className={`hover:text-rose-500 transition ${
-            view.includes('multiplayer') ? 'text-rose-600 font-bold' : ''
-          }`}
-        >
-          Mode Pasangan
-        </button>
+        <button onClick={() => setView('home')} className="hover:text-rose-500 transition">Home</button>
+        <button onClick={() => setView('multiplayer-lobby')} className={`hover:text-rose-500 transition ${view.includes('multiplayer') ? 'text-rose-600 font-bold' : ''}`}>Mode Pasangan</button>
       </div>
     </nav>
   );
@@ -704,237 +483,227 @@ const App = () => {
         <div className="bg-white p-8 rounded-2xl shadow-xl relative z-10 max-w-lg border border-rose-100">
           <Heart className="w-16 h-16 text-rose-500 mx-auto mb-6 fill-rose-100" />
           <h1 className="text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
-            Seberapa Kenal Kamu dengan{' '}
-            <span className="text-rose-500">Pasanganmu?</span>
+            Seberapa Kenal Kamu dengan <span className="text-rose-500">Pasanganmu?</span>
           </h1>
           <p className="text-gray-600 mb-8 text-lg">
-            Jawab dilema cinta yang sulit. Bagikan link ke pasanganmu untuk
-            melihat apakah jawaban kalian cocok.
+            Jawab dilema cinta yang sulit. Bagikan link ke pasanganmu untuk melihat apakah jawaban kalian cocok.
           </p>
           <div className="flex flex-col gap-3">
-            <button
-              onClick={() => setView('play')}
-              className="w-full bg-white border-2 border-rose-500 text-rose-600 font-bold py-4 px-8 rounded-xl shadow-sm hover:bg-rose-50 transition flex items-center justify-center gap-2"
+             <button 
+                onClick={() => setView('play')}
+                className="w-full bg-white border-2 border-rose-500 text-rose-600 font-bold py-4 px-8 rounded-xl shadow-sm hover:bg-rose-50 transition flex items-center justify-center gap-2"
             >
-              Main Sendiri (Simulasi) <ArrowRight className="w-5 h-5" />
+                Main Sendiri (Simulasi) <ArrowRight className="w-5 h-5" />
             </button>
-            <button
-              onClick={() => setView('multiplayer-lobby')}
-              className="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition transform hover:scale-105 flex items-center justify-center gap-2"
+            <button 
+                onClick={() => setView('multiplayer-lobby')}
+                className="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition transform hover:scale-105 flex items-center justify-center gap-2"
             >
-              <Users className="w-5 h-5" /> Mulai Game Pasangan
+                <Users className="w-5 h-5" /> Mulai Game Pasangan
             </button>
           </div>
-          <p className="mt-4 text-xs text-gray-400 uppercase tracking-wide">
-            Cocok untuk Deep Talk & LDR
-          </p>
+          <p className="mt-4 text-xs text-gray-400 uppercase tracking-wide">Cocok untuk Deep Talk & LDR</p>
         </div>
       </div>
     </div>
   );
 
   if (authError) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-red-50 p-4 font-sans text-center">
-        <div className="bg-white p-8 rounded-2xl shadow-xl border border-red-200 max-w-lg w-full">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
-            Konfigurasi Belum Selesai
-          </h2>
-          <p className="text-gray-600 mb-6">{authError}</p>
-          <a
-            href={`https://console.firebase.google.com/project/${firebaseConfig.projectId}/authentication/providers`}
-            target="_blank"
-            rel="noreferrer"
-            className="block w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-xl transition"
-          >
-            Buka Firebase Console
-          </a>
-        </div>
-      </div>
-    );
+      return (
+          <div className="min-h-screen flex flex-col items-center justify-center bg-red-50 p-4 font-sans text-center">
+              <div className="bg-white p-8 rounded-2xl shadow-xl border border-red-200 max-w-lg w-full">
+                  <h2 className="text-2xl font-bold text-gray-800 mb-2">Konfigurasi Belum Selesai</h2>
+                  <p className="text-gray-600 mb-6">{authError}</p>
+                  <a href={`https://console.firebase.google.com/project/${firebaseConfig.projectId}/authentication/providers`} target="_blank" rel="noreferrer" className="block w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-xl transition">Buka Firebase Console</a>
+              </div>
+          </div>
+      );
   }
 
   const MultiplayerLobby = () => {
     const [joinId, setJoinId] = useState('');
-
+    
     return (
-      <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-xl border border-rose-100 text-center">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">
-          Lobby Pasangan
-        </h2>
-        <div className="space-y-6">
-          <div className="p-8 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl shadow-lg text-white transform hover:scale-105 transition duration-300">
-            <h3 className="font-bold text-xl mb-2">Mulai Game Baru</h3>
-            <p className="text-rose-100 text-sm mb-4">
-              Buat room baru dan dapatkan Link Undangan untuk dikirim ke
-              pasanganmu.
-            </p>
-            <button
-              onClick={createRoom}
-              disabled={isLoading || !user}
-              className={`w-full py-3 rounded-lg font-bold shadow-md transition flex items-center justify-center gap-2
-                            ${
-                              isLoading || !user
-                                ? 'bg-rose-300 cursor-not-allowed'
-                                : 'bg-white text-rose-600 hover:bg-gray-100'
-                            }
+        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-2xl shadow-xl border border-rose-100 text-center">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Mode Pasangan</h2>
+            
+            <div className="space-y-6">
+                {/* Create Room Button - Primary Action */}
+                <div className="p-8 bg-gradient-to-br from-rose-500 to-pink-600 rounded-xl shadow-lg text-white transform hover:scale-105 transition duration-300">
+                    <h3 className="font-bold text-xl mb-2">Saya Orang Pertama</h3>
+                    <p className="text-rose-100 text-sm mb-4">Buat room baru & ajak pasangan (POV 1).</p>
+                    <button 
+                        onClick={createRoom} 
+                        disabled={isLoading || !user}
+                        className={`w-full py-3 rounded-lg font-extrabold shadow-md transition flex items-center justify-center gap-2
+                            ${isLoading || !user ? 'bg-rose-400 cursor-not-allowed' : 'bg-white text-rose-600 hover:bg-gray-100'}
                         `}
-            >
-              {isLoading ? (
-                <>
-                  <Loader className="w-5 h-5" /> Memproses...
-                </>
-              ) : (
-                'Buat Room & Bagikan Link'
-              )}
-            </button>
-          </div>
+                    >
+                        {isLoading ? <><Loader className="w-5 h-5 text-rose-600" /> Memproses...</> : 'Mulai Main (Host)'}
+                    </button>
+                </div>
 
-          <div className="relative flex py-2 items-center">
-            <div className="flex-grow border-t border-gray-200"></div>
-            <span className="flex-shrink-0 mx-4 text-gray-400 text-sm">
-              ATAU GABUNG MANUAL
-            </span>
-            <div className="flex-grow border-t border-gray-200"></div>
-          </div>
+                <div className="relative flex py-2 items-center">
+                    <div className="flex-grow border-t border-gray-200"></div>
+                    <span className="flex-shrink-0 mx-4 text-gray-400 text-sm">ATAU SAYA ORANG KEDUA</span>
+                    <div className="flex-grow border-t border-gray-200"></div>
+                </div>
 
-          <div className="p-6 bg-white rounded-xl border-2 border-dashed border-gray-300">
-            <input
-              type="text"
-              placeholder="Masukkan Kode Room (jika ada)"
-              value={joinId}
-              onChange={(e) => setJoinId(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg mb-4 text-center uppercase font-mono tracking-widest focus:ring-2 focus:ring-rose-500 outline-none"
-            />
-            <button
-              onClick={() => joinRoom(joinId)}
-              disabled={isLoading || !user || !joinId}
-              className={`w-full py-3 rounded-lg font-bold transition flex items-center justify-center gap-2
-                             ${
-                               isLoading || !user || !joinId
-                                 ? 'bg-gray-400 cursor-not-allowed text-white'
-                                 : 'bg-gray-800 hover:bg-black text-white'
-                             }
-                        `}
-            >
-              {isLoading ? (
-                <>
-                  <Loader className="w-5 h-5" /> Masuk Room...
-                </>
-              ) : (
-                'Gabung'
-              )}
-            </button>
-          </div>
+                {/* Join Manual - Secondary */}
+                <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+                    <p className="text-xs text-gray-500 mb-2">Punya kode room dari pasangan?</p>
+                    <div className="flex gap-2">
+                        <input 
+                            type="text" 
+                            placeholder="Kode Room"
+                            value={joinId}
+                            onChange={(e) => setJoinId(e.target.value)}
+                            className="w-full p-2 border border-gray-300 rounded-lg text-center uppercase font-mono text-sm focus:ring-2 focus:ring-rose-500 outline-none"
+                        />
+                        <button 
+                            onClick={() => joinRoom(joinId)} 
+                            disabled={isLoading || !user || !joinId}
+                            className="bg-gray-800 text-white px-4 rounded-lg font-bold hover:bg-black text-sm"
+                        >
+                            Masuk
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     );
   };
 
-  const MultiplayerGameScreen = () => {
-    if (!gameData)
+  const ResultScreen = ({ score, total }) => {
+      const percentage = Math.round((score / total) * 100);
+      let title = "";
+      let message = "";
+      let colorClass = "";
+
+      if (percentage >= 80) {
+          title = "Sangat Cocok! 💖";
+          message = "Kalian memiliki visi dan nilai yang sangat selaras. Pertahankan komunikasi ini!";
+          colorClass = "text-rose-600";
+      } else if (percentage >= 50) {
+          title = "Cukup Cocok 👍";
+          message = "Ada beberapa perbedaan pandangan, tapi itu wajar. Jadikan topik diskusi untuk saling memahami.";
+          colorClass = "text-yellow-600";
+      } else {
+          title = "Perlu Banyak Diskusi ⚠️";
+          message = "Banyak pandangan yang berseberangan. Jangan khawatir, ini kesempatan bagus untuk deep talk serius.";
+          colorClass = "text-orange-600";
+      }
+
       return (
-        <div className="text-center mt-20 flex flex-col items-center gap-4 animate-fade-in">
-          <Loader className="w-10 h-10 text-rose-500" />
-          <span className="text-gray-600 font-medium">
-            Sedang memuat data permainan...
-          </span>
-          <button
-            onClick={() => setView('multiplayer-lobby')}
-            className="text-sm text-gray-400 underline hover:text-gray-600 transition"
-          >
-            Batal / Kembali ke Lobi
-          </button>
-        </div>
+          <div className="max-w-md mx-auto mt-10 p-8 bg-white rounded-2xl shadow-xl text-center space-y-6 animate-fade-in border-4 border-rose-100">
+              <div className="flex justify-center">
+                  <Trophy className={`w-20 h-20 ${colorClass}`} />
+              </div>
+              <div>
+                  <h2 className="text-3xl font-extrabold text-gray-800 mb-2">Hasil Kecocokan</h2>
+                  <div className="text-6xl font-black text-gray-900 my-4">
+                      {percentage}<span className="text-2xl text-gray-400">%</span>
+                  </div>
+                  <h3 className={`text-xl font-bold ${colorClass} mb-2`}>{title}</h3>
+                  <p className="text-gray-600">{message}</p>
+              </div>
+              
+              <div className="bg-gray-100 p-4 rounded-xl flex justify-between items-center">
+                  <span className="text-sm font-medium text-gray-500">Skor Kesamaan</span>
+                  <span className="text-lg font-bold text-gray-800">{score} / {total} Soal</span>
+              </div>
+
+              <button 
+                  onClick={resetGame}
+                  className="w-full bg-gray-900 hover:bg-black text-white py-3 px-6 rounded-xl font-bold transition flex items-center justify-center gap-2"
+              >
+                  <RefreshCw className="w-4 h-4" />
+                  Main Ulang Dari Awal
+              </button>
+          </div>
       );
+  };
+
+  const MultiplayerGameScreen = () => {
+    if (!gameData) return (
+        <div className="text-center mt-20 flex flex-col items-center gap-4 animate-fade-in">
+            <Loader className="w-10 h-10 text-rose-500" />
+            <span className="text-gray-600 font-medium">Sedang memuat data permainan...</span>
+            <button 
+                onClick={() => setView('multiplayer-lobby')} 
+                className="text-sm text-gray-400 underline hover:text-gray-600 transition"
+            >
+                Batal / Kembali ke Lobi
+            </button>
+        </div>
+    );
 
     const isWaitingGuest = gameData.status === 'waiting_guest';
+    const isHost = playerRole === 'host';
+    const myRoleLabel = isHost ? "Pihak Cowok / Suami 👨" : "Pihak Cewek / Istri 👩";
+    const partnerRoleLabel = isHost ? "Pihak Cewek / Istri 👩" : "Pihak Cowok / Suami 👨";
 
     if (isWaitingGuest) {
-      return (
-        <div className="max-w-md mx-auto mt-10 p-8 bg-white rounded-2xl shadow-xl text-center space-y-6 animate-fade-in">
-          <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto animate-pulse">
-            <LinkIcon className="w-8 h-8 text-rose-600" />
-          </div>
-          <h2 className="text-2xl font-bold text-gray-800">
-            Undang Pasanganmu
-          </h2>
-          <p className="text-gray-600 mb-4">
-            Salin link di bawah dan kirim via WhatsApp/Line.
-          </p>
+        return (
+            <div className="max-w-md mx-auto mt-10 p-8 bg-white rounded-2xl shadow-xl text-center space-y-6 animate-fade-in">
+                <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto animate-pulse">
+                    <LinkIcon className="w-8 h-8 text-rose-600" />
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800">Undang Pasanganmu</h2>
+                <p className="text-gray-600 mb-4">Salin link di bawah dan kirim via WhatsApp/Line.</p>
+                
+                <div className="bg-gray-100 p-4 rounded-xl flex items-center justify-between border border-gray-200 mb-4">
+                    <span className="text-sm text-gray-500 font-mono truncate mr-2">
+                        {window.location.origin}{window.location.pathname}?room={roomId}
+                    </span>
+                </div>
 
-          <div className="bg-gray-100 p-4 rounded-xl flex items-center justify-between border border-gray-200 mb-4">
-            <span className="text-sm text-gray-500 font-mono truncate mr-2">
-              {window.location.origin}
-              {window.location.pathname}?room={roomId}
-            </span>
-          </div>
-
-          <button
-            onClick={copyInviteLink}
-            className="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 px-6 rounded-xl transition flex items-center justify-center gap-2 shadow-lg"
-          >
-            <Copy className="w-5 h-5" /> Salin Link Undangan
-          </button>
-
-          <div className="mt-6 pt-4 border-t border-gray-100">
-            <p className="text-xs text-gray-400 mb-2">
-              Atau gunakan kode manual:
-            </p>
-            <span className="font-mono font-bold text-lg text-gray-700 tracking-widest">
-              {roomId}
-            </span>
-          </div>
-        </div>
-      );
+                <button onClick={copyInviteLink} className="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 px-6 rounded-xl transition flex items-center justify-center gap-2 shadow-lg">
+                    <Copy className="w-5 h-5" /> Salin Link Undangan
+                </button>
+                
+                <div className="mt-6 pt-4 border-t border-gray-100">
+                    <p className="text-xs text-gray-400 mb-2">Atau gunakan kode manual:</p>
+                    <span className="font-mono font-bold text-lg text-gray-700 tracking-widest">{roomId}</span>
+                </div>
+            </div>
+        );
     }
 
-    // Role Labels Logic
-    const isHost = playerRole === 'host';
-    const myRoleLabel = isHost
-      ? 'Pihak Cowok / Suami 👨'
-      : 'Pihak Cewek / Istri 👩';
-    const partnerRoleLabel = isHost
-      ? 'Pihak Cewek / Istri 👩'
-      : 'Pihak Cowok / Suami 👨';
+    // CHECK IF GAME IS FINISHED
+    if (gameData.scenarioIndex >= SCENARIOS.length) {
+        return <ResultScreen score={gameData.score || 0} total={SCENARIOS.length} />;
+    }
 
     // --- GAMEPLAY MULTIPLAYER ---
     return (
       <div className="max-w-2xl mx-auto px-4 py-8 pb-24">
         {/* Header Status with Role Identity */}
         <div className="mb-6 bg-white p-4 rounded-xl shadow-sm border border-gray-100 space-y-3">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-              <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">
-                Live Room
-              </span>
+            <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                    <div className={`w-2 h-2 rounded-full ${isWaitingGuest ? 'bg-orange-500 animate-ping' : 'bg-green-500'} `}></div>
+                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">
+                        {isWaitingGuest ? 'Menunggu Pasangan...' : 'Tersambung'}
+                    </span>
+                </div>
+                <div className="text-xs font-bold text-rose-500 bg-rose-50 px-2 py-1 rounded">
+                    Pertanyaan {currentScenarioIndex + 1} dari {SCENARIOS.length}
+                </div>
             </div>
-            <div className="text-xs text-gray-400 font-mono">ID: {roomId}</div>
-          </div>
-
-          {/* Player Identity Badge */}
-          <div className="flex items-center justify-between bg-gray-50 p-3 rounded-lg border border-gray-200">
-            <div className="flex items-center gap-2">
-              <UserCircle
-                className={`w-5 h-5 ${
-                  isHost ? 'text-blue-500' : 'text-rose-500'
-                }`}
-              />
-              <div className="flex flex-col">
-                <span className="text-[10px] uppercase text-gray-400 font-bold">
-                  Kamu Bermain Sebagai
-                </span>
-                <span
-                  className={`text-sm font-bold ${
-                    isHost ? 'text-blue-700' : 'text-rose-700'
-                  }`}
-                >
-                  {myRoleLabel}
-                </span>
-              </div>
+            
+            {/* Player Identity Badge */}
+            <div className="flex items-center justify-between bg-gray-50 p-3 rounded-lg border border-gray-200">
+                <div className="flex items-center gap-2">
+                    <UserCircle className={`w-5 h-5 ${isHost ? 'text-blue-500' : 'text-rose-500'}`} />
+                    <div className="flex flex-col">
+                        <span className="text-[10px] uppercase text-gray-400 font-bold">Kamu Bermain Sebagai</span>
+                        <span className={`text-sm font-bold ${isHost ? 'text-blue-700' : 'text-rose-700'}`}>
+                            {myRoleLabel}
+                        </span>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
 
         {/* Story Card */}
@@ -944,20 +713,14 @@ const App = () => {
               <span className="inline-block px-3 py-1 bg-white text-rose-600 text-xs font-bold rounded-full mb-2 border border-rose-100 uppercase tracking-wider">
                 {currentScenario.genre}
               </span>
-              <h2 className="text-2xl font-bold text-gray-800">
-                {currentScenario.title}
-              </h2>
+              <h2 className="text-2xl font-bold text-gray-800">{currentScenario.title}</h2>
             </div>
             <div className="text-right">
-              <span className="block text-xs text-gray-500 uppercase">
-                POV Cerita
-              </span>
-              <span className="font-bold text-gray-700">
-                {currentScenario.pov}
-              </span>
+              <span className="block text-xs text-gray-500 uppercase">POV Cerita</span>
+              <span className="font-bold text-gray-700">{currentScenario.pov}</span>
             </div>
           </div>
-
+          
           <div className="p-8">
             <div className="flex gap-4 mb-6">
               <BookOpen className="w-6 h-6 text-gray-400 flex-shrink-0 mt-1" />
@@ -969,204 +732,104 @@ const App = () => {
             <div className="flex items-center gap-3 mb-6 bg-yellow-50 p-4 rounded-lg border border-yellow-100">
               <AlertCircle className="w-5 h-5 text-yellow-600" />
               <div>
-                <p className="font-semibold text-gray-800">
-                  {currentScenario.question}
-                </p>
-                {/* Contextual Hint based on Role vs POV */}
-                {(currentScenario.pov.includes('Suami') ||
-                  currentScenario.pov.includes('Cowok')) &&
-                  !isHost && (
-                    <p className="text-xs text-rose-600 mt-1 italic">
-                      (Ini sudut pandang pasanganmu. Jika kamu jadi dia, apa
-                      yang kamu harap dia lakukan?)
-                    </p>
+                  <p className="font-semibold text-gray-800">{currentScenario.question}</p>
+                  {/* Contextual Hint based on Role vs POV */}
+                  {((currentScenario.pov.includes("Suami") || currentScenario.pov.includes("Cowok")) && !isHost) && (
+                      <p className="text-xs text-rose-600 mt-1 italic">(Ini sudut pandang pasanganmu. Jika kamu jadi dia, apa yang kamu harap dia lakukan?)</p>
                   )}
-                {(currentScenario.pov.includes('Istri') ||
-                  currentScenario.pov.includes('Cewek')) &&
-                  isHost && (
-                    <p className="text-xs text-blue-600 mt-1 italic">
-                      (Ini sudut pandang pasanganmu. Jika kamu jadi dia, apa
-                      yang kamu harap dia lakukan?)
-                    </p>
+                  {((currentScenario.pov.includes("Istri") || currentScenario.pov.includes("Cewek")) && isHost) && (
+                      <p className="text-xs text-blue-600 mt-1 italic">(Ini sudut pandang pasanganmu. Jika kamu jadi dia, apa yang kamu harap dia lakukan?)</p>
                   )}
               </div>
             </div>
 
             {/* Answer Options Section */}
             {!bothAnswered ? (
-              <div className="space-y-4">
-                {/* Status Indicator */}
-                <div className="flex items-center justify-between text-sm mb-4 px-2">
-                  <span
-                    className={`${
-                      myAnswerId ? 'text-green-600 font-bold' : 'text-gray-500'
-                    }`}
-                  >
-                    {myAnswerId
-                      ? '✓ Kamu sudah memilih'
-                      : '• Giliranmu memilih'}
-                  </span>
-                  <span
-                    className={`${
-                      partnerAnswerId
-                        ? 'text-green-600 font-bold'
-                        : 'text-rose-500 animate-pulse'
-                    }`}
-                  >
-                    {partnerAnswerId
-                      ? '✓ Pasangan sudah memilih'
-                      : '• Menunggu pasangan...'}
-                  </span>
-                </div>
-
-                {currentScenario.options.map((option) => {
-                  const isSelected = myAnswerId === option.id;
-                  return (
-                    <button
-                      key={option.id}
-                      disabled={!!myAnswerId} // Disable if already answered
-                      onClick={() => submitMultiplayerAnswer(option)}
-                      className={`w-full text-left p-5 rounded-xl border-2 transition-all duration-200 group relative
-                                    ${
-                                      isSelected
-                                        ? 'border-rose-500 bg-rose-50'
-                                        : 'border-gray-100 hover:border-rose-300 hover:bg-gray-50'
-                                    } ${
-                        !!myAnswerId && !isSelected
-                          ? 'opacity-50 cursor-not-allowed'
-                          : ''
-                      }
-                                `}
-                    >
-                      <span
-                        className={`font-bold mr-3 ${
-                          isSelected ? 'text-rose-600' : 'text-gray-400'
-                        }`}
-                      >
-                        {option.id}.
-                      </span>
-                      <span className="text-gray-700 font-medium">
-                        {option.text}
-                      </span>
-                      {isSelected && (
-                        <span className="absolute right-4 top-5 text-rose-500 font-bold text-sm">
-                          Pilihanmu
+                <div className="space-y-4">
+                    {/* Status Indicator */}
+                    <div className="flex items-center justify-between text-sm mb-4 px-2">
+                        <span className={`${myAnswerId ? 'text-green-600 font-bold' : 'text-gray-500'}`}>
+                            {myAnswerId ? "✓ Kamu sudah memilih" : "• Giliranmu memilih"}
                         </span>
-                      )}
-                    </button>
-                  );
-                })}
+                        <span className={`${partnerAnswerId ? 'text-green-600 font-bold' : 'text-rose-500 animate-pulse'}`}>
+                            {partnerAnswerId ? "✓ Pasangan sudah memilih" : (isWaitingGuest ? "• Menunggu pasangan join..." : "• Menunggu pasangan memilih...")}
+                        </span>
+                    </div>
 
-                {myAnswerId && !partnerAnswerId && (
-                  <div className="text-center p-4 bg-gray-50 rounded-lg text-gray-500 italic animate-pulse">
-                    Menunggu pasangan memilih jawabannya...
-                  </div>
-                )}
-              </div>
+                    {currentScenario.options.map((option) => {
+                        const isSelected = myAnswerId === option.id;
+                        return (
+                            <button
+                                key={option.id}
+                                disabled={!!myAnswerId} // Disable if already answered
+                                onClick={() => submitMultiplayerAnswer(option)}
+                                className={`w-full text-left p-5 rounded-xl border-2 transition-all duration-200 group relative
+                                    ${isSelected 
+                                        ? 'border-rose-500 bg-rose-50' 
+                                        : 'border-gray-100 hover:border-rose-300 hover:bg-gray-50'
+                                    } ${!!myAnswerId && !isSelected ? 'opacity-50 cursor-not-allowed' : ''}
+                                `}
+                            >
+                                <span className={`font-bold mr-3 ${isSelected ? 'text-rose-600' : 'text-gray-400'}`}>{option.id}.</span>
+                                <span className="text-gray-700 font-medium">{option.text}</span>
+                                {isSelected && <span className="absolute right-4 top-5 text-rose-500 font-bold text-sm">Pilihanmu</span>}
+                            </button>
+                        );
+                    })}
+                </div>
             ) : (
-              // REVEAL PHASE
-              <div className="animate-fade-in space-y-6">
-                <div className="text-center py-2 bg-green-100 text-green-800 rounded-lg font-bold mb-4">
-                  Hasil Terungkap! 🎉
-                </div>
+                // REVEAL PHASE
+                <div className="animate-fade-in space-y-6">
+                    <div className="text-center py-2 bg-green-100 text-green-800 rounded-lg font-bold mb-4">
+                        Hasil Terungkap! 🎉
+                    </div>
 
-                {/* Comparison UI */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* My Answer */}
-                  <div
-                    className={`border-2 p-4 rounded-xl ${
-                      isHost
-                        ? 'border-blue-200 bg-blue-50'
-                        : 'border-rose-200 bg-rose-50'
-                    }`}
-                  >
-                    <div
-                      className={`text-xs uppercase font-bold mb-1 ${
-                        isHost ? 'text-blue-500' : 'text-rose-500'
-                      }`}
+                    {/* Comparison UI */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* My Answer */}
+                        <div className={`border-2 p-4 rounded-xl ${isHost ? 'border-blue-200 bg-blue-50' : 'border-rose-200 bg-rose-50'}`}>
+                            <div className={`text-xs uppercase font-bold mb-1 ${isHost ? 'text-blue-500' : 'text-rose-500'}`}>
+                                Jawabanmu ({myRoleLabel})
+                            </div>
+                            <div className="text-xl font-bold text-gray-800 mb-2">Opsi {myAnswerId}</div>
+                            <div className="text-sm text-gray-600">{currentScenario.options.find(o => o.id === myAnswerId)?.text}</div>
+                        </div>
+                        {/* Partner Answer */}
+                        <div className={`border-2 p-4 rounded-xl ${!isHost ? 'border-blue-200 bg-blue-50' : 'border-rose-200 bg-rose-50'}`}>
+                            <div className={`text-xs uppercase font-bold mb-1 ${!isHost ? 'text-blue-500' : 'text-rose-500'}`}>
+                                Jawaban Pasangan ({partnerRoleLabel})
+                            </div>
+                            <div className="text-xl font-bold text-gray-800 mb-2">Opsi {partnerAnswerId}</div>
+                            <div className="text-sm text-gray-600">{currentScenario.options.find(o => o.id === partnerAnswerId)?.text}</div>
+                        </div>
+                    </div>
+                    
+                    {myAnswerId === partnerAnswerId ? (
+                        <div className="text-center text-green-600 font-bold">✨ Kalian Kompak! Jawaban Sama (+1 Skor) ✨</div>
+                    ) : (
+                        <div className="text-center text-orange-500 font-bold">🔥 Jawaban Berbeda! Waktunya Diskusi 🔥</div>
+                    )}
+
+                    {/* Discussion Prompt */}
+                    <div className="bg-white p-6 rounded-xl border-l-4 border-indigo-500 shadow-sm">
+                        <div className="flex items-start gap-3">
+                        <MessageCircle className="w-6 h-6 text-indigo-600 mt-1" />
+                        <div>
+                            <h3 className="font-bold text-indigo-900 mb-1">Topik Deep Talk</h3>
+                            <p className="text-indigo-800 text-lg font-medium">"{currentScenario.options.find(o => o.id === myAnswerId)?.discussion || currentScenario.discussion}"</p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <button 
+                        onClick={nextMultiplayerScenario}
+                        className="w-full bg-gray-900 hover:bg-black text-white py-4 px-6 rounded-xl font-bold transition flex items-center justify-center gap-2"
                     >
-                      Jawabanmu ({myRoleLabel})
-                    </div>
-                    <div className="text-xl font-bold text-gray-800 mb-2">
-                      Opsi {myAnswerId}
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      {
-                        currentScenario.options.find((o) => o.id === myAnswerId)
-                          ?.text
-                      }
-                    </div>
-                  </div>
-                  {/* Partner Answer */}
-                  <div
-                    className={`border-2 p-4 rounded-xl ${
-                      !isHost
-                        ? 'border-blue-200 bg-blue-50'
-                        : 'border-rose-200 bg-rose-50'
-                    }`}
-                  >
-                    <div
-                      className={`text-xs uppercase font-bold mb-1 ${
-                        !isHost ? 'text-blue-500' : 'text-rose-500'
-                      }`}
-                    >
-                      Jawaban Pasangan ({partnerRoleLabel})
-                    </div>
-                    <div className="text-xl font-bold text-gray-800 mb-2">
-                      Opsi {partnerAnswerId}
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      {
-                        currentScenario.options.find(
-                          (o) => o.id === partnerAnswerId
-                        )?.text
-                      }
-                    </div>
-                  </div>
+                        <RefreshCw className="w-4 h-4" />
+                        {currentScenarioIndex < SCENARIOS.length - 1 ? "Skenario Berikutnya" : "Lihat Hasil Akhir"}
+                    </button>
+                    <p className="text-center text-xs text-gray-400">Jika kamu klik lanjut, layar pasangan juga akan ikut lanjut.</p>
                 </div>
-
-                {myAnswerId === partnerAnswerId ? (
-                  <div className="text-center text-green-600 font-bold">
-                    ✨ Kalian Kompak! Jawaban Sama ✨
-                  </div>
-                ) : (
-                  <div className="text-center text-orange-500 font-bold">
-                    🔥 Jawaban Berbeda! Waktunya Diskusi 🔥
-                  </div>
-                )}
-
-                {/* Discussion Prompt */}
-                <div className="bg-white p-6 rounded-xl border-l-4 border-indigo-500 shadow-sm">
-                  <div className="flex items-start gap-3">
-                    <MessageCircle className="w-6 h-6 text-indigo-600 mt-1" />
-                    <div>
-                      <h3 className="font-bold text-indigo-900 mb-1">
-                        Topik Deep Talk
-                      </h3>
-                      <p className="text-indigo-800 text-lg font-medium">
-                        "
-                        {
-                          currentScenario.options.find(
-                            (o) => o.id === myAnswerId
-                          )?.discussion
-                        }
-                        "
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  onClick={nextMultiplayerScenario}
-                  className="w-full bg-gray-900 hover:bg-black text-white py-4 px-6 rounded-xl font-bold transition flex items-center justify-center gap-2"
-                >
-                  <RefreshCw className="w-4 h-4" />
-                  Lanjut Skenario Berikutnya
-                </button>
-                <p className="text-center text-xs text-gray-400">
-                  Jika kamu klik lanjut, layar pasangan juga akan ikut lanjut.
-                </p>
-              </div>
             )}
           </div>
         </div>
@@ -1178,11 +841,9 @@ const App = () => {
     <div className="max-w-2xl mx-auto px-4 py-8 pb-24">
       {/* Progress Bar */}
       <div className="w-full bg-gray-200 rounded-full h-2 mb-8">
-        <div
-          className="bg-rose-500 h-2 rounded-full transition-all duration-500"
-          style={{
-            width: `${((currentScenarioIndex + 1) / SCENARIOS.length) * 100}%`,
-          }}
+        <div 
+          className="bg-rose-500 h-2 rounded-full transition-all duration-500" 
+          style={{ width: `${((currentScenarioIndex + 1) / SCENARIOS.length) * 100}%` }}
         ></div>
       </div>
 
@@ -1193,18 +854,14 @@ const App = () => {
             <span className="inline-block px-3 py-1 bg-white text-rose-600 text-xs font-bold rounded-full mb-2 border border-rose-100 uppercase tracking-wider">
               {currentScenario.genre}
             </span>
-            <h2 className="text-2xl font-bold text-gray-800">
-              {currentScenario.title}
-            </h2>
+            <h2 className="text-2xl font-bold text-gray-800">{currentScenario.title}</h2>
           </div>
           <div className="text-right">
             <span className="block text-xs text-gray-500 uppercase">POV</span>
-            <span className="font-bold text-gray-700">
-              {currentScenario.pov}
-            </span>
+            <span className="font-bold text-gray-700">{currentScenario.pov}</span>
           </div>
         </div>
-
+        
         <div className="p-8">
           <div className="flex gap-4 mb-6">
             <BookOpen className="w-6 h-6 text-gray-400 flex-shrink-0 mt-1" />
@@ -1215,9 +872,7 @@ const App = () => {
 
           <div className="flex items-center gap-3 mb-6 bg-yellow-50 p-4 rounded-lg border border-yellow-100">
             <AlertCircle className="w-5 h-5 text-yellow-600" />
-            <p className="font-semibold text-gray-800">
-              {currentScenario.question}
-            </p>
+            <p className="font-semibold text-gray-800">{currentScenario.question}</p>
           </div>
 
           {!showResult ? (
@@ -1228,12 +883,8 @@ const App = () => {
                   onClick={() => handleSinglePlayerSelect(option)}
                   className="w-full text-left p-5 rounded-xl border-2 border-gray-100 hover:border-rose-300 hover:bg-rose-50 transition-all duration-200 group relative"
                 >
-                  <span className="font-bold text-gray-400 mr-3 group-hover:text-rose-500">
-                    {option.id}.
-                  </span>
-                  <span className="text-gray-700 font-medium">
-                    {option.text}
-                  </span>
+                  <span className="font-bold text-gray-400 mr-3 group-hover:text-rose-500">{option.id}.</span>
+                  <span className="text-gray-700 font-medium">{option.text}</span>
                 </button>
               ))}
             </div>
@@ -1243,9 +894,7 @@ const App = () => {
               <div className="bg-rose-50 p-6 rounded-xl border border-rose-100">
                 <div className="flex items-center gap-2 mb-2">
                   <CheckCircle2 className="w-5 h-5 text-rose-600" />
-                  <span className="font-bold text-rose-700">
-                    Kamu memilih opsi {selectedOption.id}
-                  </span>
+                  <span className="font-bold text-rose-700">Kamu memilih opsi {selectedOption.id}</span>
                 </div>
                 <p className="text-gray-700 mb-4">{selectedOption.text}</p>
                 <div className="text-sm bg-white/50 p-3 rounded-lg text-gray-600 italic">
@@ -1258,28 +907,20 @@ const App = () => {
                 <div className="flex items-start gap-3">
                   <MessageCircle className="w-6 h-6 text-indigo-600 mt-1" />
                   <div>
-                    <h3 className="font-bold text-indigo-900 mb-1">
-                      Topik Deep Talk
-                    </h3>
-                    <p className="text-indigo-800 text-lg font-medium">
-                      "{selectedOption.discussion}"
-                    </p>
-                    <p className="text-sm text-indigo-400 mt-2">
-                      Tanyakan ini ke pasanganmu sekarang.
-                    </p>
+                    <h3 className="font-bold text-indigo-900 mb-1">Topik Deep Talk</h3>
+                    <p className="text-indigo-800 text-lg font-medium">"{selectedOption.discussion || currentScenario.discussion}"</p>
+                    <p className="text-sm text-indigo-400 mt-2">Tanyakan ini ke pasanganmu sekarang.</p>
                   </div>
                 </div>
               </div>
 
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                <button
+                 <button 
                   onClick={() => {
-                    setSelectedOption(null);
-                    setShowResult(false);
-                    setCurrentScenarioIndex(
-                      (prev) => (prev + 1) % SCENARIOS.length
-                    );
+                      setSelectedOption(null);
+                      setShowResult(false);
+                      setCurrentScenarioIndex((prev) => (prev + 1) % SCENARIOS.length);
                   }}
                   className="flex-1 bg-gray-900 hover:bg-black text-white py-3 px-6 rounded-xl font-bold transition flex items-center justify-center gap-2"
                 >
@@ -1301,7 +942,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gray-50 font-sans selection:bg-rose-200">
       <Navbar />
-
+      
       <main className="container mx-auto">
         {view === 'home' && <HomeScreen />}
         {view === 'play' && <SinglePlayerGameScreen />}
