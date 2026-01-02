@@ -66,332 +66,357 @@ const ArrowRight = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 );
 
-// --- 25 SCENARIOS LENGKAP ---
+// --- 25 SCENARIOS LENGKAP DENGAN CERITA REAL LIFE ---
 const SCENARIOS = [
   {
     id: 1,
     title: "Hapus Chat Mantan",
     genre: "Micro-Cheating",
     pov: "Suami",
-    story: "Mantanmu DM tengah malam: 'Aku kangen kita'. Kamu tidak membalas dengan flirting, tapi kamu langsung menghapus chat itu agar istrimu tidak membacanya dan salah paham. Istrimu tidak sengaja melihat backup cloud dan menemukan chat yang dihapus itu.",
+    story: "Tengah malam, HP-mu bergetar. Muncul notifikasi dari mantan: 'Aku kangen kita'. Panik karena istrimu tidur di sebelah, kamu langsung menghapus chat itu diam-diam tanpa membalas, takut jadi masalah besar. Apesnya, besoknya istrimu mengecek folder 'Sampah' di pesanmu dan menemukannya.",
     question: "Apa pembelaanmu?",
     options: [
       { id: 'A', text: "Itu demi menjaga perasaan istri.", consequence: "Niat baik, tapi terlihat seperti menyembunyikan bangkai." },
       { id: 'B', text: "Mengaku salah karena menghapus.", consequence: "Jujur, tapi istri akan sulit percaya isi chat lain." },
       { id: 'C', text: "Bilang 'Aku tidak ada apa-apa'.", consequence: "Defensif, membuat istri makin curiga." }
-    ]
+    ],
+    discussion: "Apakah menghapus chat demi 'kebaikan' adalah bentuk kebohongan atau perlindungan?"
   },
   {
     id: 2,
     title: "Kerja di Klub Malam",
     genre: "Karir vs Nilai",
     pov: "Istri",
-    story: "Kamu ditawari gaji 5x lipat, tapi pekerjaannya mengharuskan kamu menjamu klien di klub malam sampai jam 3 pagi. Suamimu sangat religius dan konservatif, dia sangat membenci lingkungan seperti itu.",
+    story: "Ekonomi keluarga sedang sulit. Tiba-tiba kamu ditawari pekerjaan sebagai Manager PR dengan gaji 50 Juta/bulan. Tapi, tugas utamamu adalah menemani klien VIP minum-minum di klub malam sampai subuh. Suamimu adalah guru ngaji yang sangat anti alkohol dan dunia malam.",
     question: "Keputusanmu?",
     options: [
       { id: 'A', text: "Ambil demi masa depan keluarga.", consequence: "Ekonomi melesat, tapi suami mungkin kehilangan respek." },
       { id: 'B', text: "Tolak demi kenyamanan suami.", consequence: "Keluarga harmonis, tapi menyesal melepas peluang emas." },
       { id: 'C', text: "Ambil diam-diam, bilang lembur.", consequence: "Kebohongan fatal yang bisa hancurkan pernikahan." }
-    ]
+    ],
+    discussion: "Mana yang lebih penting: Stabilitas ekonomi atau prinsip moral pasangan?"
   },
   {
     id: 3,
     title: "Dana Darurat Rahasia",
     genre: "Keuangan",
     pov: "Suami",
-    story: "Kamu dapat bonus besar 100 Juta. Alih-alih memasukkannya ke rekening bersama, kamu menyimpannya di rekening rahasia sebagai 'dana pelarian' jika suatu saat kalian bercerai. Istrimu menemukan buku tabungan itu.",
+    story: "Kamu baru saja cair bonus tahunan sebesar 100 Juta. Alih-alih memberitahu istri untuk masuk rekening bersama, kamu diam-diam membuka rekening baru atas namamu sendiri. Kamu berpikir, 'Ini peganganku kalau nanti kita cerai atau dia boros'. Istrimu tidak sengaja menemukan buku tabungan itu di laci mobil.",
     question: "Alasanmu?",
     options: [
       { id: 'A', text: "Itu hak pribadiku.", consequence: "Menegaskan batasan, tapi melukai kepercayaan 'satu harta'." },
       { id: 'B', text: "Jaga-jaga kalau kamu boros.", consequence: "Menyalahkan istri untuk menutupi ketidakpercayaan." },
       { id: 'C', text: "Minta maaf & transfer semua.", consequence: "Mengalah, kehilangan jaring pengaman pribadi." }
-    ]
+    ],
+    discussion: "Bolehkah pasangan menikah memiliki 'dana pelarian' rahasia?"
   },
   {
     id: 4,
     title: "Pelukan di Mobil",
     genre: "Rekan Kerja",
     pov: "Suami",
-    story: "Rekan kerja wanitamu ('work wife') sedang proses cerai dan menangis histeris di mobilmu saat makan siang. Kamu memeluknya untuk menenangkan. Istrimu melihat kejadian itu dari kejauhan.",
+    story: "Hujan deras. Rekan kerja wanitamu ('work wife') menangis histeris di dalam mobilmu karena baru saja ditalak suaminya. Naluri kemanusiaanmu muncul, kamu memeluknya erat untuk menenangkan. Tanpa sadar, istrimu sedang memarkir motor tepat di depan mobilmu dan melihat semuanya.",
     question: "Reaksimu?",
     options: [
       { id: 'A', text: "Itu murni kemanusiaan.", consequence: "Kamu merasa benar, istri merasa itu selingkuh fisik." },
       { id: 'B', text: "Mengaku salah tempat/waktu.", consequence: "Validasi perasaan istri, tapi rekan kerja butuh kamu." },
       { id: 'C', text: "Marah karena istri memata-matai.", consequence: "Mengalihkan isu, pertengkaran makin besar." }
-    ]
+    ],
+    discussion: "Di mana batas antara empati pada teman dan menjaga perasaan pasangan?"
   },
   {
     id: 5,
     title: "Panti Jompo untuk Ibu",
     genre: "Mertua",
     pov: "Suami",
-    story: "Ibumu mulai pikun dan butuh rawat 24 jam. Istrimu menolak ibu tinggal serumah karena mengganggu privasi dan mentalnya. Dia menyarankan panti jompo (nursing home) yang sangat bagus dan mahal.",
+    story: "Ibumu yang mulai pikun hari ini tidak sengaja hampir membakar dapur saat istrimu sedang mandi. Istrimu keluar kamar mandi sambil menangis histeris, 'Aku nggak sanggup lagi, Mas! Pilih aku atau Ibumu!'. Dia menyodorkan brosur Panti Jompo Eksklusif.",
     question: "Pilihanmu?",
     options: [
       { id: 'A', text: "Paksa ibu tinggal di rumah.", consequence: "Bakti anak tuntas, tapi istri stress berat/minta pisah." },
       { id: 'B', text: "Setuju panti jompo.", consequence: "Istri lega, kamu dihantui rasa bersalah 'membuang' ibu." },
       { id: 'C', text: "Sewa perawat, istri jangan urus.", consequence: "Biaya bengkak, suasana rumah tetap tidak nyaman." }
-    ]
+    ],
+    discussion: "Siapa prioritas utama: Orang tua kandung atau kenyamanan istri?"
   },
   {
     id: 6,
     title: "Jumlah Mantan",
     genre: "Masa Lalu",
     pov: "Istri",
-    story: "Dulu kalian sepakat tidak bahas masa lalu. Kini suami terobsesi bertanya 'berapa orang yang pernah tidur denganmu?'. Kamu dulu berbohong angkanya sedikit (2 orang), padahal aslinya jauh lebih banyak (10+).",
+    story: "Malam pertama honeymoon. Suasana romantis. Tiba-tiba suamimu bertanya dengan tatapan serius, 'Jujur sama aku, sebelum sama aku, kamu udah pernah tidur sama berapa cowok?'. Angka aslinya adalah 12 orang, tapi kamu takut dia ilfil jika tahu kebenarannya.",
     question: "Jawab apa?",
     options: [
       { id: 'A', text: "Pertahankan kebohongan (2).", consequence: "Suami tenang, tapi kamu hidup dalam kepalsuan." },
       { id: 'B', text: "Jujur angka asli (10+).", consequence: "Jujur, tapi suami mungkin jijik/insecure selamanya." },
       { id: 'C', text: "Tolak menjawab.", consequence: "Suami makin curiga ada yang disembunyikan." }
-    ]
+    ],
+    discussion: "Apakah masa lalu seksual pasangan perlu diketahui secara detail?"
   },
   {
     id: 7,
     title: "Barang Mewah Pribadi",
     genre: "Keuangan",
     pov: "Istri",
-    story: "Kamu beli tas branded 50 Juta pakai uang gajimu sendiri. Suamimu marah besar karena uang segitu bisa untuk melunasi KPR lebih cepat. Dia menuntut kamu menjualnya kembali.",
+    story: "Kamu bekerja keras siang malam dan akhirnya membeli tas impian seharga 50 Juta pakai uangmu sendiri. Saat kamu bawa pulang dengan bangga, suamimu melihat struknya dan meledak marah, 'Kita butuh lunasin KPR, kamu malah bakar uang?! Jual lagi sekarang!'.",
     question: "Keputusanmu?",
     options: [
       { id: 'A', text: "Jual tasnya demi damai.", consequence: "Menghargai suami, tapi merasa tidak punya otonomi." },
       { id: 'B', text: "Tolak, ini uangku!", consequence: "Puas secara materi, tapi suami merasa tidak didengar." },
       { id: 'C', text: "Sembunyikan harga aslinya.", consequence: "Manipulatif, masalah akan berulang nanti." }
-    ]
+    ],
+    discussion: "Seberapa besar hak kita atas uang gaji sendiri dalam pernikahan?"
   },
   {
     id: 8,
     title: "Pasangan Gendut",
     genre: "Fisik & Kejujuran",
     pov: "Suami",
-    story: "Setelah menikah, istrimu naik berat badan drastis dan tidak merawat diri. Kamu kehilangan gairah seksual padanya. Dia bertanya dengan sedih: 'Apa aku masih seksi di matamu?'.",
+    story: "Sejak melahirkan, berat badan istrimu naik 30kg. Dia memakai lingerie baru dan bertanya dengan mata berbinar, 'Papah, aku masih seksi nggak?'. Jujur dalam hatimu, gairahmu sudah mati total karena perubahan fisiknya, bahkan kamu sering menghindari seks.",
     question: "Jawabanmu?",
     options: [
       { id: 'A', text: "Bohong: 'Kamu selalu seksi'.", consequence: "Istri senang sesaat, tapi masalah ranjang berlanjut." },
       { id: 'B', text: "Jujur: 'Aku kurang tertarik'.", consequence: "Sangat menyakitkan, bisa hancurkan percaya dirinya." },
       { id: 'C', text: "Ajak diet bareng.", consequence: "Konstruktif, tapi istri mungkin tersinggung." }
-    ]
+    ],
+    discussion: "Bolehkah menuntut pasangan menjaga penampilan fisik?"
   },
   {
     id: 9,
     title: "Tes DNA Diam-diam",
     genre: "Kepercayaan",
     pov: "Suami",
-    story: "Anak kalian sama sekali tidak mirip denganmu. Teman-teman sering bercanda soal itu. Kamu percaya istrimu, tapi 'pikiran setan' itu ada. Kamu berencana tes DNA diam-diam tanpa sepengetahuan istri.",
+    story: "Tetangga mulai berbisik, 'Kok anakmu kulitnya putih banget padahal bapak ibunya sawo matang?'. Keraguan mulai meracuni pikiranmu. Saat istrimu pergi arisan, kamu diam-diam mengambil sampel rambut anakmu dan formulir tes DNA sudah ada di tanganmu.",
     question: "Lakukan?",
     options: [
       { id: 'A', text: "Ya, tes diam-diam.", consequence: "Hati tenang jika cocok. Jika ketahuan, istri minta cerai." },
       { id: 'B', text: "Tidak, buang keraguan itu.", consequence: "Memilih percaya buta, walau hati kadang ragu." },
       { id: 'C', text: "Bicara ke istri minta tes.", consequence: "Terbuka, tapi istri pasti sangat terhina." }
-    ]
+    ],
+    discussion: "Apakah keraguan tanpa bukti boleh divalidasi dengan tes DNA?"
   },
   {
     id: 10,
     title: "Balas Komen Genit",
     genre: "Sosial Media",
     pov: "Istri",
-    story: "Kamu posting foto selfie cantik. Gebetan lama komen emoji 'api' 🔥. Kamu me-like komen itu dan balas 'Makasih ya!'. Suamimu melihat dan menuduhmu menikmati perhatian pria lain (flirting).",
+    story: "Kamu posting foto OOTD cantik di Instagram. Gebetanmu zaman kuliah komen: 'Makin bening aja nih 😍'. Jarimu gatal, lalu kamu like dan balas: 'Haha bisa aja kamu 😉'. Suamimu notifikasi itu menyala di layar HP-mu yang tergeletak di meja makan.",
     question: "Responmu?",
     options: [
       { id: 'A', text: "Hapus komen & blokir pria itu.", consequence: "Suami puas, kamu merasa terkekang berlebihan." },
       { id: 'B', text: "Bilang suami 'Jangan lebay'.", consequence: "Mempertahankan hak bersosial, suami makin cemburu." },
       { id: 'C', text: "Janji tidak balas lagi.", consequence: "Kompromi, tapi suami tetap memantau ketat." }
-    ]
+    ],
+    discussion: "Di mana batas antara ramah di sosmed dan flirting?"
   },
   {
     id: 11,
     title: "Me Time Berlebihan",
     genre: "Kebebasan",
     pov: "Istri",
-    story: "Kamu merasa burnout mengurus rumah tangga dan anak. Kamu ingin 'Solo Traveling' selama 2 minggu ke Bali sendirian, meninggalkan suami dan anak. Suami keberatan karena kerepotan mengurus rumah sendiri.",
+    story: "Kamu merasa mau gila mengurus balita dan rumah tangga 24/7. Kamu nekat beli tiket ke Bali untuk 'Solo Traveling' selama 2 minggu. Kamu berencana meninggalkan anak dan rumah sepenuhnya ke suami yang juga sibuk kerja. 'Aku butuh waras, Mas!', teriakmu.",
     question: "Keputusanmu?",
     options: [
       { id: 'A', text: "Tetap pergi, aku butuh waras.", consequence: "Mental pulih, tapi suami dendam karena ditinggal repot." },
       { id: 'B', text: "Batal pergi, liburan keluarga saja.", consequence: "Burnout tidak sembuh maksimal, suami senang." },
       { id: 'C', text: "Pergi 3 hari saja.", consequence: "Kompromi, walau rasanya kurang cukup." }
-    ]
+    ],
+    discussion: "Bolehkah istri/ibu mengambil cuti panjang dari tugas rumah tangga?"
   },
   {
     id: 12,
     title: "Investasi Bodong",
     genre: "Keuangan",
     pov: "Suami",
-    story: "Kamu tergiur investasi crypto dan diam-diam memakai 50% uang tabungan pendidikan anak. Ternyata harganya anjlok dan uang itu hilang. Istri belum tahu dan berencana mengecek saldo minggu depan.",
+    story: "Tergiur janji profit 20%, kamu diam-diam mencairkan Deposito Pendidikan Anak sebesar 200 Juta untuk main Crypto. Hari ini market crash, uangmu sisa nol. Besok istrimu mengajak ke bank untuk bayar uang pangkal SD anak.",
     question: "Tindakanmu?",
     options: [
       { id: 'A', text: "Mengaku dosa sekarang.", consequence: "Perang dunia ketiga, tapi jujur di awal." },
       { id: 'B', text: "Pinjam uang (hutang) untuk ganti.", consequence: "Gali lubang tutup lubang, bom waktu lebih besar." },
       { id: 'C', text: "Edit buku tabungan (palsu).", consequence: "Kriminal dan manipulatif, fatal jika ketahuan." }
-    ]
+    ],
+    discussion: "Bagaimana cara memaafkan kesalahan finansial yang fatal?"
   },
   {
     id: 13,
     title: "Body Shaming 'Bercanda'",
     genre: "Harga Diri",
     pov: "Istri",
-    story: "Di depan teman-teman arisan, suamimu sering menjadikan bentuk tubuhmu lelucon ('Istriku ini dietnya wacana doang, liat tuh lipatannya'). Semua tertawa, kamu malu. Saat ditegur, dia bilang 'Cuma bercanda, baper amat'.",
+    story: "Di acara reuni keluarga besar, suamimu berteriak sambil tertawa, 'Istriku ini makannya kayak kuli, makanya badannya kayak gentong air!'. Semua orang tertawa. Kamu merasa mukamu panas dan harga dirimu hancur lebur di depan sepupu-sepupumu.",
     question: "Reaksimu?",
     options: [
       { id: 'A', text: "Marah besar di depan umum.", consequence: "Suami malu, tapi dia sadar batasnya." },
       { id: 'B', text: "Diam saja, nangis di rumah.", consequence: "Harga diri hancur, suami merasa itu wajar." },
       { id: 'C', text: "Balas hina fisik dia.", consequence: "Mata dibalas mata, hubungan jadi toxic." }
-    ]
+    ],
+    discussion: "Apakah bercandaan fisik di depan umum bisa ditoleransi?"
   },
   {
     id: 14,
     title: "Nginap Rumah Sahabat",
     genre: "Batasan",
     pov: "Suami",
-    story: "Istrimu mau pergi ke luar kota untuk konser dan berencana menginap di apartemen sahabat prianya (katanya beda kamar) untuk hemat biaya hotel. Dia bersumpah tidak akan macam-macam.",
+    story: "Istrimu izin mau nonton konser Coldplay di Singapura. Agar hemat, dia bilang akan menginap di apartemen sahabat cowoknya (yang katanya gay/sudah punya pacar). 'Sumpah beda kamar kok, Yang', katanya. Kamu tahu tiket hotel di sana sedang mahal sekali.",
     question: "Izinmu?",
     options: [
       { id: 'A', text: "Larang keras. Wajib hotel.", consequence: "Aman, tapi istri merasa tidak dipercaya." },
       { id: 'B', text: "Izinkan dengan syarat VC terus.", consequence: "Mencoba percaya, tapi hati tidak tenang." },
       { id: 'C', text: "Ikut pergi (keluar biaya extra).", consequence: "Paling aman, tapi boros biaya." }
-    ]
+    ],
+    discussion: "Bolehkah menginap di tempat lawan jenis meski beda kamar?"
   },
   {
     id: 15,
     title: "Kasar ke Pelayan",
     genre: "Karakter",
     pov: "Istri",
-    story: "Suamimu sangat penyayang padamu, tapi sangat kasar dan merendahkan pelayan restoran atau ojol jika ada kesalahan kecil. Kamu merasa ilfil (hilang rasa) melihat sisi arogannya.",
+    story: "Dinner anniversary romantis. Pelayan tidak sengaja menumpahkan sedikit air di meja. Suamimu yang tadi lembut padamu, tiba-tiba membentak pelayan itu dengan kasar: 'Bego banget sih kerja! Panggil manajermu!'. Kamu kaget melihat perubahan wajahnya yang menyeramkan.",
     question: "Sikapmu?",
     options: [
       { id: 'A', text: "Tegur keras di tempat.", consequence: "Suami tersinggung egonya, tapi belajar adab." },
       { id: 'B', text: "Diamkan, yang penting sayang aku.", consequence: "Membiarkan sifat buruk, ilfil makin numpuk." },
       { id: 'C', text: "Minta maaf ke pelayan diam-diam.", consequence: "Menutupi kesalahan suami, capek hati sendiri." }
-    ]
+    ],
+    discussion: "Apakah cara pasangan memperlakukan orang lain mempengaruhi cintamu?"
   },
   {
     id: 16,
     title: "Hewan Liar di Kamar",
     genre: "Gaya Hidup",
     pov: "Suami",
-    story: "Kamu benci dan alergi bulu hewan. Istrimu pecinta hewan akut. Dia sering membawa kucing/anjing jalanan sakit untuk tidur di kamar kalian tanpa izin. Baunya mengganggumu.",
+    story: "Kamu pulang kerja capek, ingin langsung tidur. Saat membuka selimut, ada kucing jalanan kotor dan bau yang sedang tidur di bantalmu. Istrimu memungutnya lagi. Padahal kamu punya asma dan sudah berkali-kali melarang hewan masuk kamar tidur utama.",
     question: "Tindakanmu?",
     options: [
       { id: 'A', text: "Usir hewan itu keluar.", consequence: "Istri sedih dan menuduhmu tidak punya hati." },
       { id: 'B', text: "Tidur di sofa/kamar lain.", consequence: "Mengalah, tapi keintiman suami istri hilang." },
       { id: 'C', text: "Kasih ultimatum: Aku atau Kucing.", consequence: "Drama besar, memaksa istri memilih." }
-    ]
+    ],
+    discussion: "Bagaimana menyikapi hobi pasangan yang mengganggu kenyamananmu?"
   },
   {
     id: 17,
     title: "Puasa Ranjang 6 Bulan",
     genre: "Seksualitas",
     pov: "Suami",
-    story: "Istrimu menolak berhubungan intim selama 6 bulan terakhir dengan alasan 'capek' atau 'nggak mood', tapi dia sehat-sehat saja dan ceria dengan teman-temannya. Kamu merasa ditolak dan frustasi.",
+    story: "Sudah 6 bulan istrimu menolak setiap ajakan berhubungan intim dengan alasan 'capek' atau 'sakit kepala'. Tapi di medsos dia aktif senam zumba dan hangout. Malam ini kamu mencoba menyentuhnya lagi, dan dia menepis tanganmu dengan kasar.",
     question: "Langkahmu?",
     options: [
       { id: 'A', text: "Tuntut kewajiban suami-istri.", consequence: "Terkesan memaksa, istri makin menjauh." },
       { id: 'B', text: "Ajak ke konselor pernikahan.", consequence: "Solusi dewasa, tapi istri mungkin menolak dianggap bermasalah." },
       { id: 'C', text: "Cari kepuasan sendiri (video/dll).", consequence: "Solusi sementara, tapi masalah inti tetap ada." }
-    ]
+    ],
+    discussion: "Apa solusi jika kebutuhan biologis tidak seimbang?"
   },
   {
     id: 18,
     title: "Anak Nakal Membully",
     genre: "Parenting",
     pov: "Istri",
-    story: "Anak kalian ketahuan membully temannya di sekolah sampai terluka. Kamu ingin menghukum anak agar jera. Suamimu malah membela anak mati-matian: 'Anakku gak salah, temannya yang lembek'.",
+    story: "Guru BK menelepon, anakmu memukul temannya sampai berdarah. Di rumah, kamu ingin menghukum anakmu berdiri di pojok. Suamimu datang dan memeluk anak itu sambil berkata, 'Jangan dengerin Mama, kamu laki-laki harus kuat, mukul itu wajar'.",
     question: "Sikapmu?",
     options: [
       { id: 'A', text: "Lawan suami, tetap hukum anak.", consequence: "Anak bingung, suami marah otoritasnya dilangkahi." },
       { id: 'B', text: "Diam, biarkan suami urus.", consequence: "Anak tumbuh jadi perundung yang merasa benar." },
       { id: 'C', text: "Minta pihak sekolah yang hukum.", consequence: "Melempar tanggung jawab ke luar rumah." }
-    ]
+    ],
+    discussion: "Bagaimana jika pasangan membela kesalahan anak secara membabi buta?"
   },
   {
     id: 19,
     title: "Pinjam Nama untuk Hutang",
     genre: "Keuangan",
     pov: "Istri",
-    story: "Bisnis suamimu bangkrut dan namanya di-blacklist bank. Dia memohon meminjam KTP-mu untuk mengajukan pinjaman besar demi modal usaha baru. Dia janji akan bayar.",
+    story: "Suamimu pulang dengan wajah pucat. Dia terlilit hutang judi online dan dikejar rentenir. Dia bersujud di kakimu, memohon pinjam KTP-mu untuk mengajukan pinjaman bank resmi 500 Juta demi menutup hutang itu. 'Kalau nggak, aku bisa dibunuh', katanya.",
     question: "Keputusanmu?",
     options: [
       { id: 'A', text: "Kasih, dia suamiku.", consequence: "Bukti cinta, tapi resiko kamu yang dikejar debt collector." },
       { id: 'B', text: "Tolak mentah-mentah.", consequence: "Aset aman, tapi suami merasa tidak didukung saat susah." },
       { id: 'C', text: "Kasih dengan perjanjian notaris.", consequence: "Profesional, tapi terkesan tidak percaya suami." }
-    ]
+    ],
+    discussion: "Bolehkah menolak meminjamkan nama untuk hutang suami?"
   },
   {
     id: 20,
     title: "Permintaan Terakhir Mantan",
     genre: "Mantan",
     pov: "Suami",
-    story: "Mantan pacarmu (cinta pertamamu) sakit kanker stadium akhir. Dia menghubungimu dan memohon ingin bertemu kamu untuk terakhir kalinya sebelum meninggal. Istrimu sangat cemburu pada mantan ini.",
+    story: "Mantan terindahmu menelepon dari RS. Suaranya lemah, dia divonis kanker stadium 4 dan sisa hidupnya tinggal hitungan hari. Permintaan terakhirnya cuma satu: Ingin memegang tanganmu sekali lagi. Istrimu ada di sebelahmu saat telepon itu berbunyi.",
     question: "Apa yang kamu lakukan?",
     options: [
       { id: 'A', text: "Pergi diam-diam menjenguk.", consequence: "Mantan tenang, tapi kamu mengkhianati istri." },
       { id: 'B', text: "Minta izin istri (memohon).", consequence: "Jujur, tapi menyakiti hati istri jika dia terpaksa setuju." },
       { id: 'C', text: "Tolak permintaan mantan.", consequence: "Setia pada istri, tapi dihantui rasa bersalah seumur hidup." }
-    ]
+    ],
+    discussion: "Apakah 'permintaan terakhir' mantan bisa jadi alasan melanggar batas?"
   },
   {
     id: 21,
     title: "Beda Agama Anak",
     genre: "Prinsip",
     pov: "Istri",
-    story: "Kamu ingin anak dididik disiplin agama sejak dini (mengaji/sekolah minggu). Suamimu yang mulai agnostik ingin membebaskan anak memilih keyakinan nanti saat dewasa (tidak perlu ibadah sekarang).",
+    story: "Hari Minggu pagi, kamu sudah dandani anak rapi untuk ke tempat ibadah. Suamimu yang belakangan makin sekuler melarang: 'Jangan cuci otak anak kita. Biar dia pilih agamanya sendiri pas umur 17 nanti. Sekarang biarin dia tidur'.",
     question: "Solusinya?",
     options: [
       { id: 'A', text: "Jalankan caraku diam-diam.", consequence: "Anak terdidik agama, tapi bohong pada suami." },
       { id: 'B', text: "Ikuti cara suami.", consequence: "Kamu merasa berdosa membiarkan anak tanpa agama." },
       { id: 'C', text: "Debat sampai ada yang menang.", consequence: "Rumah tangga panas terus menerus." }
-    ]
+    ],
+    discussion: "Bagaimana menyatukan visi pendidikan agama anak yang berbeda?"
   },
   {
     id: 22,
     title: "Bajak Chat Kantor",
     genre: "Privasi",
     pov: "Suami",
-    story: "Istrimu membuka HP-mu dan membaca grup chat kantormu yang isinya bercandaan kasar pria. Dia marah dan mengirim pesan di grup itu memarahi bos dan teman-temanmu pakai akunmu.",
+    story: "Kamu lupa mengunci HP saat mandi. Istrimu membuka grup WhatsApp 'Bapak-Bapak Kantor' yang isinya foto-foto seksi dan jokes kotor. Karena jijik dan marah, istrimu mengetik pesan 'Kalian semua menjijikkan!' dan mengirimnya ke grup itu pakai HP-mu.",
     question: "Reaksimu?",
     options: [
       { id: 'A', text: "Marah besar & ganti sandi HP.", consequence: "Menegakkan privasi, karir mungkin sudah hancur." },
       { id: 'B', text: "Minta maaf ke teman & bos.", consequence: "Malu luar biasa, dianggap suami takut istri." },
       { id: 'C', text: "Bela istri di depan teman.", consequence: "Solidaritas semu, padahal dalam hati kesal." }
-    ]
+    ],
+    discussion: "Bolehkah pasangan ikut campur dalam urusan profesional/kantor?"
   },
   {
     id: 23,
     title: "Operasi Plastik",
     genre: "Fisik",
     pov: "Istri",
-    story: "Kamu merasa sangat insecure dengan wajahmu dan ingin operasi plastik hidung & rahang (total 100 Juta). Suamimu menolak keras karena alasan 'bersyukur' dan resiko gagal.",
+    story: "Kamu merasa hidungmu pesek dan diejek teman arisan. Kamu minta izin operasi plastik 80 Juta. Suamimu bilang 'Aku cinta kamu apa adanya, uangnya buat tabungan haji aja'. Kamu merasa dia pelit dan tidak peduli perasaan insecure-mu.",
     question: "Keputusanmu?",
     options: [
       { id: 'A', text: "Tetap operasi pakai uang sendiri.", consequence: "Puas fisik, tapi suami mungkin ilfil lihat wajah baru." },
       { id: 'B', text: "Batal operasi demi suami.", consequence: "Suami senang, kamu tetap insecure seumur hidup." },
       { id: 'C', text: "Cari klinik murah diam-diam.", consequence: "Berbahaya, resiko gagal tinggi." }
-    ]
+    ],
+    discussion: "Hak tubuh istri vs Hak suami berpendapat: Siapa yang menang?"
   },
   {
     id: 24,
     title: "Putus Hubungan Ortu",
     genre: "Keluarga",
     pov: "Suami",
-    story: "Orang tuamu sangat toxic dan sering menghina istrimu. Istrimu memberimu ultimatum: 'Kalau kamu masih menemui orang tuamu, kita cerai'. Dia memintamu memutus hubungan total dengan orang tuamu.",
+    story: "Ibumu meludahi masakan istrimu karena asin. Itu puncaknya. Istrimu mengemasi barang dan memberi ultimatum di pintu: 'Aku atau Ibumu? Kalau kamu masih injak rumah ibumu, kita cerai. Anggap ibumu sudah mati atau aku yang pergi'.",
     question: "Pilihanmu?",
     options: [
       { id: 'A', text: "Pilih Istri, tinggalkan Ortu.", consequence: "Rumah tangga damai, jadi anak durhaka." },
       { id: 'B', text: "Pilih Ortu, ceraikan Istri.", consequence: "Bakti anak, tapi kehilangan cinta sejati." },
       { id: 'C', text: "Kunjungi Ortu diam-diam.", consequence: "Solusi pengecut, bom waktu jika ketahuan." }
-    ]
+    ],
+    discussion: "Bolehkah pasangan meminta kita memutuskan hubungan darah?"
   },
   {
     id: 25,
     title: "Izin Poligami/Nikah Lagi",
     genre: "Komitmen",
     pov: "Istri",
-    story: "Suamimu yang mapan dan agamis tiba-tiba bicara serius meminta izin untuk menikah lagi (poligami) dengan alasan ibadah dan menolong janda. Dia berjanji akan adil.",
+    story: "Makan malam yang tenang. Tiba-tiba suamimu memegang tanganmu dan berkata serius. 'Ma, aku mau menolong janda teman kantorku yang baru meninggal. Aku mau menikahinya secara agama saja. Aku janji uang belanja kamu nggak berkurang'.",
     question: "Jawabanmu?",
     options: [
       { id: 'A', text: "Izinkan dengan berat hati.", consequence: "Surga (menurut keyakinan), tapi neraka dunia (sakit hati)." },
       { id: 'B', text: "Tolak: 'Langkahi dulu mayatku'.", consequence: "Tegas, resiko suami nikah diam-diam atau cerai." },
       { id: 'C', text: "Minta cerai saat itu juga.", consequence: "Harga diri terjaga, rumah tangga bubar." }
-    ]
+    ],
+    discussion: "Bagaimana menyikapi permintaan poligami dalam pernikahan modern?"
   }
 ];
 
@@ -412,11 +437,12 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// --- COMPONENT: LIVE VOICE ROOM (WebRTC Simplified) ---
+// --- COMPONENT: LIVE VOICE ROOM (WebRTC Simplified with Manual Trigger) ---
 const LiveVoiceRoom = ({ roomId, role, user }) => {
-    const [status, setStatus] = useState("Menghubungkan Suara...");
+    const [status, setStatus] = useState("Siap Menghubungkan");
     const [isMuted, setIsMuted] = useState(false);
     const [rtcPeer, setRtcPeer] = useState(null);
+    const [isConnected, setIsConnected] = useState(false); // Track connection state
     const localStreamRef = useRef(null);
     const remoteAudioRef = useRef(null);
 
@@ -427,41 +453,53 @@ const LiveVoiceRoom = ({ roomId, role, user }) => {
         ]
     };
 
+    // Clean up on unmount
     useEffect(() => {
-        const startCall = async () => {
-            try {
-                // 1. Get Local Stream
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                localStreamRef.current = stream;
+        return () => {
+            if (localStreamRef.current) {
+                localStreamRef.current.getTracks().forEach(track => track.stop());
+            }
+            if (rtcPeer) {
+                rtcPeer.close();
+            }
+        };
+    }, [rtcPeer]); // Depend on rtcPeer to clean it up if it exists
 
-                // 2. Init Peer Connection
-                const pc = new RTCPeerConnection(servers);
-                setRtcPeer(pc);
+    const startCall = async () => {
+        setIsConnected(true);
+        setStatus("Menghubungkan...");
+        try {
+            // 1. Get Local Stream
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            localStreamRef.current = stream;
 
-                // Add Tracks
-                stream.getTracks().forEach(track => pc.addTrack(track, stream));
+            // 2. Init Peer Connection
+            const pc = new RTCPeerConnection(servers);
+            setRtcPeer(pc);
 
-                // Handle Remote Stream
-                pc.ontrack = (event) => {
-                    if (remoteAudioRef.current) {
-                        remoteAudioRef.current.srcObject = event.streams[0];
-                        setStatus("Terhubung 🟢");
-                    }
-                };
+            // Add Tracks
+            stream.getTracks().forEach(track => pc.addTrack(track, stream));
 
-                // ICE Candidate Logic
-                pc.onicecandidate = (event) => {
-                    if (event.candidate) {
-                        const candidateCollection = collection(db, 'rooms', roomId, role === 'host' ? 'offerCandidates' : 'answerCandidates');
-                        addDoc(candidateCollection, event.candidate.toJSON());
-                    }
-                };
+            // Handle Remote Stream
+            pc.ontrack = (event) => {
+                if (remoteAudioRef.current) {
+                    remoteAudioRef.current.srcObject = event.streams[0];
+                    setStatus("Terhubung 🟢");
+                }
+            };
 
-                // SIGNALING LOGIC
-                const roomDoc = doc(db, 'rooms', roomId);
-                const roomSnapshot = await getDoc(roomDoc);
+            // ICE Candidate Logic
+            pc.onicecandidate = (event) => {
+                if (event.candidate) {
+                    const candidateCollection = collection(db, 'rooms', roomId, role === 'host' ? 'offerCandidates' : 'answerCandidates');
+                    addDoc(candidateCollection, event.candidate.toJSON());
+                }
+            };
 
-                if (role === 'host') {
+            // SIGNALING LOGIC
+            const roomDoc = doc(db, 'rooms', roomId);
+            // Host/Guest logic
+             if (role === 'host') {
                     // Host Creates Offer
                     const offerDescription = await pc.createOffer();
                     await pc.setLocalDescription(offerDescription);
@@ -524,24 +562,13 @@ const LiveVoiceRoom = ({ roomId, role, user }) => {
                     });
                 }
 
-            } catch (err) {
-                console.error("WebRTC Error:", err);
-                setStatus("Gagal Akses Mic 🔴");
-            }
-        };
 
-        startCall();
-
-        // Cleanup
-        return () => {
-            if (localStreamRef.current) {
-                localStreamRef.current.getTracks().forEach(track => track.stop());
-            }
-            if (rtcPeer) {
-                rtcPeer.close();
-            }
-        };
-    }, []);
+        } catch (err) {
+            console.error("WebRTC Error:", err);
+            setStatus("Gagal Akses Mic (Klik untuk coba lagi) 🔴");
+            setIsConnected(false);
+        }
+    };
 
     const toggleMute = () => {
         if (localStreamRef.current) {
@@ -550,10 +577,33 @@ const LiveVoiceRoom = ({ roomId, role, user }) => {
         }
     };
 
+    if (!isConnected) {
+         return (
+            <div className="bg-indigo-900 rounded-xl p-4 text-white flex items-center justify-between shadow-lg mt-6 animate-fade-in">
+                <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-full bg-gray-600">
+                        <Volume2 className="w-5 h-5" />
+                    </div>
+                    <div>
+                        <p className="text-xs text-indigo-300 uppercase font-bold">Diskusi Langsung</p>
+                        <p className="text-sm font-bold">{status}</p>
+                    </div>
+                </div>
+                
+                <button 
+                    onClick={startCall}
+                    className="bg-indigo-500 hover:bg-indigo-400 text-white text-xs font-bold py-2 px-4 rounded-lg transition"
+                >
+                    Aktifkan Suara 📞
+                </button>
+            </div>
+        );
+    }
+
     return (
         <div className="bg-indigo-900 rounded-xl p-4 text-white flex items-center justify-between shadow-lg mt-6 animate-fade-in">
             <div className="flex items-center gap-3">
-                <div className={`p-2 rounded-full ${status.includes('Terhubung') ? 'bg-green-500 animate-pulse' : 'bg-gray-600'}`}>
+                <div className={`p-2 rounded-full ${status.includes('Terhubung') ? 'bg-green-500 animate-pulse' : 'bg-yellow-500'}`}>
                     <Volume2 className="w-5 h-5" />
                 </div>
                 <div>
