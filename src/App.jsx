@@ -57,14 +57,14 @@ const Trophy = ({ className }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
 );
 
-// --- 10 SCENARIOS LENGKAP ---
+// --- 25 SCENARIOS LENGKAP ---
 const SCENARIOS = [
   {
     id: 1,
     title: "Mantan di Reuni",
     genre: "Perselingkuhan",
     pov: "Suami",
-    story: "Kamu datang ke reuni SMA sendirian. Di sana, kamu bertemu mantan terindahmu yang kini sukses dan menawan. Dia mendekatimu, mengajak ngobrol intens, dan mengaku baru cerai. Di akhir acara, dia meminta nomor HP-mu 'untuk bisnis' dan menawarkan tumpangan pulang karena searah, padahal kamu bawa mobil (tapi bisa beralasan lelah).",
+    story: "Kamu datang ke reuni SMA sendirian. Di sana, kamu bertemu mantan terindahmu yang kini sukses dan menawan. Dia mendekatimu, mengajak ngobrol intens, dan mengaku baru cerai. Di akhir acara, dia meminta nomor HP-mu 'untuk bisnis' dan menawarkan tumpangan pulang karena searah.",
     question: "Apa yang akan kamu lakukan?",
     options: [
       { id: 'A', text: "Berikan nomor HP & tumpangan.", consequence: "Berbahaya. Membuka pintu masa lalu." },
@@ -75,7 +75,7 @@ const SCENARIOS = [
   },
   {
     id: 2,
-    title: "Promosi Jabatan",
+    title: "Promosi Jabatan LDR",
     genre: "Prioritas",
     pov: "Istri",
     story: "Kamu dapat promosi impian jadi VP, tapi harus pindah ke Eropa selama 3 tahun. Suamimu baru merintis bisnis di kota ini dan tidak mungkin ikut pindah. LDR 3 tahun adalah waktu yang sangat lama.",
@@ -89,7 +89,7 @@ const SCENARIOS = [
   },
   {
     id: 3,
-    title: "Tabungan Rahasia",
+    title: "Hutang Keluarga",
     genre: "Keuangan",
     pov: "Suami",
     story: "Kalian menabung untuk rumah. Tiba-tiba adikmu terlilit hutang pinjol dan diancam. Orang tuamu memohon bantuanmu. Jumlahnya 50% tabungan rumah. Istrimu sangat ketat soal uang dan pasti marah besar jika tahu.",
@@ -103,7 +103,7 @@ const SCENARIOS = [
   },
   {
     id: 4,
-    title: "Teman Kantor Lawan Jenis",
+    title: "Rekan Kerja Akrab",
     genre: "Rekan Kerja",
     pov: "Istri",
     story: "Ada rekan kerja baru yang sangat nyambung denganmu. Kalian sering makan siang bareng dan chat soal kerjaan sampai malam. Suamimu mulai merasa tidak nyaman dan cemburu, padahal menurutmu ini profesional.",
@@ -117,10 +117,10 @@ const SCENARIOS = [
   },
   {
     id: 5,
-    title: "Campur Tangan Mertua",
+    title: "Intervensi Mertua",
     genre: "Mertua",
     pov: "Suami",
-    story: "Ibumu (mertua istri) sering datang tanpa kabar dan mengatur cara istrimu mengurus rumah. Istrimu sudah menangis dan minta kamu menegur ibumu. Tapi ibumu punya penyakit jantung dan gampang shock jika tersinggung.",
+    story: "Ibumu sering datang tanpa kabar dan mengatur cara istrimu mengurus rumah. Istrimu sudah menangis dan minta kamu menegur ibumu. Tapi ibumu punya penyakit jantung dan gampang shock jika tersinggung.",
     question: "Sikapmu?",
     options: [
       { id: 'A', text: "Tegas tegur Ibu.", consequence: "Istri lega, Ibu mungkin sakit hati/fisik." },
@@ -131,7 +131,7 @@ const SCENARIOS = [
   },
   {
     id: 6,
-    title: "Password Handphone",
+    title: "Cek HP & Password",
     genre: "Privasi",
     pov: "Istri",
     story: "Pasanganmu tiba-tiba meminta password semua sosial media dan HP-mu sebagai bukti cinta dan transparansi. Kamu tidak menyembunyikan apa-apa, tapi merasa ini pelanggaran privasi.",
@@ -145,10 +145,10 @@ const SCENARIOS = [
   },
   {
     id: 7,
-    title: "Liburan Impian vs Hemat",
+    title: "Liburan vs Investasi",
     genre: "Keuangan",
     pov: "Suami",
-    story: "Istrimu ingin sekali liburan ke luar negeri tahun ini sebagai 'reward' kerja keras. Biayanya mahal. Kamu tipe hemat dan ingin uangnya diinvestasikan saja untuk dana darurat.",
+    story: "Istrimu ingin sekali liburan ke luar negeri tahun ini sebagai 'reward'. Biayanya mahal. Kamu tipe hemat dan ingin uangnya diinvestasikan untuk dana darurat.",
     question: "Solusinya?",
     options: [
       { id: 'A', text: "Turuti istri walau berat.", consequence: "Istri bahagia, tabungan menipis." },
@@ -159,25 +159,25 @@ const SCENARIOS = [
   },
   {
     id: 8,
-    title: "Pembagian Tugas Rumah",
+    title: "Beban Rumah Tangga",
     genre: "Hubungan Suami Istri",
     pov: "Istri",
-    story: "Kalian berdua bekerja full-time. Tapi saat pulang, suamimu langsung main game/istirahat, sedangkan kamu masih harus masak dan beberes. Kamu lelah fisik dan mental.",
+    story: "Kalian berdua bekerja full-time. Tapi saat pulang, suamimu langsung istirahat, sedangkan kamu masih harus masak dan beberes. Kamu lelah fisik dan mental.",
     question: "Tindakanmu?",
     options: [
       { id: 'A', text: "Kerjakan semua sendiri sambil ngomel.", consequence: "Rumah rapi, tapi kamu stress." },
-      { id: 'B', text: "Mogok kerja rumah sampai dia sadar.", consequence: "Rumah berantakan, jadi konflik." },
+      { id: 'B', text: "Mogok kerja rumah.", consequence: "Rumah berantakan, jadi konflik." },
       { id: 'C', text: "Buat jadwal piket tertulis.", consequence: "Terkesan kaku seperti asrama." }
     ],
     discussion: "Apakah tugas rumah itu kewajiban istri semata?"
   },
   {
     id: 9,
-    title: "Gaya Parenting Anak",
+    title: "Hukuman Anak",
     genre: "Anak",
     pov: "Suami",
-    story: "Anak kalian membuat kesalahan di sekolah. Istrimu ingin menghukumnya dengan tegas (potong uang jajan/sita HP). Kamu merasa anak perlu diajak bicara lembut saja, jangan dihukum.",
-    question: "Sikapmu di depan anak?",
+    story: "Anak kalian membuat kesalahan. Istrimu ingin menghukum tegas (sita HP). Kamu merasa anak perlu diajak bicara lembut saja, jangan dihukum. Istri mulai marah padamu di depan anak.",
+    question: "Sikapmu?",
     options: [
       { id: 'A', text: "Dukung istri di depan anak.", consequence: "Kompak, walau kamu tidak setuju." },
       { id: 'B', text: "Debat istri di depan anak.", consequence: "Otoritas orang tua runtuh." },
@@ -187,10 +187,10 @@ const SCENARIOS = [
   },
   {
     id: 10,
-    title: "Postingan Sosial Media",
+    title: "Jarang Posting Foto",
     genre: "Sosial Media",
     pov: "Istri",
-    story: "Pasanganmu jarang sekali memposting fotomu di medsos-nya. Sementara dia sering posting soal hobi atau teman-temannya. Kamu merasa seperti disembunyikan.",
+    story: "Pasanganmu jarang sekali memposting fotomu di medsos. Sementara dia sering posting hobi. Kamu merasa seperti disembunyikan.",
     question: "Apa yang kamu lakukan?",
     options: [
       { id: 'A', text: "Tuntut dia posting fotomu.", consequence: "Terpaksa posting, bukan tulus." },
@@ -198,6 +198,216 @@ const SCENARIOS = [
       { id: 'C', text: "Terima saja, privasi itu beda-beda.", consequence: "Dewasa, tapi hati kecil sedih." }
     ],
     discussion: "Seberapa penting 'Go Public' di medsos?"
+  },
+  {
+    id: 11,
+    title: "Aib Saudara Kandung",
+    genre: "Privasi Keluarga",
+    pov: "Suami",
+    story: "Kakak kandungmu ketahuan berselingkuh dan diambang perceraian. Orang tuamu memohon agar kamu merahasiakan ini dari istrimu agar nama baik keluarga terjaga. Istrimu bertanya kenapa kakakmu terlihat sedih.",
+    question: "Tindakanmu?",
+    options: [
+      { id: 'A', text: "Ceritakan semua pada istri.", consequence: "Jujur pada pasangan, melanggar janji ortu." },
+      { id: 'B', text: "Bohong, bilang kakak cuma sakit.", consequence: "Menjaga aib keluarga, tapi membohongi istri." },
+      { id: 'C', text: "Bilang 'ada masalah' tanpa detail.", consequence: "Diplomatis, tapi istri mungkin curiga." }
+    ],
+    discussion: "Apakah pasangan berhak tahu semua aib keluarga besar?"
+  },
+  {
+    id: 12,
+    title: "Sahabat Lawan Jenis (HTS)",
+    genre: "Batasan Hubungan",
+    pov: "Istri",
+    story: "Kamu punya sahabat pria dari kecil. Kalian biasa pelukan atau senderan bahu (platonik). Suamimu risih dan minta kamu jaga jarak fisik, tapi bagimu itu bahasa kasih sayang sahabat.",
+    question: "Keputusanmu?",
+    options: [
+      { id: 'A', text: "Berhenti kontak fisik total.", consequence: "Menghormati suami, canggung sama sahabat." },
+      { id: 'B', text: "Lanjut terus, minta suami ngerti.", consequence: "Suami merasa tidak dihargai." },
+      { id: 'C', text: "Kurangi pelan-pelan.", consequence: "Kompromi, tapi mungkin suami kurang puas." }
+    ],
+    discussion: "Apa batasan fisik dengan sahabat lawan jenis?"
+  },
+  {
+    id: 13,
+    title: "Mantan Minta Tolong",
+    genre: "Mantan",
+    pov: "Suami",
+    story: "Mantan pacarmu menelepon sambil menangis, dia mengalami KDRT dan butuh tempat aman sementara malam ini. Dia tidak punya siapa-siapa lagi di kota ini.",
+    question: "Apa yang kamu lakukan?",
+    options: [
+      { id: 'A', text: "Bawa ke rumah, kenalkan istri.", consequence: "Niat baik, tapi berpotensi konflik besar." },
+      { id: 'B', text: "Pesankan hotel, jangan temui.", consequence: "Membantu jarak jauh, lebih aman." },
+      { id: 'C', text: "Abaikan demi perasaan istri.", consequence: "Tega, tapi rumah tangga aman." }
+    ],
+    discussion: "Bolehkah menolong mantan dalam kondisi darurat?"
+  },
+  {
+    id: 14,
+    title: "PHK Diam-diam",
+    genre: "Kejujuran",
+    pov: "Suami",
+    story: "Kamu baru saja di-PHK. Istrimu sedang hamil tua dan mudah stress. Kamu takut berita ini mengguncang kehamilannya. Kamu berpura-pura berangkat kerja setiap pagi padahal mencari lowongan.",
+    question: "Tindakanmu?",
+    options: [
+      { id: 'A', text: "Terus pura-pura sampai dapat kerja.", consequence: "Istri tenang, tapi kamu menanggung beban sendiri." },
+      { id: 'B', text: "Jujur sekarang juga.", consequence: "Resiko kesehatan istri, tapi tidak ada rahasia." },
+      { id: 'C', text: "Cerita ke ortu dulu, bukan istri.", consequence: "Mencari dukungan lain, istri belakangan." }
+    ],
+    discussion: "Kapan 'White Lie' diperbolehkan demi kesehatan pasangan?"
+  },
+  {
+    id: 15,
+    title: "Kado dari Mantan",
+    genre: "Mantan",
+    pov: "Istri",
+    story: "Mantan pacarmu mengirim kado ulang tahun mahal (tas branded) ke kantor. Dia tahu alamat kantormu. Suamimu belum tahu soal ini.",
+    question: "Keputusanmu?",
+    options: [
+      { id: 'A', text: "Kembalikan kado ke mantan.", consequence: "Tegas menutup pintu." },
+      { id: 'B', text: "Simpan kado, jangan bilang suami.", consequence: "Menikmati barang, menyimpan rahasia." },
+      { id: 'C', text: "Bawa pulang, cerita ke suami.", consequence: "Jujur, tapi suami bisa cemburu/marah." }
+    ],
+    discussion: "Haruskah melaporkan setiap interaksi sepihak dari mantan?"
+  },
+  {
+    id: 16,
+    title: "Stalking Mantan",
+    genre: "Mantan/HTS",
+    pov: "Suami",
+    story: "Kamu penasaran dengan kabar mantan dan sering stalking IG-nya pakai akun fake. Kamu tidak ada niat selingkuh, cuma kepo. Istrimu tidak sengaja melihat history pencarianmu.",
+    question: "Penjelasanmu?",
+    options: [
+      { id: 'A', text: "Mengaku cuma iseng.", consequence: "Jujur, tapi istri pasti insecure." },
+      { id: 'B', text: "Bilang itu akun teman yang pinjam.", consequence: "Bohong untuk menutupi masalah kecil." },
+      { id: 'C', text: "Marah balik karena istri cek HP.", consequence: "Gaslighting, membalikkan kesalahan." }
+    ],
+    discussion: "Apakah stalking mantan termasuk selingkuh hati?"
+  },
+  {
+    id: 17,
+    title: "Grup Chat Keluarga",
+    genre: "Mertua",
+    pov: "Istri",
+    story: "Keluarga besar suamimu punya grup WhatsApp. Mereka sering menyindir gaya hidupmu secara halus di sana. Kamu merasa tidak nyaman dan ingin keluar grup.",
+    question: "Tindakanmu?",
+    options: [
+      { id: 'A', text: "Left group langsung.", consequence: "Lega, tapi dianggap tidak sopan/baper." },
+      { id: 'B', text: "Minta suami tegur keluarganya.", consequence: "Suami terjepit di tengah konflik." },
+      { id: 'C', text: "Silent grup, jangan dibaca.", consequence: "Makan hati sendiri, tapi damai." }
+    ],
+    discussion: "Wajibkah ada di grup keluarga pasangan yang toxic?"
+  },
+  {
+    id: 18,
+    title: "Teman 'Rasa Pacar'",
+    genre: "Batasan Hubungan",
+    pov: "Suami",
+    story: "Istrimu punya teman curhat pria. Saat kalian bertengkar, dia sering curhat ke pria itu. Pria itu sering memberi nasihat yang memojokkanmu.",
+    question: "Sikapmu?",
+    options: [
+      { id: 'A', text: "Larang istri curhat ke pria lain.", consequence: "Terkesan posesif, tapi menjaga privasi rumah tangga." },
+      { id: 'B', text: "Labrak pria itu.", consequence: "Konflik meluas jadi masalah eksternal." },
+      { id: 'C', text: "Diamkan, introspeksi diri.", consequence: "Masalah tidak selesai, istri makin nyaman dengan dia." }
+    ],
+    discussion: "Bolehkah curhat masalah rumah tangga ke lawan jenis?"
+  },
+  {
+    id: 19,
+    title: "Trauma Masa Lalu",
+    genre: "Privasi Diri",
+    pov: "Istri",
+    story: "Kamu punya trauma pelecehan di masa lalu yang belum pernah kamu ceritakan ke suamimu. Ini mempengaruhi kehidupan intim kalian. Suami merasa kamu tidak tertarik padanya.",
+    question: "Keputusanmu?",
+    options: [
+      { id: 'A', text: "Cerita semua walau berat.", consequence: "Membuka luka lama, berharap suami mengerti." },
+      { id: 'B', text: "Pergi ke psikolog diam-diam.", consequence: "Mencoba sembuh sendiri." },
+      { id: 'C', text: "Paksa diri melayani suami.", consequence: "Menyakiti diri sendiri demi kewajiban." }
+    ],
+    discussion: "Haruskah semua trauma masa lalu diceritakan sebelum menikah?"
+  },
+  {
+    id: 20,
+    title: "Anak Adopsi vs Kandung",
+    genre: "Prinsip",
+    pov: "Suami",
+    story: "Kalian sulit punya anak. Istrimu ingin sekali adopsi. Kamu merasa belum siap mencintai anak orang lain dan masih ingin mencoba bayi tabung (IVF) walau mahal dan menyakitkan istri.",
+    question: "Pilihanmu?",
+    options: [
+      { id: 'A', text: "Setuju adopsi demi istri.", consequence: "Istri bahagia, kamu butuh waktu adaptasi." },
+      { id: 'B', text: "Paksa coba IVF sekali lagi.", consequence: "Fisik istri terkuras, ego suami terpenuhi." },
+      { id: 'C', text: "Tunda keduanya, fokus berdua.", consequence: "Masalah anak jadi ganjalan tak terselesaikan." }
+    ],
+    discussion: "Apa arti kehadiran anak bagi kalian?"
+  },
+  {
+    id: 21,
+    title: "Jalan Berdua Teman",
+    genre: "HTS/Batasan",
+    pov: "Istri",
+    story: "Teman priamu mengajak nonton bioskop berdua karena punya tiket lebih. Kalian sama-sama suka film itu. Suamimu sedang dinas luar kota.",
+    question: "Jawabanmu?",
+    options: [
+      { id: 'A', text: "Pergi, kan cuma teman.", consequence: "Menikmati hobi, resiko suami salah paham." },
+      { id: 'B', text: "Izin suami dulu, kalau boleh baru pergi.", consequence: "Transparan, menghargai suami." },
+      { id: 'C', text: "Tolak demi hindari fitnah.", consequence: "Aman, tapi kehilangan momen seru." }
+    ],
+    discussion: "Bolehkah jalan berdua dengan lawan jenis saat sudah menikah?"
+  },
+  {
+    id: 22,
+    title: "Gaji Istri Lebih Besar",
+    genre: "Karir/Ego",
+    pov: "Suami",
+    story: "Istrimu naik jabatan dan gajinya kini 3x lipat gajimu. Dia mulai sering mentraktir dan mengambil keputusan finansial besar. Kamu merasa harga dirimu sebagai kepala keluarga terganggu.",
+    question: "Sikapmu?",
+    options: [
+      { id: 'A', text: "Minta istri resign/cari kerja santai.", consequence: "Ego terselamatkan, ekonomi keluarga turun." },
+      { id: 'B', text: "Terima dan dukung istri.", consequence: "Menurunkan ego, menikmati kemapanan." },
+      { id: 'C', text: "Kerja sampingan gila-gilaan.", consequence: "Lelah fisik demi menyaingi gaji istri." }
+    ],
+    discussion: "Apakah suami harus selalu berpenghasilan lebih tinggi?"
+  },
+  {
+    id: 23,
+    title: "Sandi HP Berubah",
+    genre: "Privasi/Curiga",
+    pov: "Istri",
+    story: "Suamimu yang biasanya menaruh HP sembarangan, tiba-tiba mengubah sandi dan sering membawa HP ke kamar mandi. Saat ditanya, dia bilang 'butuh privasi'.",
+    question: "Responmu?",
+    options: [
+      { id: 'A', text: "Diam-diam cari tahu sandinya.", consequence: "Melanggar privasi demi kebenaran." },
+      { id: 'B', text: "Konfrontasi langsung.", consequence: "Suasana rumah jadi tegang dan penuh curiga." },
+      { id: 'C', text: "Berpikir positif, biarkan saja.", consequence: "Hati tidak tenang, resiko diselingkuhi." }
+    ],
+    discussion: "Tanda-tanda apa yang membuat kalian mulai curiga?"
+  },
+  {
+    id: 24,
+    title: "Mertua Pinjam Uang",
+    genre: "Keuangan/Keluarga",
+    pov: "Suami",
+    story: "Ayahmu (mertua istri) ingin meminjam uang tabungan pendidikan anak kalian untuk modal usaha. Track record usaha ayahmu buruk dan sering gagal bayar.",
+    question: "Keputusanmu?",
+    options: [
+      { id: 'A', text: "Pinjamkan diam-diam.", consequence: "Bakti anak, tapi mengorbankan masa depan anak." },
+      { id: 'B', text: "Tolak tegas.", consequence: "Hubungan dengan ayah retak." },
+      { id: 'C', text: "Diskusi dengan istri (pasti ditolak).", consequence: "Istri jadi 'orang jahat' yang menolak." }
+    ],
+    discussion: "Uang kita vs Uang orang tua: Dimana garisnya?"
+  },
+  {
+    id: 25,
+    title: "Double Date Mantan",
+    genre: "Mantan",
+    pov: "Istri",
+    story: "Mantanmu yang dulu putus baik-baik mengajak 'Double Date' (kamu & suami, dia & pacar baru). Suamimu tipe cemburuan.",
+    question: "Tindakanmu?",
+    options: [
+      { id: 'A', text: "Terima ajakan untuk silaturahmi.", consequence: "Suasana pasti awkward dan tegang." },
+      { id: 'B', text: "Tolak, jaga perasaan suami.", consequence: "Menghindari drama yang tidak perlu." },
+      { id: 'C', text: "Pergi sendiri menemui mereka.", consequence: "Sangat tidak pantas bagi suami." }
+    ],
+    discussion: "Perlukah menjalin silaturahmi dengan mantan setelah menikah?"
   }
 ];
 
@@ -643,33 +853,6 @@ const App = () => {
     const myRoleLabel = isHost ? "Pihak Cowok / Suami 👨" : "Pihak Cewek / Istri 👩";
     const partnerRoleLabel = isHost ? "Pihak Cewek / Istri 👩" : "Pihak Cowok / Suami 👨";
 
-    if (isWaitingGuest) {
-        return (
-            <div className="max-w-md mx-auto mt-10 p-8 bg-white rounded-2xl shadow-xl text-center space-y-6 animate-fade-in">
-                <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto animate-pulse">
-                    <LinkIcon className="w-8 h-8 text-rose-600" />
-                </div>
-                <h2 className="text-2xl font-bold text-gray-800">Undang Pasanganmu</h2>
-                <p className="text-gray-600 mb-4">Salin link di bawah dan kirim via WhatsApp/Line.</p>
-                
-                <div className="bg-gray-100 p-4 rounded-xl flex items-center justify-between border border-gray-200 mb-4">
-                    <span className="text-sm text-gray-500 font-mono truncate mr-2">
-                        {window.location.origin}{window.location.pathname}?room={roomId}
-                    </span>
-                </div>
-
-                <button onClick={copyInviteLink} className="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 px-6 rounded-xl transition flex items-center justify-center gap-2 shadow-lg">
-                    <Copy className="w-5 h-5" /> Salin Link Undangan
-                </button>
-                
-                <div className="mt-6 pt-4 border-t border-gray-100">
-                    <p className="text-xs text-gray-400 mb-2">Atau gunakan kode manual:</p>
-                    <span className="font-mono font-bold text-lg text-gray-700 tracking-widest">{roomId}</span>
-                </div>
-            </div>
-        );
-    }
-
     // CHECK IF GAME IS FINISHED
     if (gameData.scenarioIndex >= SCENARIOS.length) {
         return <ResultScreen score={gameData.score || 0} total={SCENARIOS.length} />;
@@ -704,6 +887,22 @@ const App = () => {
                     </div>
                 </div>
             </div>
+
+            {/* FLOATING INVITE BUTTON (Only visible if partner hasn't joined) */}
+            {isWaitingGuest && (
+                <div className="bg-orange-50 border border-orange-200 p-4 rounded-xl flex flex-col sm:flex-row items-center gap-4 animate-fade-in">
+                    <div className="flex-1 text-center sm:text-left">
+                        <p className="text-sm font-bold text-orange-800">Pasangan belum masuk!</p>
+                        <p className="text-xs text-orange-600">Klik tombol ini untuk mengirim link agar dia otomatis join.</p>
+                    </div>
+                    <button 
+                        onClick={copyInviteLink} 
+                        className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg shadow-sm text-sm flex items-center gap-2 transition"
+                    >
+                        <LinkIcon className="w-4 h-4" /> 🔗 Ajak Pasangan Join
+                    </button>
+                </div>
+            )}
         </div>
 
         {/* Story Card */}
@@ -823,11 +1022,19 @@ const App = () => {
 
                     <button 
                         onClick={nextMultiplayerScenario}
-                        className="w-full bg-gray-900 hover:bg-black text-white py-4 px-6 rounded-xl font-bold transition flex items-center justify-center gap-2"
+                        disabled={isWaitingGuest}
+                        className={`w-full text-white py-4 px-6 rounded-xl font-bold transition flex items-center justify-center gap-2
+                            ${isWaitingGuest ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900 hover:bg-black'}
+                        `}
                     >
                         <RefreshCw className="w-4 h-4" />
                         {currentScenarioIndex < SCENARIOS.length - 1 ? "Skenario Berikutnya" : "Lihat Hasil Akhir"}
                     </button>
+                    {isWaitingGuest && (
+                        <p className="text-center text-xs text-rose-500 font-bold animate-pulse">
+                            Tunggu pasangan bergabung & menjawab untuk lanjut!
+                        </p>
+                    )}
                     <p className="text-center text-xs text-gray-400">Jika kamu klik lanjut, layar pasangan juga akan ikut lanjut.</p>
                 </div>
             )}
@@ -952,7 +1159,7 @@ const App = () => {
 
       {/* Footer */}
       <footer className="py-8 text-center text-gray-400 text-sm">
-        <p>© 2024 Dilema Asmara. Buatan AI untuk Manusia yang Mencintai.</p>
+        <p>© 2024 Dilema Asmara. Dibuat dengan 💖 untuk Pasangan Indonesia.</p>
       </footer>
     </div>
   );
