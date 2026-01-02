@@ -65,6 +65,33 @@ const Trophy = ({ className }) => (
 const ArrowRight = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 );
+const Phone = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+);
+const Trash = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+);
+const Lock = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+);
+const Briefcase = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+);
+const Plane = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 12h20"/><path d="M13 2 9 22"/><path d="M13 22 9 2"/></svg>
+);
+const Ghost = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg>
+);
+const Bed = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+);
+const Frown = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+);
+const DollarSign = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+);
 
 // --- 25 SCENARIOS LENGKAP DENGAN CERITA REAL LIFE ---
 const SCENARIOS = [
@@ -213,7 +240,7 @@ const SCENARIOS = [
     title: "Me Time Berlebihan",
     genre: "Kebebasan",
     pov: "Istri",
-    story: "Kamu merasa mau gila mengurus balita dan rumah tangga 24/7. Kamu nekat beli tiket ke Bali untuk 'Solo Traveling' selama 2 minggu. Kamu berencana meninggalkan anak dan rumah sepenuhnya ke suami yang juga sibuk kerja. 'Aku butuh waras, Mas!', teriakmu.",
+    story: "Kamu merasa burnout mengurus rumah tangga dan anak. Kamu ingin 'Solo Traveling' selama 2 minggu ke Bali sendirian, meninggalkan suami dan anak. Suami keberatan karena kerepotan mengurus rumah sendiri.",
     question: "Keputusanmu?",
     options: [
       { id: 'A', text: "Tetap pergi, aku butuh waras.", consequence: "Mental pulih, tapi suami dendam karena ditinggal repot." },
@@ -227,7 +254,7 @@ const SCENARIOS = [
     title: "Investasi Bodong",
     genre: "Keuangan",
     pov: "Suami",
-    story: "Tergiur janji profit 20%, kamu diam-diam mencairkan Deposito Pendidikan Anak sebesar 200 Juta untuk main Crypto. Hari ini market crash, uangmu sisa nol. Besok istrimu mengajak ke bank untuk bayar uang pangkal SD anak.",
+    story: "Kamu tergiur investasi crypto dan diam-diam memakai 50% uang tabungan pendidikan anak. Ternyata harganya anjlok dan uang itu hilang. Istri belum tahu dan berencana mengecek saldo minggu depan.",
     question: "Tindakanmu?",
     options: [
       { id: 'A', text: "Mengaku dosa sekarang.", consequence: "Perang dunia ketiga, tapi jujur di awal." },
@@ -241,7 +268,7 @@ const SCENARIOS = [
     title: "Body Shaming 'Bercanda'",
     genre: "Harga Diri",
     pov: "Istri",
-    story: "Di acara reuni keluarga besar, suamimu berteriak sambil tertawa, 'Istriku ini makannya kayak kuli, makanya badannya kayak gentong air!'. Semua orang tertawa. Kamu merasa mukamu panas dan harga dirimu hancur lebur di depan sepupu-sepupumu.",
+    story: "Di depan teman-teman arisan, suamimu sering menjadikan bentuk tubuhmu lelucon ('Istriku ini dietnya wacana doang, liat tuh lipatannya'). Semua tertawa, kamu malu. Saat ditegur, dia bilang 'Cuma bercanda, baper amat'.",
     question: "Reaksimu?",
     options: [
       { id: 'A', text: "Marah besar di depan umum.", consequence: "Suami malu, tapi dia sadar batasnya." },
@@ -255,7 +282,7 @@ const SCENARIOS = [
     title: "Nginap Rumah Sahabat",
     genre: "Batasan",
     pov: "Suami",
-    story: "Istrimu izin mau nonton konser Coldplay di Singapura. Agar hemat, dia bilang akan menginap di apartemen sahabat cowoknya (yang katanya gay/sudah punya pacar). 'Sumpah beda kamar kok, Yang', katanya. Kamu tahu tiket hotel di sana sedang mahal sekali.",
+    story: "Istrimu mau pergi ke luar kota untuk konser dan berencana menginap di apartemen sahabat prianya (katanya beda kamar) untuk hemat biaya hotel. Dia bersumpah tidak akan macam-macam.",
     question: "Izinmu?",
     options: [
       { id: 'A', text: "Larang keras. Wajib hotel.", consequence: "Aman, tapi istri merasa tidak dipercaya." },
@@ -269,7 +296,7 @@ const SCENARIOS = [
     title: "Kasar ke Pelayan",
     genre: "Karakter",
     pov: "Istri",
-    story: "Dinner anniversary romantis. Pelayan tidak sengaja menumpahkan sedikit air di meja. Suamimu yang tadi lembut padamu, tiba-tiba membentak pelayan itu dengan kasar: 'Bego banget sih kerja! Panggil manajermu!'. Kamu kaget melihat perubahan wajahnya yang menyeramkan.",
+    story: "Suamimu sangat penyayang padamu, tapi sangat kasar dan merendahkan pelayan restoran atau ojol jika ada kesalahan kecil. Kamu merasa ilfil (hilang rasa) melihat sisi arogannya.",
     question: "Sikapmu?",
     options: [
       { id: 'A', text: "Tegur keras di tempat.", consequence: "Suami tersinggung egonya, tapi belajar adab." },
@@ -283,7 +310,7 @@ const SCENARIOS = [
     title: "Hewan Liar di Kamar",
     genre: "Gaya Hidup",
     pov: "Suami",
-    story: "Kamu pulang kerja capek, ingin langsung tidur. Saat membuka selimut, ada kucing jalanan kotor dan bau yang sedang tidur di bantalmu. Istrimu memungutnya lagi. Padahal kamu punya asma dan sudah berkali-kali melarang hewan masuk kamar tidur utama.",
+    story: "Kamu benci dan alergi bulu hewan. Istrimu pecinta hewan akut. Dia sering membawa kucing/anjing jalanan sakit untuk tidur di kamar kalian tanpa izin. Baunya mengganggumu.",
     question: "Tindakanmu?",
     options: [
       { id: 'A', text: "Usir hewan itu keluar.", consequence: "Istri sedih dan menuduhmu tidak punya hati." },
@@ -297,7 +324,7 @@ const SCENARIOS = [
     title: "Puasa Ranjang 6 Bulan",
     genre: "Seksualitas",
     pov: "Suami",
-    story: "Sudah 6 bulan istrimu menolak setiap ajakan berhubungan intim dengan alasan 'capek' atau 'sakit kepala'. Tapi di medsos dia aktif senam zumba dan hangout. Malam ini kamu mencoba menyentuhnya lagi, dan dia menepis tanganmu dengan kasar.",
+    story: "Istrimu menolak berhubungan intim selama 6 bulan terakhir dengan alasan 'capek' atau 'nggak mood', tapi dia sehat-sehat saja dan ceria dengan teman-temannya. Kamu merasa ditolak dan frustasi.",
     question: "Langkahmu?",
     options: [
       { id: 'A', text: "Tuntut kewajiban suami-istri.", consequence: "Terkesan memaksa, istri makin menjauh." },
@@ -311,7 +338,7 @@ const SCENARIOS = [
     title: "Anak Nakal Membully",
     genre: "Parenting",
     pov: "Istri",
-    story: "Guru BK menelepon, anakmu memukul temannya sampai berdarah. Di rumah, kamu ingin menghukum anakmu berdiri di pojok. Suamimu datang dan memeluk anak itu sambil berkata, 'Jangan dengerin Mama, kamu laki-laki harus kuat, mukul itu wajar'.",
+    story: "Anak kalian ketahuan membully temannya di sekolah sampai terluka. Kamu ingin menghukum anak agar jera. Suamimu malah membela anak mati-matian: 'Anakku gak salah, temannya yang lembek'.",
     question: "Sikapmu?",
     options: [
       { id: 'A', text: "Lawan suami, tetap hukum anak.", consequence: "Anak bingung, suami marah otoritasnya dilangkahi." },
@@ -325,7 +352,7 @@ const SCENARIOS = [
     title: "Pinjam Nama untuk Hutang",
     genre: "Keuangan",
     pov: "Istri",
-    story: "Suamimu pulang dengan wajah pucat. Dia terlilit hutang judi online dan dikejar rentenir. Dia bersujud di kakimu, memohon pinjam KTP-mu untuk mengajukan pinjaman bank resmi 500 Juta demi menutup hutang itu. 'Kalau nggak, aku bisa dibunuh', katanya.",
+    story: "Bisnis suamimu bangkrut dan namanya di-blacklist bank. Dia memohon meminjam KTP-mu untuk mengajukan pinjaman besar demi modal usaha baru. Dia janji akan bayar.",
     question: "Keputusanmu?",
     options: [
       { id: 'A', text: "Kasih, dia suamiku.", consequence: "Bukti cinta, tapi resiko kamu yang dikejar debt collector." },
@@ -339,7 +366,7 @@ const SCENARIOS = [
     title: "Permintaan Terakhir Mantan",
     genre: "Mantan",
     pov: "Suami",
-    story: "Mantan terindahmu menelepon dari RS. Suaranya lemah, dia divonis kanker stadium 4 dan sisa hidupnya tinggal hitungan hari. Permintaan terakhirnya cuma satu: Ingin memegang tanganmu sekali lagi. Istrimu ada di sebelahmu saat telepon itu berbunyi.",
+    story: "Mantan pacarmu (cinta pertamamu) sakit kanker stadium akhir. Dia menghubungimu dan memohon ingin bertemu kamu untuk terakhir kalinya sebelum meninggal. Istrimu sangat cemburu pada mantan ini.",
     question: "Apa yang kamu lakukan?",
     options: [
       { id: 'A', text: "Pergi diam-diam menjenguk.", consequence: "Mantan tenang, tapi kamu mengkhianati istri." },
@@ -353,7 +380,7 @@ const SCENARIOS = [
     title: "Beda Agama Anak",
     genre: "Prinsip",
     pov: "Istri",
-    story: "Hari Minggu pagi, kamu sudah dandani anak rapi untuk ke tempat ibadah. Suamimu yang belakangan makin sekuler melarang: 'Jangan cuci otak anak kita. Biar dia pilih agamanya sendiri pas umur 17 nanti. Sekarang biarin dia tidur'.",
+    story: "Kamu ingin anak dididik disiplin agama sejak dini (mengaji/sekolah minggu). Suamimu yang mulai agnostik ingin membebaskan anak memilih keyakinan nanti saat dewasa (tidak perlu ibadah sekarang).",
     question: "Solusinya?",
     options: [
       { id: 'A', text: "Jalankan caraku diam-diam.", consequence: "Anak terdidik agama, tapi bohong pada suami." },
@@ -367,7 +394,7 @@ const SCENARIOS = [
     title: "Bajak Chat Kantor",
     genre: "Privasi",
     pov: "Suami",
-    story: "Kamu lupa mengunci HP saat mandi. Istrimu membuka grup WhatsApp 'Bapak-Bapak Kantor' yang isinya foto-foto seksi dan jokes kotor. Karena jijik dan marah, istrimu mengetik pesan 'Kalian semua menjijikkan!' dan mengirimnya ke grup itu pakai HP-mu.",
+    story: "Istrimu membuka HP-mu dan membaca grup chat kantormu yang isinya bercandaan kasar pria. Dia marah dan mengirim pesan di grup itu memarahi bos dan teman-temanmu pakai akunmu.",
     question: "Reaksimu?",
     options: [
       { id: 'A', text: "Marah besar & ganti sandi HP.", consequence: "Menegakkan privasi, karir mungkin sudah hancur." },
@@ -381,7 +408,7 @@ const SCENARIOS = [
     title: "Operasi Plastik",
     genre: "Fisik",
     pov: "Istri",
-    story: "Kamu merasa hidungmu pesek dan diejek teman arisan. Kamu minta izin operasi plastik 80 Juta. Suamimu bilang 'Aku cinta kamu apa adanya, uangnya buat tabungan haji aja'. Kamu merasa dia pelit dan tidak peduli perasaan insecure-mu.",
+    story: "Kamu merasa sangat insecure dengan wajahmu dan ingin operasi plastik hidung & rahang (total 100 Juta). Suamimu menolak keras karena alasan 'bersyukur' dan resiko gagal.",
     question: "Keputusanmu?",
     options: [
       { id: 'A', text: "Tetap operasi pakai uang sendiri.", consequence: "Puas fisik, tapi suami mungkin ilfil lihat wajah baru." },
@@ -395,7 +422,7 @@ const SCENARIOS = [
     title: "Putus Hubungan Ortu",
     genre: "Keluarga",
     pov: "Suami",
-    story: "Ibumu meludahi masakan istrimu karena asin. Itu puncaknya. Istrimu mengemasi barang dan memberi ultimatum di pintu: 'Aku atau Ibumu? Kalau kamu masih injak rumah ibumu, kita cerai. Anggap ibumu sudah mati atau aku yang pergi'.",
+    story: "Orang tuamu sangat toxic dan sering menghina istrimu. Istrimu memberimu ultimatum: 'Kalau kamu masih menemui orang tuamu, kita cerai'. Dia memintamu memutus hubungan total dengan orang tuamu.",
     question: "Pilihanmu?",
     options: [
       { id: 'A', text: "Pilih Istri, tinggalkan Ortu.", consequence: "Rumah tangga damai, jadi anak durhaka." },
@@ -409,7 +436,7 @@ const SCENARIOS = [
     title: "Izin Poligami/Nikah Lagi",
     genre: "Komitmen",
     pov: "Istri",
-    story: "Makan malam yang tenang. Tiba-tiba suamimu memegang tanganmu dan berkata serius. 'Ma, aku mau menolong janda teman kantorku yang baru meninggal. Aku mau menikahinya secara agama saja. Aku janji uang belanja kamu nggak berkurang'.",
+    story: "Suamimu yang mapan dan agamis tiba-tiba bicara serius meminta izin untuk menikah lagi (poligami) dengan alasan ibadah dan menolong janda. Dia berjanji akan adil.",
     question: "Jawabanmu?",
     options: [
       { id: 'A', text: "Izinkan dengan berat hati.", consequence: "Surga (menurut keyakinan), tapi neraka dunia (sakit hati)." },
@@ -469,6 +496,11 @@ const LiveVoiceRoom = ({ roomId, role, user }) => {
         setIsConnected(true);
         setStatus("Menghubungkan...");
         try {
+            // Check if navigator.mediaDevices is supported
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                 throw new Error("Browser tidak mendukung audio.");
+            }
+
             // 1. Get Local Stream
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             localStreamRef.current = stream;
@@ -476,6 +508,13 @@ const LiveVoiceRoom = ({ roomId, role, user }) => {
             // 2. Init Peer Connection
             const pc = new RTCPeerConnection(servers);
             setRtcPeer(pc);
+
+            // Listen for ICE state changes
+            pc.oniceconnectionstatechange = () => {
+                 if (pc.iceConnectionState === 'disconnected' || pc.iceConnectionState === 'failed') {
+                     setStatus("Koneksi Terputus (Cek Jaringan)");
+                 }
+            };
 
             // Add Tracks
             stream.getTracks().forEach(track => pc.addTrack(track, stream));
@@ -565,7 +604,13 @@ const LiveVoiceRoom = ({ roomId, role, user }) => {
 
         } catch (err) {
             console.error("WebRTC Error:", err);
-            setStatus("Gagal Akses Mic (Klik untuk coba lagi) 🔴");
+            let errorMessage = "Gagal Akses Mic 🔴";
+            if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+                 errorMessage = "Izin Mic Ditolak (Cek Setting Browser)";
+            } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+                 errorMessage = "Mic Tidak Ditemukan";
+            }
+            setStatus(errorMessage);
             setIsConnected(false);
         }
     };
@@ -594,7 +639,7 @@ const LiveVoiceRoom = ({ roomId, role, user }) => {
                     onClick={startCall}
                     className="bg-indigo-500 hover:bg-indigo-400 text-white text-xs font-bold py-2 px-4 rounded-lg transition"
                 >
-                    Aktifkan Suara 📞
+                    📞 Gabung Obrolan Suara
                 </button>
             </div>
         );
@@ -618,7 +663,7 @@ const LiveVoiceRoom = ({ roomId, role, user }) => {
             >
                 {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
             </button>
-            <audio ref={remoteAudioRef} autoPlay />
+            <audio ref={remoteAudioRef} autoPlay playsInline />
         </div>
     );
 };
@@ -1104,20 +1149,33 @@ const App = () => {
 
         {/* Story Card */}
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
-          <div className="bg-gradient-to-r from-rose-50 to-purple-50 p-6 border-b border-gray-100 flex justify-between items-start">
-            <div>
-              <span className="inline-block px-3 py-1 bg-white text-rose-600 text-xs font-bold rounded-full mb-2 border border-rose-100 uppercase tracking-wider">
-                {currentScenario.genre}
-              </span>
-              <h2 className="text-2xl font-bold text-gray-800">{currentScenario.title}</h2>
+          {/* Header with Title & Story */}
+          <div className="bg-gradient-to-r from-rose-50 to-purple-50 p-6 border-b border-gray-100">
+            <div className="flex justify-between items-start mb-4">
+                <div>
+                <span className="inline-block px-3 py-1 bg-white text-rose-600 text-xs font-bold rounded-full mb-2 border border-rose-100 uppercase tracking-wider">
+                    {currentScenario.genre}
+                </span>
+                <h2 className="text-2xl font-bold text-gray-800 leading-tight">{currentScenario.title}</h2>
+                </div>
+                <div className="text-right flex-shrink-0 ml-4">
+                <span className="block text-xs text-gray-500 uppercase">POV</span>
+                <span className="font-bold text-gray-700 bg-white px-2 py-1 rounded-lg border border-gray-100 shadow-sm block mt-1">{currentScenario.pov}</span>
+                </div>
             </div>
-            <div className="text-right">
-              <span className="block text-xs text-gray-500 uppercase">POV Cerita</span>
-              <span className="font-bold text-gray-700">{currentScenario.pov}</span>
+
+            {/* Story Text Moved Here */}
+            <div className="bg-white/80 p-4 rounded-xl border border-rose-100 shadow-sm">
+                <div className="flex gap-3">
+                    <BookOpen className="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-gray-800 text-lg leading-relaxed font-medium">
+                    "{currentScenario.story}"
+                    </p>
+                </div>
             </div>
           </div>
           
-          <div className="p-8">
+          <div className="p-6 md:p-8">
             <div className="flex items-center gap-3 mb-6 bg-yellow-50 p-4 rounded-lg border border-yellow-100">
               <AlertCircle className="w-5 h-5 text-yellow-600" />
               <div>
@@ -1238,27 +1296,33 @@ const App = () => {
 
       {/* Story Card */}
       <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
-        <div className="bg-gradient-to-r from-rose-50 to-purple-50 p-6 border-b border-gray-100 flex justify-between items-start">
-          <div>
-            <span className="inline-block px-3 py-1 bg-white text-rose-600 text-xs font-bold rounded-full mb-2 border border-rose-100 uppercase tracking-wider">
-              {currentScenario.genre}
-            </span>
-            <h2 className="text-2xl font-bold text-gray-800">{currentScenario.title}</h2>
-          </div>
-          <div className="text-right">
-            <span className="block text-xs text-gray-500 uppercase">POV</span>
-            <span className="font-bold text-gray-700">{currentScenario.pov}</span>
-          </div>
+        {/* Header with Title & Story */}
+        <div className="bg-gradient-to-r from-rose-50 to-purple-50 p-6 border-b border-gray-100">
+            <div className="flex justify-between items-start mb-4">
+                <div>
+                <span className="inline-block px-3 py-1 bg-white text-rose-600 text-xs font-bold rounded-full mb-2 border border-rose-100 uppercase tracking-wider">
+                    {currentScenario.genre}
+                </span>
+                <h2 className="text-2xl font-bold text-gray-800 leading-tight">{currentScenario.title}</h2>
+                </div>
+                <div className="text-right flex-shrink-0 ml-4">
+                <span className="block text-xs text-gray-500 uppercase">POV</span>
+                <span className="font-bold text-gray-700 bg-white px-2 py-1 rounded-lg border border-gray-100 shadow-sm block mt-1">{currentScenario.pov}</span>
+                </div>
+            </div>
+
+            {/* Story Text Moved Here */}
+            <div className="bg-white/80 p-4 rounded-xl border border-rose-100 shadow-sm">
+                <div className="flex gap-3">
+                    <BookOpen className="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" />
+                    <p className="text-gray-800 text-lg leading-relaxed font-medium">
+                    "{currentScenario.story}"
+                    </p>
+                </div>
+            </div>
         </div>
         
-        <div className="p-8">
-          <div className="flex gap-4 mb-6">
-            <BookOpen className="w-6 h-6 text-gray-400 flex-shrink-0 mt-1" />
-            <p className="text-gray-700 text-lg leading-relaxed font-serif italic">
-              "{currentScenario.story}"
-            </p>
-          </div>
-
+        <div className="p-6 md:p-8">
           <div className="flex items-center gap-3 mb-6 bg-yellow-50 p-4 rounded-lg border border-yellow-100">
             <AlertCircle className="w-5 h-5 text-yellow-600" />
             <p className="font-semibold text-gray-800">{currentScenario.question}</p>
