@@ -65,43 +65,14 @@ const Trophy = ({ className }) => (
 const ArrowRight = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 );
-const Phone = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-);
-const Trash = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-);
-const Lock = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-);
-const Briefcase = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-);
-const Plane = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 12h20"/><path d="M13 2 9 22"/><path d="M13 22 9 2"/></svg>
-);
-const Ghost = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg>
-);
-const Bed = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
-);
-const Frown = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
-);
-const DollarSign = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-);
 
-// --- 25 SCENARIOS LENGKAP (10 PERTAMA DIPERBARUI, 11-25 BARU & ILLUSTRATED) ---
+// --- 25 SCENARIOS LENGKAP ---
 const SCENARIOS = [
   {
     id: 1,
     title: "Hapus Chat Mantan",
     genre: "Micro-Cheating",
     pov: "Suami",
-    icon: Phone,
-    color: "bg-blue-100 text-blue-600",
     story: "Mantanmu DM tengah malam: 'Aku kangen kita'. Kamu tidak membalas dengan flirting, tapi kamu langsung menghapus chat itu agar istrimu tidak membacanya dan salah paham. Istrimu tidak sengaja melihat backup cloud dan menemukan chat yang dihapus itu.",
     question: "Apa pembelaanmu?",
     options: [
@@ -115,8 +86,6 @@ const SCENARIOS = [
     title: "Kerja di Klub Malam",
     genre: "Karir vs Nilai",
     pov: "Istri",
-    icon: Briefcase,
-    color: "bg-purple-100 text-purple-600",
     story: "Kamu ditawari gaji 5x lipat, tapi pekerjaannya mengharuskan kamu menjamu klien di klub malam sampai jam 3 pagi. Suamimu sangat religius dan konservatif, dia sangat membenci lingkungan seperti itu.",
     question: "Keputusanmu?",
     options: [
@@ -130,8 +99,6 @@ const SCENARIOS = [
     title: "Dana Darurat Rahasia",
     genre: "Keuangan",
     pov: "Suami",
-    icon: Lock,
-    color: "bg-green-100 text-green-600",
     story: "Kamu dapat bonus besar 100 Juta. Alih-alih memasukkannya ke rekening bersama, kamu menyimpannya di rekening rahasia sebagai 'dana pelarian' jika suatu saat kalian bercerai. Istrimu menemukan buku tabungan itu.",
     question: "Alasanmu?",
     options: [
@@ -145,8 +112,6 @@ const SCENARIOS = [
     title: "Pelukan di Mobil",
     genre: "Rekan Kerja",
     pov: "Suami",
-    icon: Heart,
-    color: "bg-red-100 text-red-600",
     story: "Rekan kerja wanitamu ('work wife') sedang proses cerai dan menangis histeris di mobilmu saat makan siang. Kamu memeluknya untuk menenangkan. Istrimu melihat kejadian itu dari kejauhan.",
     question: "Reaksimu?",
     options: [
@@ -160,8 +125,6 @@ const SCENARIOS = [
     title: "Panti Jompo untuk Ibu",
     genre: "Mertua",
     pov: "Suami",
-    icon: Users,
-    color: "bg-orange-100 text-orange-600",
     story: "Ibumu mulai pikun dan butuh rawat 24 jam. Istrimu menolak ibu tinggal serumah karena mengganggu privasi dan mentalnya. Dia menyarankan panti jompo (nursing home) yang sangat bagus dan mahal.",
     question: "Pilihanmu?",
     options: [
@@ -175,8 +138,6 @@ const SCENARIOS = [
     title: "Jumlah Mantan",
     genre: "Masa Lalu",
     pov: "Istri",
-    icon: Ghost,
-    color: "bg-gray-100 text-gray-600",
     story: "Dulu kalian sepakat tidak bahas masa lalu. Kini suami terobsesi bertanya 'berapa orang yang pernah tidur denganmu?'. Kamu dulu berbohong angkanya sedikit (2 orang), padahal aslinya jauh lebih banyak (10+).",
     question: "Jawab apa?",
     options: [
@@ -190,8 +151,6 @@ const SCENARIOS = [
     title: "Barang Mewah Pribadi",
     genre: "Keuangan",
     pov: "Istri",
-    icon: DollarSign,
-    color: "bg-yellow-100 text-yellow-600",
     story: "Kamu beli tas branded 50 Juta pakai uang gajimu sendiri. Suamimu marah besar karena uang segitu bisa untuk melunasi KPR lebih cepat. Dia menuntut kamu menjualnya kembali.",
     question: "Keputusanmu?",
     options: [
@@ -205,8 +164,6 @@ const SCENARIOS = [
     title: "Pasangan Gendut",
     genre: "Fisik & Kejujuran",
     pov: "Suami",
-    icon: Frown,
-    color: "bg-pink-100 text-pink-600",
     story: "Setelah menikah, istrimu naik berat badan drastis dan tidak merawat diri. Kamu kehilangan gairah seksual padanya. Dia bertanya dengan sedih: 'Apa aku masih seksi di matamu?'.",
     question: "Jawabanmu?",
     options: [
@@ -220,8 +177,6 @@ const SCENARIOS = [
     title: "Tes DNA Diam-diam",
     genre: "Kepercayaan",
     pov: "Suami",
-    icon: UserCircle,
-    color: "bg-indigo-100 text-indigo-600",
     story: "Anak kalian sama sekali tidak mirip denganmu. Teman-teman sering bercanda soal itu. Kamu percaya istrimu, tapi 'pikiran setan' itu ada. Kamu berencana tes DNA diam-diam tanpa sepengetahuan istri.",
     question: "Lakukan?",
     options: [
@@ -235,8 +190,6 @@ const SCENARIOS = [
     title: "Balas Komen Genit",
     genre: "Sosial Media",
     pov: "Istri",
-    icon: MessageCircle,
-    color: "bg-blue-50 text-blue-500",
     story: "Kamu posting foto selfie cantik. Gebetan lama komen emoji 'api' 🔥. Kamu me-like komen itu dan balas 'Makasih ya!'. Suamimu melihat dan menuduhmu menikmati perhatian pria lain (flirting).",
     question: "Responmu?",
     options: [
@@ -250,8 +203,6 @@ const SCENARIOS = [
     title: "Me Time Berlebihan",
     genre: "Kebebasan",
     pov: "Istri",
-    icon: Plane,
-    color: "bg-sky-100 text-sky-600",
     story: "Kamu merasa burnout mengurus rumah tangga dan anak. Kamu ingin 'Solo Traveling' selama 2 minggu ke Bali sendirian, meninggalkan suami dan anak. Suami keberatan karena kerepotan mengurus rumah sendiri.",
     question: "Keputusanmu?",
     options: [
@@ -265,8 +216,6 @@ const SCENARIOS = [
     title: "Investasi Bodong",
     genre: "Keuangan",
     pov: "Suami",
-    icon: DollarSign,
-    color: "bg-red-50 text-red-600",
     story: "Kamu tergiur investasi crypto dan diam-diam memakai 50% uang tabungan pendidikan anak. Ternyata harganya anjlok dan uang itu hilang. Istri belum tahu dan berencana mengecek saldo minggu depan.",
     question: "Tindakanmu?",
     options: [
@@ -280,8 +229,6 @@ const SCENARIOS = [
     title: "Body Shaming 'Bercanda'",
     genre: "Harga Diri",
     pov: "Istri",
-    icon: Frown,
-    color: "bg-gray-200 text-gray-700",
     story: "Di depan teman-teman arisan, suamimu sering menjadikan bentuk tubuhmu lelucon ('Istriku ini dietnya wacana doang, liat tuh lipatannya'). Semua tertawa, kamu malu. Saat ditegur, dia bilang 'Cuma bercanda, baper amat'.",
     question: "Reaksimu?",
     options: [
@@ -295,8 +242,6 @@ const SCENARIOS = [
     title: "Nginap Rumah Sahabat",
     genre: "Batasan",
     pov: "Suami",
-    icon: Bed,
-    color: "bg-purple-50 text-purple-600",
     story: "Istrimu mau pergi ke luar kota untuk konser dan berencana menginap di apartemen sahabat prianya (katanya beda kamar) untuk hemat biaya hotel. Dia bersumpah tidak akan macam-macam.",
     question: "Izinmu?",
     options: [
@@ -310,8 +255,6 @@ const SCENARIOS = [
     title: "Kasar ke Pelayan",
     genre: "Karakter",
     pov: "Istri",
-    icon: AlertCircle,
-    color: "bg-orange-50 text-orange-600",
     story: "Suamimu sangat penyayang padamu, tapi sangat kasar dan merendahkan pelayan restoran atau ojol jika ada kesalahan kecil. Kamu merasa ilfil (hilang rasa) melihat sisi arogannya.",
     question: "Sikapmu?",
     options: [
@@ -325,8 +268,6 @@ const SCENARIOS = [
     title: "Hewan Liar di Kamar",
     genre: "Gaya Hidup",
     pov: "Suami",
-    icon: Heart,
-    color: "bg-emerald-100 text-emerald-600",
     story: "Kamu benci dan alergi bulu hewan. Istrimu pecinta hewan akut. Dia sering membawa kucing/anjing jalanan sakit untuk tidur di kamar kalian tanpa izin. Baunya mengganggumu.",
     question: "Tindakanmu?",
     options: [
@@ -340,8 +281,6 @@ const SCENARIOS = [
     title: "Puasa Ranjang 6 Bulan",
     genre: "Seksualitas",
     pov: "Suami",
-    icon: Bed,
-    color: "bg-indigo-50 text-indigo-600",
     story: "Istrimu menolak berhubungan intim selama 6 bulan terakhir dengan alasan 'capek' atau 'nggak mood', tapi dia sehat-sehat saja dan ceria dengan teman-temannya. Kamu merasa ditolak dan frustasi.",
     question: "Langkahmu?",
     options: [
@@ -368,8 +307,6 @@ const SCENARIOS = [
     title: "Pinjam Nama untuk Hutang",
     genre: "Keuangan",
     pov: "Istri",
-    icon: UserCircle,
-    color: "bg-red-100 text-red-600",
     story: "Bisnis suamimu bangkrut dan namanya di-blacklist bank. Dia memohon meminjam KTP-mu untuk mengajukan pinjaman besar demi modal usaha baru. Dia janji akan bayar.",
     question: "Keputusanmu?",
     options: [
@@ -383,8 +320,6 @@ const SCENARIOS = [
     title: "Permintaan Terakhir Mantan",
     genre: "Mantan",
     pov: "Suami",
-    icon: Heart,
-    color: "bg-rose-100 text-rose-600",
     story: "Mantan pacarmu (cinta pertamamu) sakit kanker stadium akhir. Dia menghubungimu dan memohon ingin bertemu kamu untuk terakhir kalinya sebelum meninggal. Istrimu sangat cemburu pada mantan ini.",
     question: "Apa yang kamu lakukan?",
     options: [
@@ -398,8 +333,6 @@ const SCENARIOS = [
     title: "Beda Agama Anak",
     genre: "Prinsip",
     pov: "Istri",
-    icon: BookOpen,
-    color: "bg-blue-100 text-blue-600",
     story: "Kamu ingin anak dididik disiplin agama sejak dini (mengaji/sekolah minggu). Suamimu yang mulai agnostik ingin membebaskan anak memilih keyakinan nanti saat dewasa (tidak perlu ibadah sekarang).",
     question: "Solusinya?",
     options: [
@@ -413,8 +346,6 @@ const SCENARIOS = [
     title: "Bajak Chat Kantor",
     genre: "Privasi",
     pov: "Suami",
-    icon: MessageCircle,
-    color: "bg-yellow-50 text-yellow-600",
     story: "Istrimu membuka HP-mu dan membaca grup chat kantormu yang isinya bercandaan kasar pria. Dia marah dan mengirim pesan di grup itu memarahi bos dan teman-temanmu pakai akunmu.",
     question: "Reaksimu?",
     options: [
@@ -428,8 +359,6 @@ const SCENARIOS = [
     title: "Operasi Plastik",
     genre: "Fisik",
     pov: "Istri",
-    icon: UserCircle,
-    color: "bg-pink-50 text-pink-600",
     story: "Kamu merasa sangat insecure dengan wajahmu dan ingin operasi plastik hidung & rahang (total 100 Juta). Suamimu menolak keras karena alasan 'bersyukur' dan resiko gagal.",
     question: "Keputusanmu?",
     options: [
@@ -443,8 +372,6 @@ const SCENARIOS = [
     title: "Putus Hubungan Ortu",
     genre: "Keluarga",
     pov: "Suami",
-    icon: Users,
-    color: "bg-gray-100 text-gray-700",
     story: "Orang tuamu sangat toxic dan sering menghina istrimu. Istrimu memberimu ultimatum: 'Kalau kamu masih menemui orang tuamu, kita cerai'. Dia memintamu memutus hubungan total dengan orang tuamu.",
     question: "Pilihanmu?",
     options: [
@@ -458,8 +385,6 @@ const SCENARIOS = [
     title: "Izin Poligami/Nikah Lagi",
     genre: "Komitmen",
     pov: "Istri",
-    icon: Heart,
-    color: "bg-rose-50 text-rose-600",
     story: "Suamimu yang mapan dan agamis tiba-tiba bicara serius meminta izin untuk menikah lagi (poligami) dengan alasan ibadah dan menolong janda. Dia berjanji akan adil.",
     question: "Jawabanmu?",
     options: [
@@ -470,29 +395,22 @@ const SCENARIOS = [
   }
 ];
 
-// --- COMPONENT: SCENARIO ILLUSTRATION (Visual Kartun SVG) ---
-const ScenarioIllustration = ({ scenario }) => {
-    const Icon = scenario.icon || BookOpen;
-    const colorClass = scenario.color || "bg-gray-100 text-gray-600";
-
-    return (
-        <div className={`w-full h-40 ${colorClass} rounded-t-3xl flex items-center justify-center relative overflow-hidden`}>
-            {/* Background Pattern */}
-            <div className="absolute top-0 left-0 w-full h-full opacity-20">
-                <div className="absolute -top-10 -left-10 w-32 h-32 bg-white rounded-full mix-blend-overlay"></div>
-                <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white rounded-full mix-blend-overlay"></div>
-            </div>
-            
-            {/* Main Visual */}
-            <div className="relative z-10 flex flex-col items-center animate-bounce-slow">
-                <div className="bg-white p-4 rounded-full shadow-lg">
-                    <Icon className="w-12 h-12" />
-                </div>
-                <span className="mt-2 text-xs font-bold uppercase tracking-widest opacity-80">{scenario.genre}</span>
-            </div>
-        </div>
-    );
+// --- Initialization Firebase (YOUR CONFIG) ---
+const firebaseConfig = {
+  apiKey: "AIzaSyDRzjrhryX8Hpq8tmrCCDhlJQugbz2r7_0",
+  authDomain: "testing-95321.firebaseapp.com",
+  projectId: "testing-95321",
+  storageBucket: "testing-95321.firebasestorage.app",
+  messagingSenderId: "457933264802",
+  appId: "1:457933264802:web:c7004083fd4a19336984fb",
+  measurementId: "G-W503YYH8DT"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app); 
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 // --- COMPONENT: LIVE VOICE ROOM (WebRTC Simplified) ---
 const LiveVoiceRoom = ({ roomId, role, user }) => {
@@ -1149,8 +1067,6 @@ const App = () => {
             </div>
           </div>
           
-          <ScenarioIllustration scenario={currentScenario} />
-          
           <div className="p-8">
             <div className="flex items-center gap-3 mb-6 bg-yellow-50 p-4 rounded-lg border border-yellow-100">
               <AlertCircle className="w-5 h-5 text-yellow-600" />
@@ -1285,9 +1201,14 @@ const App = () => {
           </div>
         </div>
         
-        <ScenarioIllustration scenario={currentScenario} />
-
         <div className="p-8">
+          <div className="flex gap-4 mb-6">
+            <BookOpen className="w-6 h-6 text-gray-400 flex-shrink-0 mt-1" />
+            <p className="text-gray-700 text-lg leading-relaxed font-serif italic">
+              "{currentScenario.story}"
+            </p>
+          </div>
+
           <div className="flex items-center gap-3 mb-6 bg-yellow-50 p-4 rounded-lg border border-yellow-100">
             <AlertCircle className="w-5 h-5 text-yellow-600" />
             <p className="font-semibold text-gray-800">{currentScenario.question}</p>
