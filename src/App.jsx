@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
 import { 
-  getFirestore, doc, setDoc, onSnapshot, updateDoc, getDoc, collection 
+  getFirestore, doc, setDoc, onSnapshot, updateDoc, getDoc, collection, addDoc 
 } from 'firebase/firestore';
 
 // ==========================================
@@ -25,7 +25,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 // ==========================================
-// 2. ICONS COMPONENTS
+// 2. ICONS
 // ==========================================
 const Heart = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>);
 const MessageCircle = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>);
@@ -50,17 +50,18 @@ const STICKERS = ["😢", "😡", "😱", "😂", "❤️", "👍", "😍", "�
 
 // --- 50 SCENARIOS LENGKAP ---
 const SCENARIOS = [
-  // 1-50: Skenario Lengkap (Sama seperti sebelumnya)
-  { id: 1, title: "Hapus Chat Mantan", genre: "Micro-Cheating", pov: "Suami", story: "Tengah malam, HP-mu bergetar. Muncul notifikasi dari mantan: 'Aku kangen kita'. Panik, kamu langsung menghapusnya. Besoknya istrimu mengecek folder 'Sampah' dan menemukannya.", question: "Apa pembelaanmu?", options: [{ id: 'A', text: "Demi perasaanmu.", consequence: "Niat baik tapi salah." }, { id: 'B', text: "Aku salah.", consequence: "Jujur." }, { id: 'C', text: "Gak ada apa-apa.", consequence: "Mencurigakan." }] },
+  // 1-10: Perselingkuhan & Kepercayaan
+  { id: 1, title: "Hapus Chat Mantan", genre: "Micro-Cheating", pov: "Suami", story: "Tengah malam, HP-mu bergetar. Muncul notifikasi dari mantan: 'Aku kangen kita'. Panik karena istrimu tidur di sebelah, kamu langsung menghapus chat itu diam-diam tanpa membalas. Apesnya, besoknya istrimu mengecek folder 'Sampah' di pesanmu dan menemukannya.", question: "Apa pembelaanmu?", options: [{ id: 'A', text: "Demi perasaanmu.", consequence: "Niat baik tapi salah." }, { id: 'B', text: "Aku salah.", consequence: "Jujur." }, { id: 'C', text: "Gak ada apa-apa.", consequence: "Mencurigakan." }] },
   { id: 2, title: "Kerja di Klub Malam", genre: "Karir vs Nilai", pov: "Istri", story: "Ekonomi sulit. Ditawari gaji 50 Juta sebagai PR Klub Malam. Suami guru ngaji anti alkohol.", question: "Keputusanmu?", options: [{ id: 'A', text: "Ambil.", consequence: "Ekonomi aman, respek hilang." }, { id: 'B', text: "Tolak.", consequence: "Hidup susah." }, { id: 'C', text: "Diam-diam.", consequence: "Bohong fatal." }] },
   { id: 3, title: "Dana Darurat Rahasia", genre: "Keuangan", pov: "Suami", story: "Bonus 100 Juta disimpan di rekening rahasia sebagai 'dana pelarian' cerai. Istri menemukan buku tabungan.", question: "Alasanmu?", options: [{ id: 'A', text: "Hak pribadiku.", consequence: "Melukai kepercayaan." }, { id: 'B', text: "Jaga kamu boros.", consequence: "Menyalahkan istri." }, { id: 'C', text: "Minta maaf.", consequence: "Hilang dana darurat." }] },
   { id: 4, title: "Pelukan di Mobil", genre: "Rekan Kerja", pov: "Suami", story: "Rekan wanita nangis histeris di mobilmu. Kamu peluk menenangkan. Istri melihat.", question: "Reaksimu?", options: [{ id: 'A', text: "Kemanusiaan.", consequence: "Istri sakit hati." }, { id: 'B', text: "Salah tempat.", consequence: "Validasi istri." }, { id: 'C', text: "Marah dimata-matai.", consequence: "Gaslighting." }] },
-  { id: 5, title: "Panti Jompo Ibu", genre: "Mertua", pov: "Suami", story: "Ibumu pikun hampir bakar dapur. Istri histeris minta ibu ke panti jompo.", question: "Pilihanmu?", options: [{ id: 'A', text: "Paksa di rumah.", consequence: "Istri stress." }, { id: 'B', text: "Panti jompo.", consequence: "Rasa bersalah." }, { id: 'C', text: "Sewa perawat.", consequence: "Biaya bengkak." }] },
+  { id: 5, title: "Indikasi Gay", genre: "Orientasi", pov: "Istri", story: "Kamu tidak sengaja melihat galeri HP suamimu. Isinya penuh foto pria berotot bertelanjang dada dan chat mesra dengan teman gym prianya. Dia selama ini baik tapi jarang menyentuhmu.", question: "Tindakanmu?", options: [{ id: 'A', text: "Konfrontasi langsung.", consequence: "Siap menerima kenyataan pahit." }, { id: 'B', text: "Selidiki diam-diam.", consequence: "Hidup dalam kecurigaan." }, { id: 'C', text: "Pura-pura tidak tahu.", consequence: "Menyangkal kenyataan." }] },
   { id: 6, title: "Jumlah Mantan", genre: "Masa Lalu", pov: "Istri", story: "Suami tanya jumlah mantan tidurmu. Dulu bilang 2, aslinya 12. Dia tanya lagi.", question: "Jawab apa?", options: [{ id: 'A', text: "Bohong (2).", consequence: "Hidup palsu." }, { id: 'B', text: "Jujur (12).", consequence: "Suami ilfil." }, { id: 'C', text: "Tolak jawab.", consequence: "Mencurigakan." }] },
   { id: 7, title: "Tas Mewah", genre: "Keuangan", pov: "Istri", story: "Beli tas 50 Juta pakai uang sendiri. Suami marah karena bisa buat lunasin KPR.", question: "Keputusanmu?", options: [{ id: 'A', text: "Jual tas.", consequence: "Terkekang." }, { id: 'B', text: "Tolak.", consequence: "Suami tak dihargai." }, { id: 'C', text: "Sembunyikan harga.", consequence: "Masalah nanti." }] },
   { id: 8, title: "Pasangan Gendut", genre: "Fisik", pov: "Suami", story: "Istri naik 30kg, tanya 'Aku seksi gak?'. Jujur, gairahmu mati.", question: "Jawabanmu?", options: [{ id: 'A', text: "Bohong: Seksi.", consequence: "Masalah ranjang berlanjut." }, { id: 'B', text: "Jujur: Kurang.", consequence: "Menyakitkan." }, { id: 'C', text: "Diet bareng.", consequence: "Menyinggung." }] },
   { id: 9, title: "Tes DNA", genre: "Kepercayaan", pov: "Suami", story: "Anak tidak mirip kamu. Teman menyindir. Ingin tes DNA diam-diam.", question: "Lakukan?", options: [{ id: 'A', text: "Ya.", consequence: "Resiko cerai." }, { id: 'B', text: "Tidak.", consequence: "Hati ragu." }, { id: 'C', text: "Izin istri.", consequence: "Istri terhina." }] },
-  { id: 10, title: "Komen Genit", genre: "Sosmed", pov: "Istri", story: "Gebetan komen api di foto. Kamu like & balas. Suami cemburu.", question: "Responmu?", options: [{ id: 'A', text: "Blokir.", consequence: "Terkekang." }, { id: 'B', text: "Jangan lebay.", consequence: "Makin cemburu." }, { id: 'C', text: "Janji stop.", consequence: "Kompromi." }] },
+  { id: 10, title: "Komen Genit", genre: "Sosmed", pov: "Istri", story: "Gebetan lama komen api di foto. Kamu like & balas. Suami cemburu.", question: "Responmu?", options: [{ id: 'A', text: "Blokir.", consequence: "Terkekang." }, { id: 'B', text: "Jangan lebay.", consequence: "Makin cemburu." }, { id: 'C', text: "Janji stop.", consequence: "Kompromi." }] },
+  // 11-20: Gaya Hidup & Keluarga
   { id: 11, title: "Solo Traveling", genre: "Me Time", pov: "Istri", story: "Burnout urus anak, mau ke Bali sendiri 2 minggu. Suami keberatan.", question: "Keputusanmu?", options: [{ id: 'A', text: "Pergi.", consequence: "Suami dendam." }, { id: 'B', text: "Batal.", consequence: "Burnout." }, { id: 'C', text: "3 hari.", consequence: "Kurang puas." }] },
   { id: 12, title: "Investasi Bodong", genre: "Keuangan", pov: "Suami", story: "Uang sekolah 200jt habis di crypto. Istri belum tahu.", question: "Tindakanmu?", options: [{ id: 'A', text: "Ngaku.", consequence: "Perang dunia." }, { id: 'B', text: "Pinjam ganti.", consequence: "Gali lubang." }, { id: 'C', text: "Edit buku.", consequence: "Kriminal." }] },
   { id: 13, title: "Body Shaming", genre: "Harga Diri", pov: "Istri", story: "Suami jadikan fisikmu lelucon di depan teman. Semua tertawa.", question: "Reaksimu?", options: [{ id: 'A', text: "Marah.", consequence: "Suami malu." }, { id: 'B', text: "Diam.", consequence: "Harga diri hancur." }, { id: 'C', text: "Balas hina.", consequence: "Toxic." }] },
@@ -69,8 +70,9 @@ const SCENARIOS = [
   { id: 16, title: "Hewan di Kamar", genre: "Gaya Hidup", pov: "Suami", story: "Kamu alergi. Istri bawa kucing jalanan tidur di bantalmu.", question: "Tindakanmu?", options: [{ id: 'A', text: "Usir.", consequence: "Istri sedih." }, { id: 'B', text: "Tidur sofa.", consequence: "Intimasi hilang." }, { id: 'C', text: "Ultimatum.", consequence: "Drama." }] },
   { id: 17, title: "Puasa Ranjang", genre: "Seksualitas", pov: "Suami", story: "Istri tolak seks 6 bulan tapi aktif zumba. Kamu frustasi.", question: "Langkahmu?", options: [{ id: 'A', text: "Tuntut.", consequence: "Makin jauh." }, { id: 'B', text: "Konselor.", consequence: "Solusi." }, { id: 'C', text: "Cari sendiri.", consequence: "Masalah tetap." }] },
   { id: 18, title: "Anak Bully", genre: "Parenting", pov: "Istri", story: "Anak memukul teman. Kamu mau hukum, suami bela 'Anakku jagoan'.", question: "Sikapmu?", options: [{ id: 'A', text: "Lawan suami.", consequence: "Anak bingung." }, { id: 'B', text: "Diam.", consequence: "Anak jadi bully." }, { id: 'C', text: "Sekolah hukum.", consequence: "Lepas tangan." }] },
-  { id: 19, title: "Pinjam Nama", genre: "Keuangan", pov: "Istri", story: "Suami dikejar rentenir. Minta pinjam KTP-mu buat hutang bank 500jt.", question: "Keputusanmu?", options: [{ id: 'A', text: "Kasih.", consequence: "Resiko dikejar bank." }, { id: 'B', text: "Tolak.", consequence: "Suami terancam." }, { id: 'C', text: "Perjanjian.", consequence: "Transaksional." }] },
+  { id: 19, title: "Pinjam Nama Hutang", genre: "Keuangan", pov: "Istri", story: "Suami dikejar rentenir. Minta pinjam KTP-mu buat hutang bank 500jt.", question: "Keputusanmu?", options: [{ id: 'A', text: "Kasih.", consequence: "Resiko dikejar bank." }, { id: 'B', text: "Tolak.", consequence: "Suami terancam." }, { id: 'C', text: "Perjanjian.", consequence: "Transaksional." }] },
   { id: 20, title: "Mantan Sekarat", genre: "Mantan", pov: "Suami", story: "Mantan sekarat ingin pegang tanganmu terakhir kali. Istri cemburu.", question: "Lakukan?", options: [{ id: 'A', text: "Pergi diam-diam.", consequence: "Khianat." }, { id: 'B', text: "Izin memohon.", consequence: "Istri sakit." }, { id: 'C', text: "Tolak.", consequence: "Rasa bersalah." }] },
+  // 21-30: Prinsip & Konflik Batin
   { id: 21, title: "Beda Agama Anak", genre: "Prinsip", pov: "Istri", story: "Kamu ingin anak agamis. Suami ingin anak bebas pilih.", question: "Solusinya?", options: [{ id: 'A', text: "Didik diam-diam.", consequence: "Bohong." }, { id: 'B', text: "Ikuti suami.", consequence: "Merasa berdosa." }, { id: 'C', text: "Debat.", consequence: "Rumah panas." }] },
   { id: 22, title: "Bajak Chat", genre: "Privasi", pov: "Suami", story: "Istri bajak WA kantormu, maki-maki temanmu karena jokes kotor.", question: "Reaksimu?", options: [{ id: 'A', text: "Marah & ganti sandi.", consequence: "Karir terganggu." }, { id: 'B', text: "Minta maaf.", consequence: "Malu." }, { id: 'C', text: "Bela istri.", consequence: "Palsu." }] },
   { id: 23, title: "Oplas", genre: "Fisik", pov: "Istri", story: "Ingin oplas hidung 80jt. Suami larang 'bersyukur aja'.", question: "Keputusanmu?", options: [{ id: 'A', text: "Tetap operasi.", consequence: "Suami ilfil." }, { id: 'B', text: "Batal.", consequence: "Insecure." }, { id: 'C', text: "Klinik murah.", consequence: "Resiko." }] },
@@ -81,6 +83,7 @@ const SCENARIOS = [
   { id: 28, title: "Larang Nongkrong", genre: "Overprotective", pov: "Suami", story: "Istri larang keras kamu ngopi sama teman kantor pria. Harus langsung pulang.", question: "Keputusanmu?", options: [{ id: 'A', text: "Nurut.", consequence: "Kurang pergaulan." }, { id: 'B', text: "Bohong lembur.", consequence: "Tidak jujur." }, { id: 'C', text: "Lawan.", consequence: "Ribut." }] },
   { id: 29, title: "Larang Merokok", genre: "Kebebasan", pov: "Suami", story: "Kamu perokok sosial. Istri ancam tak mau cium kalau bau rokok.", question: "Responmu?", options: [{ id: 'A', text: "Berhenti.", consequence: "Sehat tapi terkekang." }, { id: 'B', text: "Diam-diam.", consequence: "Kucing-kucingan." }, { id: 'C', text: "Merokok depan dia.", consequence: "Ribut." }] },
   { id: 30, title: "Tipe vs Kaya", genre: "Pilihan", pov: "Istri", story: "Pilih pria miskin yang tipe kamu banget, atau pria kaya raya yang bukan tipemu?", question: "Pilih mana?", options: [{ id: 'A', text: "Miskin (Cinta).", consequence: "Makan cinta." }, { id: 'B', text: "Kaya (Logika).", consequence: "Hati kosong." }, { id: 'C', text: "Tolak keduanya.", consequence: "Jomblo." }] },
+  // 31-40: New Filler Scenarios
   { id: 31, title: "Anak Durhaka", genre: "Keluarga", pov: "Suami", story: "Anak remajamu membentak ibunya kasar. Kamu ingin usir, istri membela.", question: "Tindakanmu?", options: [{ id: 'A', text: "Usir.", consequence: "Anak dendam." }, { id: 'B', text: "Biarkan.", consequence: "Makin kurang ajar." }, { id: 'C', text: "Pukul.", consequence: "Trauma." }] },
   { id: 32, title: "Mertua Sakit", genre: "Keuangan", pov: "Suami", story: "Ayahmu butuh operasi 200jt. Uang cuma ada di tabungan DP rumah. Istri berat hati.", question: "Pilihanmu?", options: [{ id: 'A', text: "Pakai uangnya.", consequence: "Batal beli rumah." }, { id: 'B', text: "Cari pinjaman.", consequence: "Hutang numpuk." }, { id: 'C', text: "Obat jalan.", consequence: "Ayah tak tertolong." }] },
   { id: 33, title: "Pindah Agama", genre: "Prinsip", pov: "Istri", story: "Suami pindah agama dan memaksa kamu serta anak ikut. Kalau tidak, cerai.", question: "Keputusanmu?", options: [{ id: 'A', text: "Ikut.", consequence: "Iman tergadai." }, { id: 'B', text: "Cerai.", consequence: "Keluarga hancur." }, { id: 'C', text: "Beda agama.", consequence: "Rumit." }] },
@@ -136,10 +139,11 @@ const TypingText = ({ text, speed = 20 }) => {
     const [displayedText, setDisplayedText] = useState('');
     
     useEffect(() => {
-        let i = 0;
         setDisplayedText('');
+        let i = 0;
         const timer = setInterval(() => {
             if (i < text.length) {
+                // Using slice is safe, prevents undefined characters
                 setDisplayedText(text.slice(0, i + 1));
                 i++;
             } else {
@@ -323,6 +327,36 @@ const HomeScreen = ({ setView }) => (
   </div>
 );
 
+// Gender Selection Component
+const GenderSelection = ({ onSelect }) => {
+    return (
+        <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 animate-fade-in">
+            <h2 className="text-2xl font-bold text-gray-800 mb-2 text-center">Siapa Kamu?</h2>
+            <p className="text-gray-500 mb-8 text-center text-sm">Pilih peranmu dalam hubungan ini.</p>
+            
+            <div className="grid grid-cols-2 gap-6 w-full max-w-sm">
+                <button 
+                    onClick={() => onSelect('suami')}
+                    className="flex flex-col items-center gap-3 p-6 bg-blue-50 border-2 border-blue-200 rounded-2xl hover:bg-blue-100 hover:border-blue-400 transition transform hover:scale-105"
+                >
+                    <span className="text-4xl">👨</span>
+                    <span className="font-bold text-blue-800">SUAMI</span>
+                    <span className="text-xs text-blue-600">(Cowok)</span>
+                </button>
+
+                <button 
+                    onClick={() => onSelect('istri')}
+                    className="flex flex-col items-center gap-3 p-6 bg-pink-50 border-2 border-pink-200 rounded-2xl hover:bg-pink-100 hover:border-pink-400 transition transform hover:scale-105"
+                >
+                    <span className="text-4xl">👩</span>
+                    <span className="font-bold text-pink-800">ISTRI</span>
+                    <span className="text-xs text-pink-600">(Cewek)</span>
+                </button>
+            </div>
+        </div>
+    );
+};
+
 const MultiplayerLobby = ({ createRoom, joinRoom, isLoading, user, userRole }) => {
     const [joinId, setJoinId] = useState('');
     
@@ -449,17 +483,17 @@ const MultiplayerGameScreen = ({
     
     if (gameData?.scenarioOrder && gameData.scenarioOrder.length > 0) {
         const actualScenarioIndex = gameData.scenarioOrder[currentOrderIndex];
-        // Direct access is safer and faster since indices come from the array itself
+        // Check valid index inside SCENARIOS array
         if (actualScenarioIndex !== undefined && SCENARIOS[actualScenarioIndex]) {
             currentScenario = SCENARIOS[actualScenarioIndex];
         }
     } else {
-        // Fallback for legacy rooms
+        // Fallback for legacy rooms without shuffle
         currentScenario = SCENARIOS[currentOrderIndex % SCENARIOS.length];
     }
     
-    // Extra safety
-    if (!currentScenario) return <div className="p-10 text-center">Memuat skenario...</div>;
+    // Extra safety: If scenario is missing, show loading
+    if (!currentScenario) return <div className="p-20 text-center text-gray-500">Memuat Skenario...</div>;
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -668,6 +702,19 @@ const MultiplayerGameScreen = ({
         </div>
       </div>
     );
+};
+
+const SinglePlayerGameScreen = ({ 
+    currentScenarioIndex,
+    setCurrentScenarioIndex,
+    selectedOption,
+    setSelectedOption,
+    showResult,
+    setShowResult
+}) => {
+    // Single player logic removed per request, but component kept for safety if referenced.
+    // It's effectively unreachable now as the Home button is removed.
+    return null; 
 };
 
 // ==========================================
