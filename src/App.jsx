@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
 import { 
-  getFirestore, doc, setDoc, onSnapshot, updateDoc, getDoc, collection, addDoc 
+  getFirestore, doc, setDoc, onSnapshot, updateDoc, getDoc, collection 
 } from 'firebase/firestore';
 
 // ==========================================
@@ -45,29 +45,19 @@ const UserCircle = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" w
 const Trophy = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>);
 const ArrowRight = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>);
 const Send = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="22" x2="11" y1="2" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>);
-const Gift = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>);
-const Phone = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>);
-const Trash = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>);
-const Lock = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>);
-const Briefcase = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>);
-const Plane = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 12h20"/><path d="M13 2 9 22"/><path d="M13 22 9 2"/></svg>);
-const Ghost = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg>);
-const Bed = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>);
-const Frown = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>);
-const DollarSign = ({ className }) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>);
 
 const STICKERS = ["😢", "😡", "😱", "😂", "❤️", "👍", "😍", "😭", "🔥", "🤗"];
 
-// --- 75 SCENARIOS LENGKAP & RANDOMIZED ---
+// --- 50 SCENARIOS LENGKAP ---
 const SCENARIOS = [
-  // 1-50: Skenario Sebelumnya (Dipersingkat untuk menghemat ruang, tapi tetap ada)
-  { id: 1, title: "Hapus Chat Mantan", genre: "Micro-Cheating", pov: "Suami", story: "Tengah malam, HP-mu bergetar. Muncul notifikasi dari mantan: 'Aku kangen kita'. Panik karena istrimu tidur di sebelah, kamu langsung menghapus chat itu diam-diam tanpa membalas. Apesnya, besoknya istrimu mengecek folder 'Sampah' di pesanmu dan menemukannya.", question: "Apa pembelaanmu?", options: [{ id: 'A', text: "Demi perasaanmu.", consequence: "Niat baik tapi salah." }, { id: 'B', text: "Aku salah.", consequence: "Jujur." }, { id: 'C', text: "Gak ada apa-apa.", consequence: "Mencurigakan." }] },
+  // 1-50: Skenario Lengkap (Sama seperti sebelumnya)
+  { id: 1, title: "Hapus Chat Mantan", genre: "Micro-Cheating", pov: "Suami", story: "Tengah malam, HP-mu bergetar. Muncul notifikasi dari mantan: 'Aku kangen kita'. Panik, kamu langsung menghapusnya. Besoknya istrimu mengecek folder 'Sampah' dan menemukannya.", question: "Apa pembelaanmu?", options: [{ id: 'A', text: "Demi perasaanmu.", consequence: "Niat baik tapi salah." }, { id: 'B', text: "Aku salah.", consequence: "Jujur." }, { id: 'C', text: "Gak ada apa-apa.", consequence: "Mencurigakan." }] },
   { id: 2, title: "Kerja di Klub Malam", genre: "Karir vs Nilai", pov: "Istri", story: "Ekonomi sulit. Ditawari gaji 50 Juta sebagai PR Klub Malam. Suami guru ngaji anti alkohol.", question: "Keputusanmu?", options: [{ id: 'A', text: "Ambil.", consequence: "Ekonomi aman, respek hilang." }, { id: 'B', text: "Tolak.", consequence: "Hidup susah." }, { id: 'C', text: "Diam-diam.", consequence: "Bohong fatal." }] },
   { id: 3, title: "Dana Darurat Rahasia", genre: "Keuangan", pov: "Suami", story: "Bonus 100 Juta disimpan di rekening rahasia sebagai 'dana pelarian' cerai. Istri menemukan buku tabungan.", question: "Alasanmu?", options: [{ id: 'A', text: "Hak pribadiku.", consequence: "Melukai kepercayaan." }, { id: 'B', text: "Jaga kamu boros.", consequence: "Menyalahkan istri." }, { id: 'C', text: "Minta maaf.", consequence: "Hilang dana darurat." }] },
   { id: 4, title: "Pelukan di Mobil", genre: "Rekan Kerja", pov: "Suami", story: "Rekan wanita nangis histeris di mobilmu. Kamu peluk menenangkan. Istri melihat.", question: "Reaksimu?", options: [{ id: 'A', text: "Kemanusiaan.", consequence: "Istri sakit hati." }, { id: 'B', text: "Salah tempat.", consequence: "Validasi istri." }, { id: 'C', text: "Marah dimata-matai.", consequence: "Gaslighting." }] },
   { id: 5, title: "Panti Jompo Ibu", genre: "Mertua", pov: "Suami", story: "Ibumu pikun hampir bakar dapur. Istri histeris minta ibu ke panti jompo.", question: "Pilihanmu?", options: [{ id: 'A', text: "Paksa di rumah.", consequence: "Istri stress." }, { id: 'B', text: "Panti jompo.", consequence: "Rasa bersalah." }, { id: 'C', text: "Sewa perawat.", consequence: "Biaya bengkak." }] },
   { id: 6, title: "Jumlah Mantan", genre: "Masa Lalu", pov: "Istri", story: "Suami tanya jumlah mantan tidurmu. Dulu bilang 2, aslinya 12. Dia tanya lagi.", question: "Jawab apa?", options: [{ id: 'A', text: "Bohong (2).", consequence: "Hidup palsu." }, { id: 'B', text: "Jujur (12).", consequence: "Suami ilfil." }, { id: 'C', text: "Tolak jawab.", consequence: "Mencurigakan." }] },
-  { id: 7, title: "Tas Mewah", genre: "Keuangan", pov: "Istri", story: "Beli tas 50 Juta pakai uang sendiri. Suami marah karena bisa lunasin KPR.", question: "Keputusanmu?", options: [{ id: 'A', text: "Jual tas.", consequence: "Terkekang." }, { id: 'B', text: "Tolak.", consequence: "Suami tak dihargai." }, { id: 'C', text: "Sembunyikan harga.", consequence: "Masalah nanti." }] },
+  { id: 7, title: "Tas Mewah", genre: "Keuangan", pov: "Istri", story: "Beli tas 50 Juta pakai uang sendiri. Suami marah karena bisa buat lunasin KPR.", question: "Keputusanmu?", options: [{ id: 'A', text: "Jual tas.", consequence: "Terkekang." }, { id: 'B', text: "Tolak.", consequence: "Suami tak dihargai." }, { id: 'C', text: "Sembunyikan harga.", consequence: "Masalah nanti." }] },
   { id: 8, title: "Pasangan Gendut", genre: "Fisik", pov: "Suami", story: "Istri naik 30kg, tanya 'Aku seksi gak?'. Jujur, gairahmu mati.", question: "Jawabanmu?", options: [{ id: 'A', text: "Bohong: Seksi.", consequence: "Masalah ranjang berlanjut." }, { id: 'B', text: "Jujur: Kurang.", consequence: "Menyakitkan." }, { id: 'C', text: "Diet bareng.", consequence: "Menyinggung." }] },
   { id: 9, title: "Tes DNA", genre: "Kepercayaan", pov: "Suami", story: "Anak tidak mirip kamu. Teman menyindir. Ingin tes DNA diam-diam.", question: "Lakukan?", options: [{ id: 'A', text: "Ya.", consequence: "Resiko cerai." }, { id: 'B', text: "Tidak.", consequence: "Hati ragu." }, { id: 'C', text: "Izin istri.", consequence: "Istri terhina." }] },
   { id: 10, title: "Komen Genit", genre: "Sosmed", pov: "Istri", story: "Gebetan komen api di foto. Kamu like & balas. Suami cemburu.", question: "Responmu?", options: [{ id: 'A', text: "Blokir.", consequence: "Terkekang." }, { id: 'B', text: "Jangan lebay.", consequence: "Makin cemburu." }, { id: 'C', text: "Janji stop.", consequence: "Kompromi." }] },
@@ -78,10 +68,10 @@ const SCENARIOS = [
   { id: 15, title: "Kasar ke Pelayan", genre: "Karakter", pov: "Istri", story: "Suami lembut padamu, tapi bentak pelayan kasar sekali.", question: "Sikapmu?", options: [{ id: 'A', text: "Tegur.", consequence: "Tersinggung." }, { id: 'B', text: "Diam.", consequence: "Ilfil." }, { id: 'C', text: "Minta maaf ke pelayan.", consequence: "Nanggung malu." }] },
   { id: 16, title: "Hewan di Kamar", genre: "Gaya Hidup", pov: "Suami", story: "Kamu alergi. Istri bawa kucing jalanan tidur di bantalmu.", question: "Tindakanmu?", options: [{ id: 'A', text: "Usir.", consequence: "Istri sedih." }, { id: 'B', text: "Tidur sofa.", consequence: "Intimasi hilang." }, { id: 'C', text: "Ultimatum.", consequence: "Drama." }] },
   { id: 17, title: "Puasa Ranjang", genre: "Seksualitas", pov: "Suami", story: "Istri tolak seks 6 bulan tapi aktif zumba. Kamu frustasi.", question: "Langkahmu?", options: [{ id: 'A', text: "Tuntut.", consequence: "Makin jauh." }, { id: 'B', text: "Konselor.", consequence: "Solusi." }, { id: 'C', text: "Cari sendiri.", consequence: "Masalah tetap." }] },
-  { id: 18, title: "Anak Bully", genre: "Parenting", pov: "Istri", story: "Anak memukul teman. Kamu mau hukum, suami malah membela 'Anakku jagoan'.", question: "Sikapmu?", options: [{ id: 'A', text: "Lawan suami.", consequence: "Anak bingung." }, { id: 'B', text: "Diam.", consequence: "Anak jadi bully." }, { id: 'C', text: "Sekolah hukum.", consequence: "Lepas tangan." }] },
-  { id: 19, title: "Pinjam Nama Hutang", genre: "Keuangan", pov: "Istri", story: "Suami dikejar rentenir judi online. Minta pinjam KTP-mu buat hutang bank 500jt.", question: "Keputusanmu?", options: [{ id: 'A', text: "Kasih.", consequence: "Resiko dikejar bank." }, { id: 'B', text: "Tolak.", consequence: "Suami terancam." }, { id: 'C', text: "Perjanjian.", consequence: "Transaksional." }] },
+  { id: 18, title: "Anak Bully", genre: "Parenting", pov: "Istri", story: "Anak memukul teman. Kamu mau hukum, suami bela 'Anakku jagoan'.", question: "Sikapmu?", options: [{ id: 'A', text: "Lawan suami.", consequence: "Anak bingung." }, { id: 'B', text: "Diam.", consequence: "Anak jadi bully." }, { id: 'C', text: "Sekolah hukum.", consequence: "Lepas tangan." }] },
+  { id: 19, title: "Pinjam Nama", genre: "Keuangan", pov: "Istri", story: "Suami dikejar rentenir. Minta pinjam KTP-mu buat hutang bank 500jt.", question: "Keputusanmu?", options: [{ id: 'A', text: "Kasih.", consequence: "Resiko dikejar bank." }, { id: 'B', text: "Tolak.", consequence: "Suami terancam." }, { id: 'C', text: "Perjanjian.", consequence: "Transaksional." }] },
   { id: 20, title: "Mantan Sekarat", genre: "Mantan", pov: "Suami", story: "Mantan sekarat ingin pegang tanganmu terakhir kali. Istri cemburu.", question: "Lakukan?", options: [{ id: 'A', text: "Pergi diam-diam.", consequence: "Khianat." }, { id: 'B', text: "Izin memohon.", consequence: "Istri sakit." }, { id: 'C', text: "Tolak.", consequence: "Rasa bersalah." }] },
-  { id: 21, title: "Beda Agama Anak", genre: "Prinsip", pov: "Istri", story: "Kamu ingin anak agamis. Suami ingin anak bebas pilih nanti.", question: "Solusinya?", options: [{ id: 'A', text: "Didik diam-diam.", consequence: "Bohong." }, { id: 'B', text: "Ikuti suami.", consequence: "Merasa berdosa." }, { id: 'C', text: "Debat.", consequence: "Rumah panas." }] },
+  { id: 21, title: "Beda Agama Anak", genre: "Prinsip", pov: "Istri", story: "Kamu ingin anak agamis. Suami ingin anak bebas pilih.", question: "Solusinya?", options: [{ id: 'A', text: "Didik diam-diam.", consequence: "Bohong." }, { id: 'B', text: "Ikuti suami.", consequence: "Merasa berdosa." }, { id: 'C', text: "Debat.", consequence: "Rumah panas." }] },
   { id: 22, title: "Bajak Chat", genre: "Privasi", pov: "Suami", story: "Istri bajak WA kantormu, maki-maki temanmu karena jokes kotor.", question: "Reaksimu?", options: [{ id: 'A', text: "Marah & ganti sandi.", consequence: "Karir terganggu." }, { id: 'B', text: "Minta maaf.", consequence: "Malu." }, { id: 'C', text: "Bela istri.", consequence: "Palsu." }] },
   { id: 23, title: "Oplas", genre: "Fisik", pov: "Istri", story: "Ingin oplas hidung 80jt. Suami larang 'bersyukur aja'.", question: "Keputusanmu?", options: [{ id: 'A', text: "Tetap operasi.", consequence: "Suami ilfil." }, { id: 'B', text: "Batal.", consequence: "Insecure." }, { id: 'C', text: "Klinik murah.", consequence: "Resiko." }] },
   { id: 24, title: "Pilih Istri/Ibu", genre: "Keluarga", pov: "Suami", story: "Istri ultimatum: 'Aku atau Ibumu?'. Ibumu toxic.", question: "Pilihanmu?", options: [{ id: 'A', text: "Pilih Istri.", consequence: "Anak durhaka." }, { id: 'B', text: "Pilih Ibu.", consequence: "Cerai." }, { id: 'C', text: "Diam-diam.", consequence: "Bom waktu." }] },
@@ -101,8 +91,6 @@ const SCENARIOS = [
   { id: 38, title: "Beda Politik", genre: "Prinsip", pov: "Suami", story: "Beda pilihan Capres fanatik. Tiap nonton berita bertengkar hebat.", question: "Solusinya?", options: [{ id: 'A', text: "Stop bahas politik.", consequence: "Kaku." }, { id: 'B', text: "Pura-pura setuju.", consequence: "Memendam." }, { id: 'C', text: "Debat.", consequence: "Toxic." }] },
   { id: 39, title: "Tetangga Gosip", genre: "Sosial", pov: "Suami", story: "Tetangga gosip istri selingkuh. Kamu mau labrak, istri larang.", question: "Tindakanmu?", options: [{ id: 'A', text: "Labrak.", consequence: "Musuh sekampung." }, { id: 'B', text: "Diam.", consequence: "Makan hati." }, { id: 'C', text: "Pindah rumah.", consequence: "Mahal." }] },
   { id: 40, title: "Janin Cacat", genre: "Dilema", pov: "Istri", story: "Janin didiagnosa cacat berat. Dokter saran gugurkan. Suami tolak (agama).", question: "Keputusanmu?", options: [{ id: 'A', text: "Gugurkan.", consequence: "Dianggap pembunuh." }, { id: 'B', text: "Pertahankan.", consequence: "Rawat seumur hidup." }, { id: 'C', text: "Cerai.", consequence: "Lari masalah." }] },
-  
-  // 41-50: Isu Modern
   { id: 41, title: "Selingkuh Emosional", genre: "Micro-Cheating", pov: "Istri", story: "Suami chat tiap hari sama teman wanita soal perasaan. Bilangnya 'cuma teman'.", question: "Sikapmu?", options: [{ id: 'A', text: "Minta stop total.", consequence: "Dikekang." }, { id: 'B', text: "Biarkan.", consequence: "Sakit hati." }, { id: 'C', text: "Balas cari teman.", consequence: "Hancur." }] },
   { id: 42, title: "Kecanduan Game", genre: "Hobi", pov: "Istri", story: "Suami main game seharian tiap weekend. Gak mau diganggu anak.", question: "Tindakanmu?", options: [{ id: 'A', text: "Matikan listrik.", consequence: "Ribut." }, { id: 'B', text: "Biarkan.", consequence: "Single parent rasa nikah." }, { id: 'C', text: "Ikut main.", consequence: "Rumah berantakan." }] },
   { id: 43, title: "Gila Belanja", genre: "Keuangan", pov: "Suami", story: "Istri kecanduan belanja online. Kartu kredit bengkak.", question: "Langkahmu?", options: [{ id: 'A', text: "Sita HP/Kartu.", consequence: "Seperti anak kecil." }, { id: 'B', text: "Bayarin.", consequence: "Bangkrut." }, { id: 'C', text: "Pisah rekening.", consequence: "Istri pinjol." }] },
@@ -113,8 +101,6 @@ const SCENARIOS = [
   { id: 48, title: "Penyakit Menular", genre: "Kesehatan", pov: "Istri", story: "Baru tahu suami punya penyakit menular seksual yang disembunyikan.", question: "Keputusanmu?", options: [{ id: 'A', text: "Gugat cerai.", consequence: "Penipuan." }, { id: 'B', text: "Bertahan.", consequence: "Takut tertular." }, { id: 'C', text: "Lapor polisi.", consequence: "Drama." }] },
   { id: 49, title: "KDRT Verbal", genre: "Toxic", pov: "Istri", story: "Suami maki-maki 'bodoh/jelek' kalau marah, lalu minta maaf.", question: "Sikapmu?", options: [{ id: 'A', text: "Rekam & viralin.", consequence: "Suami takut." }, { id: 'B', text: "Kabur.", consequence: "Shock therapy." }, { id: 'C', text: "Maki balik.", consequence: "Neraka." }] },
   { id: 50, title: "Pindah Kota", genre: "Karir", pov: "Suami", story: "Dimutasi ke kota kecil. Istri tolak ikut karena sekolah anak.", question: "Pilihanmu?", options: [{ id: 'A', text: "Resign.", consequence: "Karir habis." }, { id: 'B', text: "LDR.", consequence: "Kesepian." }, { id: 'C', text: "Paksa ikut.", consequence: "Istri stress." }] },
-
-  // --- NEW 51-75: Pacaran, Orang Asing, Teman Kantor, dll ---
   { id: 51, title: "LDR Beda Benua", genre: "Pacaran", pov: "Istri", story: "Pacarmu dapat beasiswa ke Eropa 2 tahun. Kamu di Indonesia. Banyak teman bilang LDR itu sia-sia.", question: "Keputusanmu?", options: [{ id: 'A', text: "Lanjut LDR.", consequence: "Ujian kesetiaan berat." }, { id: 'B', text: "Putus baik-baik.", consequence: "Realistis tapi sedih." }, { id: 'C', text: "Paksa ikut.", consequence: "Biaya besar." }] },
   { id: 52, title: "Restu Orang Tua", genre: "Pacaran", pov: "Suami", story: "Orang tuamu tidak merestui pacarmu karena beda status sosial. Pacarmu minta kejelasan.", question: "Sikapmu?", options: [{ id: 'A', text: "Lawan orang tua.", consequence: "Durhaka demi cinta." }, { id: 'B', text: "Putusin pacar.", consequence: "Anak mami." }, { id: 'C', text: "Backstreet.", consequence: "Bom waktu." }] },
   { id: 53, title: "Teman Tapi Mesra", genre: "Pacaran", pov: "Istri", story: "Sahabat lawan jenismu sering peluk dan panggil sayang, tapi gak mau komitmen pacaran.", question: "Tindakanmu?", options: [{ id: 'A', text: "Tuntut status.", consequence: "Resiko ditinggal." }, { id: 'B', text: "Nikmati saja.", consequence: "Baper sendiri." }, { id: 'C', text: "Jauhkan diri.", consequence: "Kehilangan sahabat." }] },
@@ -286,36 +272,6 @@ const StickerPanel = ({ roomId, user }) => {
             >
                 <Send className="w-4 h-4" /> KIRIM REAKSI
             </button>
-        </div>
-    );
-};
-
-// Gender Selection Component
-const GenderSelection = ({ onSelect }) => {
-    return (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 animate-fade-in">
-            <h2 className="text-2xl font-bold text-gray-800 mb-2 text-center">Siapa Kamu?</h2>
-            <p className="text-gray-500 mb-8 text-center text-sm">Pilih peranmu dalam hubungan ini.</p>
-            
-            <div className="grid grid-cols-2 gap-6 w-full max-w-sm">
-                <button 
-                    onClick={() => onSelect('suami')}
-                    className="flex flex-col items-center gap-3 p-6 bg-blue-50 border-2 border-blue-200 rounded-2xl hover:bg-blue-100 hover:border-blue-400 transition transform hover:scale-105"
-                >
-                    <span className="text-4xl">👨</span>
-                    <span className="font-bold text-blue-800">SUAMI</span>
-                    <span className="text-xs text-blue-600">(Cowok)</span>
-                </button>
-
-                <button 
-                    onClick={() => onSelect('istri')}
-                    className="flex flex-col items-center gap-3 p-6 bg-pink-50 border-2 border-pink-200 rounded-2xl hover:bg-pink-100 hover:border-pink-400 transition transform hover:scale-105"
-                >
-                    <span className="text-4xl">👩</span>
-                    <span className="font-bold text-pink-800">ISTRI</span>
-                    <span className="text-xs text-pink-600">(Cewek)</span>
-                </button>
-            </div>
         </div>
     );
 };
